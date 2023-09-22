@@ -45,12 +45,8 @@ public class Comment extends SysCols {
         this.post = post;
         this.parent = parent;
     }
-
-    public Comment(String content, Member member, Post post) {
-        this.content = content;
-        this.member = member;
-        this.post = post;
-    }
+    
+    
 
     //===연관관계 메서드===//
     public void addChild(Comment comment) {
