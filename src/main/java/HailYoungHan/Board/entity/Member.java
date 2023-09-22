@@ -16,8 +16,10 @@ public class Member extends SysCols{
     @Column(name = "member_id")
     private Long id;
     private String name;
+
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
+
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 }
