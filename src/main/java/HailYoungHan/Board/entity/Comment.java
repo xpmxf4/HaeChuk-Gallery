@@ -32,4 +32,10 @@ public class Comment extends SysCols {
 
     @OneToMany(mappedBy = "parent")
     private List<Comment> children = new ArrayList<>();
+
+    //===연관관계 메서드===//
+    public void addChild(Comment comment) {
+        children.add(comment);
+        comment.setParent(this);
+    }
 }
