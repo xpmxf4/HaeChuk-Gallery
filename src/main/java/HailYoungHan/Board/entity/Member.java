@@ -26,8 +26,7 @@ public class Member extends SysCols {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-    public Member(Long id, String name) {
-        this.id = id;
+    public Member(String name) {
         this.name = name;
     }
 

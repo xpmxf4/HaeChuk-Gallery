@@ -1,6 +1,7 @@
 package HailYoungHan.Board.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Comment extends SysCols {
 
     @Id
@@ -32,6 +34,23 @@ public class Comment extends SysCols {
 
     @OneToMany(mappedBy = "parent")
     private List<Comment> children = new ArrayList<>();
+
+    public Comment(String content) {
+        this.content = content;
+    }
+
+    public Comment(String content, Member member, Post post, Comment parent) {
+        this.content = content;
+        this.member = member;
+        this.post = post;
+        this.parent = parent;
+    }
+
+    public Comment(String content, Member member, Post post) {
+        this.content = content;
+        this.member = member;
+        this.post = post;
+    }
 
     //===연관관계 메서드===//
     public void addChild(Comment comment) {
