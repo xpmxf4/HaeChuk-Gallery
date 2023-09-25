@@ -27,18 +27,23 @@ public class MemberService {
     }
 
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
+        System.out.println("memberUpdateDTO = " + memberUpdateDTO);
         Member member = memberRepository
                 .findById(memberUpdateDTO.getId())
                 .orElseThrow(() -> new IllegalStateException("이런 회원은 없습니다."));
+        System.out.println("bef member = " + member);
 
-        if (memberUpdateDTO.getNewName() != null) {
-            member.setName(memberUpdateDTO.getNewName());
+        if (memberUpdateDTO.getName() != null) {
+            member.setName(memberUpdateDTO.getName());
         }
 
-        if (memberUpdateDTO.getNewPassword() != null) {
-            member.setPassword(memberUpdateDTO.getNewPassword());
+        if (memberUpdateDTO.getPassword() != null) {
+            member.setPassword(memberUpdateDTO.getPassword());
         }
+        System.out.println("aft member = " + member);
 
         return memberRepository.save(member);
     }
+
+
 }

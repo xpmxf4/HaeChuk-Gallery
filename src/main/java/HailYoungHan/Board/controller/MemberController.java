@@ -1,15 +1,13 @@
 package HailYoungHan.Board.controller;
 
 import HailYoungHan.Board.dto.MemberRegiDTO;
+import HailYoungHan.Board.dto.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +27,12 @@ public class MemberController {
         }
 
         return new ResponseEntity<>(member, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Member> update(@RequestBody MemberUpdateDTO memberUpdateDTO) {
+        System.out.println("memberUpdateDTO = " + memberUpdateDTO);
+        Member member = memberService.updateMember(memberUpdateDTO);
+        return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
     }
 }
