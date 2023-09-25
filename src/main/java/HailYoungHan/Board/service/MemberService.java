@@ -1,6 +1,7 @@
 package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.MemberRegiDTO;
+import HailYoungHan.Board.dto.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
@@ -25,4 +26,19 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
+        Member member = memberRepository
+                .findById(memberUpdateDTO.getId())
+                .orElseThrow(() -> new IllegalStateException("이런 회원은 없습니다."));
+
+        if (memberUpdateDTO.getNewName() != null) {
+            member.setName(memberUpdateDTO.getNewName());
+        }
+
+        if (memberUpdateDTO.getNewPassword() != null) {
+            member.setPassword(memberUpdateDTO.getNewPassword());
+        }
+
+        return memberRepository.save(member);
+    }
 }
