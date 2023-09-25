@@ -46,7 +46,6 @@ public class Comment extends SysCols {
         this.parent = parent;
     }
     
-    
 
     //===연관관계 메서드===//
     public void addChild(Comment comment) {

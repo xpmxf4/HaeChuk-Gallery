@@ -19,6 +19,7 @@ public class Member extends SysCols {
     @Column(name = "member_id")
     private Long id;
     private String name;
+    private String password;
 
     @OneToMany(mappedBy = "member")
     private List<Post> posts = new ArrayList<>();
@@ -26,7 +27,7 @@ public class Member extends SysCols {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-    public Member(String name) {
+    public Member(String name, String password) {
         this.name = name;
     }
 
