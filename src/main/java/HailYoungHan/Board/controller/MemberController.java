@@ -18,7 +18,6 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<Member> register(@RequestBody MemberRegiDTO memberRegiDTO) {
-        System.out.println("memberRegiDTO = " + memberRegiDTO);
         Member member = null;
         try {
             member = memberService.registerMember(memberRegiDTO);
@@ -31,8 +30,14 @@ public class MemberController {
 
     @PutMapping
     public ResponseEntity<Member> update(@RequestBody MemberUpdateDTO memberUpdateDTO) {
-        System.out.println("memberUpdateDTO = " + memberUpdateDTO);
         Member member = memberService.updateMember(memberUpdateDTO);
         return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity<Member> remove(@PathVariable Long memberId) {
+        System.out.println("memberId = " + memberId);
+        memberService.deleteMemberById(memberId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
