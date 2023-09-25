@@ -3,6 +3,7 @@ package HailYoungHan.Board.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Member extends SysCols {
 
     @Id
@@ -29,6 +31,7 @@ public class Member extends SysCols {
 
     public Member(String name, String password) {
         this.name = name;
+        this.password = password;
     }
 
     //===연관관계 메서드===//
