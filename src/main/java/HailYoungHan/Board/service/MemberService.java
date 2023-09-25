@@ -7,15 +7,20 @@ import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
     //회원 등록
+    @Transactional
     public Member registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
         String name = memberRegiDTO.getName();
         String password = memberRegiDTO.getPassword();
@@ -28,6 +33,7 @@ public class MemberService {
     }
 
     //특정 회원 정보 수정
+    @Transactional
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
         System.out.println("memberUpdateDTO = " + memberUpdateDTO);
         Member member = memberRepository
@@ -47,7 +53,13 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    @Transactional
     public void deleteMemberById(Long id) {
         memberRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteMembers(List<Long> ids) {
+        memberRepository.deleteAllByIdInBatch(ids);
     }
 }
