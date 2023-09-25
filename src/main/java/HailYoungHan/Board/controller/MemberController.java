@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
@@ -35,9 +37,14 @@ public class MemberController {
     }
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<Member> remove(@PathVariable Long memberId) {
-        System.out.println("memberId = " + memberId);
+    public ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMemberById(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteMembers(@RequestBody List<Long> ids) {
+        memberService.deleteMembers(ids);
+        return ResponseEntity.ok().build();
     }
 }
