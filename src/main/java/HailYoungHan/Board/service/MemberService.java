@@ -15,6 +15,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
+    //회원 등록
     public Member registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
         String name = memberRegiDTO.getName();
         String password = memberRegiDTO.getPassword();
@@ -26,6 +27,7 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    //특정 회원 정보 수정
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
         System.out.println("memberUpdateDTO = " + memberUpdateDTO);
         Member member = memberRepository
