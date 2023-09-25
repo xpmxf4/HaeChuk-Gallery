@@ -38,7 +38,7 @@ public class MemberService {
         }
 
         if (memberUpdateDTO.getPassword() != null) {
-            member.setPassword(memberUpdateDTO.getPassword());
+            member.setPassword((passwordEncoder.encode(memberUpdateDTO.getPassword())));
         }
         System.out.println("aft member = " + member);
 
