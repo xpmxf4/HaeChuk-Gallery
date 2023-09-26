@@ -18,6 +18,11 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    /**
+     * 회원 등록
+     * @param memberRegiDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Member> register(@RequestBody MemberRegiDTO memberRegiDTO) {
         Member member = null;
@@ -30,18 +35,34 @@ public class MemberController {
         return new ResponseEntity<>(member, HttpStatus.CREATED);
     }
 
+    /**
+     * 회원 수정
+     * @param memberUpdateDTO
+     * @return
+     */
     @PutMapping
     public ResponseEntity<Member> update(@RequestBody MemberUpdateDTO memberUpdateDTO) {
         Member member = memberService.updateMember(memberUpdateDTO);
         return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
     }
 
+
+    /**
+     * 특정 회원 삭제
+     * @param memberId
+     * @return
+     */
     @DeleteMapping("/{memberId}")
     public ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMemberById(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * 다수 회원 삭제
+     * @param ids
+     * @return
+     */
     @DeleteMapping
     public ResponseEntity<?> deleteMembers(@RequestBody List<Long> ids) {
         memberService.deleteMembers(ids);
