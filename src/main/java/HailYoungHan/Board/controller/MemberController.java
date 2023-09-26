@@ -36,6 +36,18 @@ public class MemberController {
     }
 
     /**
+     * 특정 회원 조회
+     * @param memberId
+     * @return
+     */
+    @GetMapping("/{memberId}")
+    public ResponseEntity<Member> getOne(@PathVariable Long memberId) {
+        Member findMember = memberService.getSingleMember(memberId);
+
+        return new ResponseEntity<>(findMember, HttpStatus.OK);
+    }
+
+    /**
      * 회원 수정
      * @param memberUpdateDTO
      * @return
@@ -68,4 +80,5 @@ public class MemberController {
         memberService.deleteMembers(ids);
         return ResponseEntity.ok().build();
     }
+
 }

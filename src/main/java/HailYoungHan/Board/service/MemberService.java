@@ -32,6 +32,13 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Member getSingleMember(Long id) {
+        if (!memberRepository.existsById(id))
+            throw new IllegalArgumentException("없는 회원입니다.");
+
+        return memberRepository.findById(id).get();
+    }
+
     //특정 회원 정보 수정
     @Transactional
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
