@@ -1,5 +1,6 @@
 package HailYoungHan.Board.controller;
 
+import HailYoungHan.Board.dto.MemberDTO;
 import HailYoungHan.Board.dto.MemberRegiDTO;
 import HailYoungHan.Board.dto.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
@@ -41,15 +42,15 @@ public class MemberController {
      * @return
      */
     @GetMapping("/{memberId}")
-    public ResponseEntity<Member> getOne(@PathVariable Long memberId) {
-        Member findMember = memberService.getSingleMember(memberId);
+    public ResponseEntity<MemberDTO> getOne(@PathVariable Long memberId) {
+        MemberDTO findMember = memberService.getSingleMember(memberId);
 
         return new ResponseEntity<>(findMember, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Member>> getAllMembers() {
-        List<Member> members = memberService.getAllMembers();
+    public ResponseEntity<List<MemberDTO>> getAllMembers() {
+        List<MemberDTO> members = memberService.getAllMembers();
 
         return new ResponseEntity<>(members, HttpStatus.OK);
     }

@@ -1,10 +1,12 @@
 package HailYoungHan.Board.service;
 
+import HailYoungHan.Board.dto.MemberDTO;
 import HailYoungHan.Board.dto.MemberRegiDTO;
 import HailYoungHan.Board.dto.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
+
     //회원 등록
     @Transactional
     public Member registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
@@ -32,15 +35,15 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member getSingleMember(Long id) {
+    public MemberDTO getSingleMember(Long id) {
         if (!memberRepository.existsById(id))
             throw new IllegalArgumentException("없는 회원입니다.");
 
-        return memberRepository.findById(id).get();
+        return memberRepository.getSingleMember(id);
     }
 
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    public List<MemberDTO> getAllMembers() {
+        return memberRepository.getAllMembers();
     }
 
     //특정 회원 정보 수정
