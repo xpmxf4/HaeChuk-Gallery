@@ -39,6 +39,10 @@ public class MemberService {
         return memberRepository.findById(id).get();
     }
 
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
+    }
+
     //특정 회원 정보 수정
     @Transactional
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
@@ -69,4 +73,5 @@ public class MemberService {
     public void deleteMembers(List<Long> ids) {
         memberRepository.deleteAllByIdInBatch(ids);
     }
+
 }

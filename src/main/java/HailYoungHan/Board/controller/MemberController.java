@@ -47,6 +47,13 @@ public class MemberController {
         return new ResponseEntity<>(findMember, HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Member>> getAllMembers() {
+        List<Member> members = memberService.getAllMembers();
+
+        return new ResponseEntity<>(members, HttpStatus.OK);
+    }
+
     /**
      * 회원 수정
      * @param memberUpdateDTO
