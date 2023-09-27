@@ -23,7 +23,7 @@ class PostTest {
     public void testEntity() {
         JPAQueryFactory query = new JPAQueryFactory(em);
 
-        Member member1 = new Member("member1");
+        Member member1 = new Member("member1","1234");
         em.persist(member1);
 
         Post post1 = new Post("111", "꾸르잼");

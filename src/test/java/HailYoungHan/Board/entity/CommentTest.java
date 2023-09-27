@@ -23,9 +23,9 @@ class CommentTest {
     @Test
     public void testEntity() {
 
-        Member member1 = new Member("member1");
+        Member member1 = new Member("member1", "1234");
         Post post1 = new Post("post1", "post1's content", member1);
-        Comment parentComment = new Comment("부모댓글", member1, post1);
+        Comment parentComment = new Comment("부모댓글", member1, post1, null);
         Comment childComment = new Comment("자식댓글", member1, post1, parentComment);
 
         em.persist(member1);

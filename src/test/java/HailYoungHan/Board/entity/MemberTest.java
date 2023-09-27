@@ -30,10 +30,10 @@ public class MemberTest {
         em.persist(post1);
         em.persist(post2);
 
-        Member member1 = new Member("member1");
-        Member member2 = new Member("member2");
-        Member member3 = new Member("member3");
-        Member member4 = new Member("member4");
+        Member member1 = new Member("member1","1");
+        Member member2 = new Member("member2","2");
+        Member member3 = new Member("member3","3");
+        Member member4 = new Member("member4","4");
         em.persist(member1);
         em.persist(member2);
         em.persist(member3);
