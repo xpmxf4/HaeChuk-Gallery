@@ -1,5 +1,6 @@
 package HailYoungHan.Board.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,9 +24,11 @@ public class Member extends SysCols {
     private String name;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Post> posts = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
@@ -35,7 +38,6 @@ public class Member extends SysCols {
     }
 
     //===연관관계 메서드===//
-
     public void addPost(Post post) {
         posts.add(post);
         post.setMember(this);

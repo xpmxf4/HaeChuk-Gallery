@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostCustomRepository {
 
-    List<Post> findByMember(Member member);
+    List<Post> findPostsByMember_Id(Long id);
 
-    List<Post> findByMemberAndIsDeleted(Member member, boolean isDeleted);
+    List<Post> findPostsByMember_IdAndIsDeletedTrue(Long id);
 }

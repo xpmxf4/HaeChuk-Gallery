@@ -1,5 +1,6 @@
 package HailYoungHan.Board.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class Post extends SysCols {
     @GeneratedValue
     @Column(name = "post_id")
     private Long id;
-    private String name;
+    private String title;
     private String content;
     private boolean isDeleted = false;
 
@@ -29,13 +30,13 @@ public class Post extends SysCols {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    public Post(String name, String content) {
-        this.name = name;
+    public Post(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 
-    public Post(String name, String content, Member member) {
-        this.name = name;
+    public Post(String title, String content, Member member) {
+        this.title = title;
         this.content = content;
         this.member = member;
     }
