@@ -100,5 +100,14 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                 .fetch();
     }
 
+    @Override
+    public Long deletePost(Long postId) {
 
+        queryFactory
+                .delete(post)
+                .where(post.id.eq(postId))
+                .execute();
+
+        return postId;
+    }
 }

@@ -67,14 +67,21 @@ public class PostService {
 
         return postRepository.findPostsByMemberId(memberId);
     }
-    // 특정 사용자의 삭제된 게시물 조회
 
+    // 특정 사용자의 삭제된 게시물 조회
     public List<PostDTO> findDeletedPostsByMemberId(Long memberId) {
         if (!memberRepository.existsById(memberId))
             throw new MemberNotFoundException("No Such memberId : " + memberId);
 
         return postRepository.findDeletedPostsByMemberId(memberId);
     }
+
     // 게시물 삭제
+    public Long deletePost(Long postId) {
+        if (!postRepository.existsById(postId))
+            throw new PostNotFoundException(postId);
+
+        return postRepository.deletePost(postId);
+    }
 }
 

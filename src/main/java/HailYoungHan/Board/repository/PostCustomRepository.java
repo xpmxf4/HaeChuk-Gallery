@@ -16,4 +16,6 @@ public interface PostCustomRepository {
     PostDTO findDTObyId(Long id);
 
     List<PostDTO> findAllDTOs();
+
+    Long deletePost(Long postId);
 }
