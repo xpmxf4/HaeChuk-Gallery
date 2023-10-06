@@ -75,10 +75,23 @@ public class PostController {
      * @param memberId
      * @return PostResponseDTO
      */
-    @GetMapping("/member/{memberId}")
-    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId) {
-        List<PostDTO> memberPosts = postService.findPostsByMemberId(memberId);
+    @GetMapping("/member/{member_id}")
+    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long member_id) {
+        List<PostDTO> memberPosts = postService.findPostsByMemberId(member_id);
         PostResponseDTO result = new PostResponseDTO(memberPosts);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    /**
+     * 특정 유저의 삭제된 게시글들 조회
+     * @param member_id
+     * @return PostResponseDTO
+     */
+    @GetMapping("/member/{member_id}/deleted")
+    public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long member_id) {
+        List<PostDTO> deletedPosts = postService.findDeletedPostsByMemberId(member_id);
+        PostResponseDTO result = new PostResponseDTO(deletedPosts);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
