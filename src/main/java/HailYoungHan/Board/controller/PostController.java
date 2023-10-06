@@ -33,8 +33,7 @@ public class PostController {
     }
 
     /**
-     * post_id 글 제목or내용 수정
-     *
+     * 특정 게시글 수정
      * @param post_id
      * @param postUpdateDTO
      * @return
@@ -47,6 +46,11 @@ public class PostController {
         return new ResponseEntity<>(updatedId, HttpStatus.ACCEPTED);
     }
 
+    /**
+     * 특정 게시글 조회
+     * @param post_id
+     * @return PostDTO
+     */
     @GetMapping("/{post_id}")
     public ResponseEntity<PostDTO> getSinglePost(@PathVariable Long post_id) {
         PostDTO res = postService.getSinglePost(post_id);
@@ -54,6 +58,10 @@ public class PostController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    /**
+     * 전체 게시글 조회
+     * @return
+     */
     @GetMapping
     public ResponseEntity<PostResponseDTO> getAllPosts() {
         List<PostDTO> allPosts = postService.getAllPosts();
