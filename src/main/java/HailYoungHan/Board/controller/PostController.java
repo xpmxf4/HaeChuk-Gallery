@@ -44,4 +44,10 @@ public class PostController {
         return new ResponseEntity<>(updatedId, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/{post_id}")
+    public ResponseEntity<PostDTO> getSinglePost(@PathVariable Long post_id) {
+        PostDTO res = postService.getSinglePost(post_id);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }

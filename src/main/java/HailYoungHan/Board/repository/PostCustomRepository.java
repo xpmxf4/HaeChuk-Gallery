@@ -12,4 +12,6 @@ public interface PostCustomRepository {
     List<PostDTO> getPostsFromMemberId(Long id);
 
     List<PostDTO> getDeletedPostsFromMemberId(Long id);
+
+    PostDTO findDTObyId(Long id);
 }

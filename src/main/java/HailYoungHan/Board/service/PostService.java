@@ -1,6 +1,7 @@
 package HailYoungHan.Board.service;
 
 
+import HailYoungHan.Board.dto.PostDTO;
 import HailYoungHan.Board.dto.PostRegiDTO;
 import HailYoungHan.Board.dto.PostUpdateDTO;
 import HailYoungHan.Board.entity.Member;
@@ -36,13 +37,19 @@ public class PostService {
 
     @Transactional
     public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
-        if (!memberRepository.existsById(postId)) {
+        if (!memberRepository.existsById(postId))
             throw new PostNotFoundException("No such postId : " + postId);
-        }
+
         return postRepository.updatePost(postId, postUpdateDTO);
     }
 
     // 특정 게시물 조회
+    public PostDTO getSinglePost(Long postId) {
+        if (!postRepository.existsById(postId))
+            throw new PostNotFoundException("No such postId : " + postId);
+
+        return postRepository.findDTObyId(postId);
+    }
     // 전체 게시물 조회
     // 특정 사용자의 게시물 조회
     // 특정 사용자의 삭제된 게시물 조회
