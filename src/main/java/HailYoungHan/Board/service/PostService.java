@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -50,7 +52,12 @@ public class PostService {
 
         return postRepository.findDTObyId(postId);
     }
+
     // 전체 게시물 조회
+    public List<PostDTO> getAllPosts() {
+
+        return postRepository.findAllDTOs();
+    }
     // 특정 사용자의 게시물 조회
     // 특정 사용자의 삭제된 게시물 조회
     // 게시물 삭제

@@ -84,5 +84,20 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                 .fetchOne();
     }
 
+    @Override
+    public List<PostDTO> findAllDTOs() {
+
+        return queryFactory
+                .select(new QPostDTO(
+                        post.id,
+                        post.title,
+                        post.content,
+                        post.member.name,
+                        post.isDeleted
+                ))
+                .from(post)
+                .fetch();
+    }
+
 
 }

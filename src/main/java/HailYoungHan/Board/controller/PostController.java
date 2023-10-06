@@ -2,6 +2,7 @@ package HailYoungHan.Board.controller;
 
 import HailYoungHan.Board.dto.PostDTO;
 import HailYoungHan.Board.dto.PostRegiDTO;
+import HailYoungHan.Board.dto.PostResponseDTO;
 import HailYoungHan.Board.dto.PostUpdateDTO;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.service.PostService;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,6 +50,14 @@ public class PostController {
     @GetMapping("/{post_id}")
     public ResponseEntity<PostDTO> getSinglePost(@PathVariable Long post_id) {
         PostDTO res = postService.getSinglePost(post_id);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<PostResponseDTO> getAllPosts() {
+        List<PostDTO> allPosts = postService.getAllPosts();
+        PostResponseDTO res = new PostResponseDTO(allPosts);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
