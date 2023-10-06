@@ -6,6 +6,7 @@ import HailYoungHan.Board.dto.PostRegiDTO;
 import HailYoungHan.Board.dto.PostUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
+import HailYoungHan.Board.exception.MemberNotFoundException;
 import HailYoungHan.Board.exception.PostNotFoundException;
 import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.repository.PostRepository;
@@ -58,7 +59,14 @@ public class PostService {
 
         return postRepository.findAllDTOs();
     }
+
     // 특정 사용자의 게시물 조회
+    public List<PostDTO> findPostsByMemberId(Long memberId) {
+        if(!memberRepository.existsById(memberId))
+            throw new MemberNotFoundException("No such memberId : " + memberId);
+
+        return postRepository.findPostsByMemberId(memberId);
+    }
     // 특정 사용자의 삭제된 게시물 조회
     // 게시물 삭제
 }

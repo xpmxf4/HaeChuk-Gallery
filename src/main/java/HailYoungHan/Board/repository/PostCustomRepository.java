@@ -9,9 +9,9 @@ public interface PostCustomRepository {
 
     Long updatePost(Long id, PostUpdateDTO updateDTO);
 
-    List<PostDTO> getPostsFromMemberId(Long id);
+    List<PostDTO> findPostsByMemberId(Long memberId);
 
-    List<PostDTO> getDeletedPostsFromMemberId(Long id);
+    List<PostDTO> findDeletedPostsByMemberId(Long memberId);
 
     PostDTO findDTObyId(Long id);
 

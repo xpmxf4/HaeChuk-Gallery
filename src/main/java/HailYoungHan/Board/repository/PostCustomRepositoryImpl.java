@@ -22,21 +22,6 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDTO> getPostsFromMemberId(Long id) {
-        return queryFactory
-                .select(new QPostDTO(
-                        post.id,
-                        post.title,
-                        post.content,
-                        post.member.name,
-                        post.isDeleted
-                ))
-                .from(post)
-                .where(post.member.id.eq(id))
-                .fetch();
-    }
-
-    @Override
     public Long updatePost(Long postId, PostUpdateDTO updateDTO) {
         JPAUpdateClause updateClause = queryFactory.update(post).where(post.id.eq(postId));
 
@@ -54,7 +39,8 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDTO> getDeletedPostsFromMemberId(Long id) {
+    public List<PostDTO> findPostsByMemberId(Long memberId) {
+
         return queryFactory
                 .select(new QPostDTO(
                         post.id,
@@ -64,7 +50,22 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.isDeleted
                 ))
                 .from(post)
-                .where(post.member.id.eq(id).and(post.isDeleted))
+                .where(post.member.id.eq(memberId))
+                .fetch();
+    }
+
+    @Override
+    public List<PostDTO> findDeletedPostsByMemberId(Long memberId) {
+        return queryFactory
+                .select(new QPostDTO(
+                        post.id,
+                        post.title,
+                        post.content,
+                        post.member.name,
+                        post.isDeleted
+                ))
+                .from(post)
+                .where(post.member.id.eq(memberId).and(post.isDeleted))
                 .fetch();
     }
 

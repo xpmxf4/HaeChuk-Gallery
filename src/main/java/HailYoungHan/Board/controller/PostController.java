@@ -60,7 +60,7 @@ public class PostController {
 
     /**
      * 전체 게시글 조회
-     * @return
+     * @return PostResponseDTO
      */
     @GetMapping
     public ResponseEntity<PostResponseDTO> getAllPosts() {
@@ -68,5 +68,18 @@ public class PostController {
         PostResponseDTO res = new PostResponseDTO(allPosts);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    /**
+     *
+     * @param memberId
+     * @return PostResponseDTO
+     */
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId) {
+        List<PostDTO> memberPosts = postService.findPostsByMemberId(memberId);
+        PostResponseDTO result = new PostResponseDTO(memberPosts);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
