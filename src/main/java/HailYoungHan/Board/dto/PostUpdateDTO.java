@@ -1,13 +1,12 @@
 package HailYoungHan.Board.dto;
 
+
 import lombok.Getter;
 
 @Getter
-public class PostRegiDTO {
+public class PostUpdateDTO {
 
-    private Long memberId;
     private String title;
     private String content;
-
 
 }

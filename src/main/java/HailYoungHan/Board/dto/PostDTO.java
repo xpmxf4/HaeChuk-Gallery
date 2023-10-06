@@ -1,23 +1,25 @@
 package HailYoungHan.Board.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 public class PostDTO {
 
     private Long id;
     private String title;
     private String content;
+    private String writer;
     private boolean isDeleted;
 
     @QueryProjection
-    public PostDTO(Long id, String title, String content, boolean isDeleted) {
+    public PostDTO(Long id, String title, String content, String writer, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.writer = writer;
         this.isDeleted = isDeleted;
     }
 }

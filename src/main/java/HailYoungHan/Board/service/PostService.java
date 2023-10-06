@@ -2,6 +2,7 @@ package HailYoungHan.Board.service;
 
 
 import HailYoungHan.Board.dto.PostRegiDTO;
+import HailYoungHan.Board.dto.PostUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.repository.MemberRepository;
@@ -31,6 +32,12 @@ public class PostService {
         return postRepository.save(post);
     }
     // 게시글 수정
+
+    @Transactional
+    public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
+        return postRepository.updatePost(postId, postUpdateDTO);
+    }
+
     // 특정 게시물 조회
     // 전체 게시물 조회
     // 특정 사용자의 게시물 조회
