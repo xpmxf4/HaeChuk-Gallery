@@ -5,6 +5,7 @@ import HailYoungHan.Board.dto.PostRegiDTO;
 import HailYoungHan.Board.dto.PostUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
+import HailYoungHan.Board.exception.PostNotFoundException;
 import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,9 @@ public class PostService {
 
     @Transactional
     public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
+        if (!memberRepository.existsById(postId)) {
+            throw new PostNotFoundException("No such postId : " + postId);
+        }
         return postRepository.updatePost(postId, postUpdateDTO);
     }
 
