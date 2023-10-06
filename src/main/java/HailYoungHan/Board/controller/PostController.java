@@ -19,6 +19,11 @@ public class PostController {
 
     private final PostService postService;
 
+    /**
+     * 게시물 추가 API
+     * @param postRegiDTO
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Post> register(@RequestBody PostRegiDTO postRegiDTO) {
         Post post = postService.registerPost(postRegiDTO);
