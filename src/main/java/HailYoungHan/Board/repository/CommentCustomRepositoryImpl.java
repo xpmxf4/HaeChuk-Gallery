@@ -3,7 +3,6 @@ package HailYoungHan.Board.repository;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
-import com.querydsl.jpa.impl.JPAInsertClause;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
