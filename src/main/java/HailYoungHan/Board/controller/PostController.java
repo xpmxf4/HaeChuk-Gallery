@@ -22,7 +22,6 @@ public class PostController {
 
     /**
      * 게시물 추가 API
-     *
      * @param postRegiDTO
      * @return
      */
