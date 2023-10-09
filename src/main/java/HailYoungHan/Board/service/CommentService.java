@@ -1,6 +1,9 @@
 package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.CommentRegiDTO;
+import HailYoungHan.Board.entity.Comment;
+import HailYoungHan.Board.entity.Member;
+import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.exception.CommentNotFoundException;
 import HailYoungHan.Board.exception.MemberNotFoundException;
 import HailYoungHan.Board.exception.PostNotFoundException;
@@ -23,9 +26,21 @@ public class CommentService {
         commentRepository
                 .insertCommentDTO(
                         dto.getContent(),
-                        memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new MemberNotFoundException(dto.getMemberId())),
-                        postRepository.findById(dto.getPostId()).orElseThrow(() -> new CommentNotFoundException(dto.getPostId())),
-                        commentRepository.findById(dto.getParentCommentId()).orElseThrow(() -> new CommentNotFoundException(dto.getParentCommentId()))
+                        getAuthor(dto),
+                        getCommentedPost(dto),
+                        getParentComment(dto)
                 );
+    }
+
+    private Comment getParentComment(CommentRegiDTO dto) {
+        return commentRepository.findById(dto.getParentCommentId()).orElseThrow(() -> new CommentNotFoundException(dto.getParentCommentId()));
+    }
+
+    private Post getCommentedPost(CommentRegiDTO dto) {
+        return postRepository.findById(dto.getPostId()).orElseThrow(() -> new CommentNotFoundException(dto.getPostId()));
+    }
+
+    private Member getAuthor(CommentRegiDTO dto) {
+        return memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new MemberNotFoundException(dto.getMemberId()));
     }
 }
