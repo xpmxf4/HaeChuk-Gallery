@@ -12,35 +12,41 @@ import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CommentService {
 
     private final MemberRepository memberRepository;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
 
+    @Transactional
     public void addComment(CommentRegiDTO dto) {
-        // DB 에 삽입
-        commentRepository
-                .insertCommentDTO(
-                        dto.getContent(),
-                        getAuthor(dto),
-                        getCommentedPost(dto),
-                        getParentComment(dto)
-                );
+        checkFieldExist(dto);
+
+        Member author = memberRepository.findById(dto.getMemberId()).get();
+        Post commentedPost = postRepository.findById(dto.getPostId()).get();
+        Comment parentComment = null;
+        if (dto.getParentCommentId() != null)
+            parentComment = commentRepository.findById(dto.getParentCommentId()).get();
+
+        Comment comment = new Comment(dto.getContent(), author, commentedPost, parentComment);
+        System.out.println("=============================================" + "comment = " + comment);
+
+        commentRepository.save(comment);
     }
 
-    private Comment getParentComment(CommentRegiDTO dto) {
-        return commentRepository.findById(dto.getParentCommentId()).orElseThrow(() -> new CommentNotFoundException(dto.getParentCommentId()));
-    }
+    private void checkFieldExist(CommentRegiDTO dto) {
+        if (!memberRepository.existsById(dto.getMemberId()))
+            throw new MemberNotFoundException(dto.getMemberId());
 
-    private Post getCommentedPost(CommentRegiDTO dto) {
-        return postRepository.findById(dto.getPostId()).orElseThrow(() -> new CommentNotFoundException(dto.getPostId()));
-    }
+        if (!postRepository.existsById(dto.getPostId()))
+            throw new PostNotFoundException(dto.getPostId());
 
-    private Member getAuthor(CommentRegiDTO dto) {
-        return memberRepository.findById(dto.getMemberId()).orElseThrow(() -> new MemberNotFoundException(dto.getMemberId()));
+        if (dto.getParentCommentId() != null && !commentRepository.existsById(dto.getParentCommentId()))
+            throw new CommentNotFoundException("parent comment not found : " + dto.getParentCommentId());
     }
 }

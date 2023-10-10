@@ -15,11 +15,11 @@ import java.util.List;
 public class Comment extends SysCols {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
     private String content;
-    private boolean isDeleted;
+    private boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -38,6 +38,7 @@ public class Comment extends SysCols {
 
     public Comment(String content) {
         this.content = content;
+
     }
 
     public Comment(String content, Member member, Post post, Comment parent) {
