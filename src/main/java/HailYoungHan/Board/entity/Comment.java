@@ -19,7 +19,7 @@ public class Comment extends SysCols {
     @Column(name = "comment_id")
     private Long id;
     private String content;
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -1,15 +1,12 @@
 package HailYoungHan.Board.controller;
 
+import HailYoungHan.Board.dto.CommentDTO;
 import HailYoungHan.Board.dto.CommentRegiDTO;
 import HailYoungHan.Board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,10 +15,18 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping
-    public ResponseEntity<Void> addComment(@RequestBody CommentRegiDTO dto) {
+    @PostMapping("/{commentId}")
+    public ResponseEntity<Void> addComment(@RequestBody CommentRegiDTO dto, @PathVariable Long commentId) {
 
         commentService.addComment(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{commentId}")
+    ResponseEntity<Void> updateComment(@RequestBody CommentDTO dto, @PathVariable Long commentId) {
+
+        commentService.updateComment(commentId, dto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

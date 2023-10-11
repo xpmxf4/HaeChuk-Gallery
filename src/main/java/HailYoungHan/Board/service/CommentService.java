@@ -1,5 +1,6 @@
 package HailYoungHan.Board.service;
 
+import HailYoungHan.Board.dto.CommentDTO;
 import HailYoungHan.Board.dto.CommentRegiDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
@@ -34,7 +35,6 @@ public class CommentService {
             parentComment = commentRepository.findById(dto.getParentCommentId()).get();
 
         Comment comment = new Comment(dto.getContent(), author, commentedPost, parentComment);
-        System.out.println("=============================================" + "comment = " + comment);
 
         commentRepository.save(comment);
     }
@@ -48,5 +48,14 @@ public class CommentService {
 
         if (dto.getParentCommentId() != null && !commentRepository.existsById(dto.getParentCommentId()))
             throw new CommentNotFoundException("parent comment not found : " + dto.getParentCommentId());
+    }
+
+    @Transactional
+    public void updateComment(Long commentId, CommentDTO dto) {
+
+        if (!commentRepository.existsById(commentId))
+            throw new CommentNotFoundException(commentId);
+
+        commentRepository.updateCommentDTO(commentId, dto);
     }
 }

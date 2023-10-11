@@ -20,7 +20,7 @@ public class Post extends SysCols {
     private Long id;
     private String title;
     private String content;
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

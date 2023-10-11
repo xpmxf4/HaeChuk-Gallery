@@ -34,6 +34,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         if (updateDTO.getContent() != null && !updateDTO.getContent().isEmpty()) {
             updateClause.set(post.content, updateDTO.getContent());
         }
+
         updateClause.execute();
         return postId;
     }
