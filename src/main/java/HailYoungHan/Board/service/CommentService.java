@@ -58,4 +58,11 @@ public class CommentService {
 
         commentRepository.updateCommentDTO(commentId, dto);
     }
+
+    public CommentDTO getSinglePost(Long commentId) {
+        if (!commentRepository.existsById(commentId))
+            throw new CommentNotFoundException(commentId);
+
+        return commentRepository.findDTOById(commentId);
+    }
 }

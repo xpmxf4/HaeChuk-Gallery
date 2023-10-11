@@ -4,6 +4,7 @@ import HailYoungHan.Board.dto.CommentDTO;
 import HailYoungHan.Board.dto.CommentRegiDTO;
 import HailYoungHan.Board.service.CommentService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +24,17 @@ public class CommentController {
     }
 
     @PutMapping("/{commentId}")
-    ResponseEntity<Void> updateComment(@RequestBody CommentDTO dto, @PathVariable Long commentId) {
+    public ResponseEntity<Void> updateComment(@RequestBody CommentDTO dto, @PathVariable Long commentId) {
 
         commentService.updateComment(commentId, dto);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{commentId}")
+    public ResponseEntity<CommentDTO> getSingleComment(@PathVariable Long commentId) {
+        CommentDTO ret = commentService.getSinglePost(commentId);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 }

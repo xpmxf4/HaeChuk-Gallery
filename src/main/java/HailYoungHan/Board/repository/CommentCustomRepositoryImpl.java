@@ -1,6 +1,7 @@
 package HailYoungHan.Board.repository;
 
 import HailYoungHan.Board.dto.CommentDTO;
+import HailYoungHan.Board.dto.QCommentDTO;
 import HailYoungHan.Board.entity.QComment;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
@@ -32,5 +33,20 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
             updateClause.set(comment.isDeleted, dto.getIsDeleted());
 
         updateClause.execute();
+    }
+
+    @Override
+    public CommentDTO findDTOById(Long commentId) {
+
+        return queryFactory
+                .select(new QCommentDTO(
+                        comment.id,
+                        comment.content,
+                        comment.isDeleted
+                ))
+                .from(comment)
+                .where(comment.id.eq(commentId))
+                .fetchOne();
+
     }
 }
