@@ -67,11 +67,29 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 
     @Override
     public List<CommentDTO> findAllDTOsByMemberId(Long memberId) {
-        return null;
+
+        return queryFactory
+                .select(new QCommentDTO(
+                        comment.id,
+                        comment.content,
+                        comment.isDeleted
+                ))
+                .from(comment)
+                .where(comment.member.id.eq(memberId))
+                .fetch();
     }
 
     @Override
-    public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId, Boolean isDeleted) {
-        return null;
+    public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId){
+
+        return queryFactory
+                .select(new QCommentDTO(
+                        comment.id,
+                        comment.content,
+                        comment.isDeleted
+                ))
+                .from(comment)
+                .where(comment.member.id.eq(memberId).and(comment.isDeleted.eq(true)))
+                .fetch();
     }
 }

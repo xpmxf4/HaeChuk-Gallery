@@ -47,4 +47,20 @@ public class CommentController {
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<CommentResponseDTO> getMemberComments(@PathVariable Long memberId) {
+        List<CommentDTO> ret = commentService.getMemberComments(memberId);
+        CommentResponseDTO res = new CommentResponseDTO(ret);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<CommentResponseDTO> getMemberDeletedComments(@PathVariable Long memberId) {
+        List<CommentDTO> ret = commentService.getMemberDeletedComments(memberId);
+        CommentResponseDTO res = new CommentResponseDTO(ret);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 }

@@ -15,5 +15,5 @@ public interface CommentCustomRepository {
 
     public List<CommentDTO> findAllDTOsByMemberId(Long memberId);
 
-    public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId, Boolean isDeleted);
+    public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId);
 }

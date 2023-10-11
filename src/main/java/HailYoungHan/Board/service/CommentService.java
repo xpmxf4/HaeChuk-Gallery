@@ -72,4 +72,18 @@ public class CommentService {
 
         return commentRepository.findAllDTOs();
     }
+
+    public List<CommentDTO> getMemberComments(Long memberId) {
+        if(memberRepository.existsById(memberId))
+            throw new MemberNotFoundException(memberId);
+
+        return commentRepository.findAllDTOsByMemberId(memberId);
+    }
+
+    public List<CommentDTO> getMemberDeletedComments(Long memberId) {
+        if(memberRepository.existsById(memberId))
+            throw new MemberNotFoundException(memberId);
+
+        return commentRepository.findAllDTOsBYMemberIdAndIsDeleted(memberId);
+    }
 }
