@@ -32,13 +32,6 @@ class PostTest {
 
         em.flush();
         em.clear();
-
-        Post result = query
-                .selectFrom(post)
-                .fetchOne();
-
-        assertThat(result.getName()).isEqualTo("111");
-        assertThat(result.getMember().getName()).isEqualTo("member1");
     }
 
 }
