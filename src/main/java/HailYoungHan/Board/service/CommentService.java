@@ -74,16 +74,23 @@ public class CommentService {
     }
 
     public List<CommentDTO> getMemberComments(Long memberId) {
-        if(memberRepository.existsById(memberId))
+        if (memberRepository.existsById(memberId))
             throw new MemberNotFoundException(memberId);
 
         return commentRepository.findAllDTOsByMemberId(memberId);
     }
 
     public List<CommentDTO> getMemberDeletedComments(Long memberId) {
-        if(memberRepository.existsById(memberId))
+        if (memberRepository.existsById(memberId))
             throw new MemberNotFoundException(memberId);
 
         return commentRepository.findAllDTOsBYMemberIdAndIsDeleted(memberId);
+    }
+
+    public void deleteComment(Long commentId) {
+        if (commentRepository.existsById(commentId))
+            throw new CommentNotFoundException(commentId);
+
+        commentRepository.deleteById(commentId);
     }
 }
