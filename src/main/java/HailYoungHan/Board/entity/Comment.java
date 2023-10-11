@@ -36,11 +36,6 @@ public class Comment extends SysCols {
     @OneToMany(mappedBy = "parent")
     private List<Comment> children = new ArrayList<>();
 
-    public Comment(String content) {
-        this.content = content;
-
-    }
-
     public Comment(String content, Member member, Post post, Comment parent) {
         this.content = content;
         this.member = member;

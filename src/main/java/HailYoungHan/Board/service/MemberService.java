@@ -49,11 +49,9 @@ public class MemberService {
     //특정 회원 정보 수정
     @Transactional
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
-        System.out.println("memberUpdateDTO = " + memberUpdateDTO);
         Member member = memberRepository
                 .findById(memberUpdateDTO.getId())
                 .orElseThrow(() -> new IllegalStateException("이런 회원은 없습니다."));
-        System.out.println("bef member = " + member);
 
         if (memberUpdateDTO.getName() != null) {
             member.setName(memberUpdateDTO.getName());
@@ -62,7 +60,6 @@ public class MemberService {
         if (memberUpdateDTO.getPassword() != null) {
             member.setPassword((passwordEncoder.encode(memberUpdateDTO.getPassword())));
         }
-        System.out.println("aft member = " + member);
 
         return memberRepository.save(member);
     }

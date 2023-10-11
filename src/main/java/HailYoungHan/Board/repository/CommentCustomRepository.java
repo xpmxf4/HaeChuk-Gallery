@@ -13,7 +13,7 @@ public interface CommentCustomRepository {
 
     public List<CommentDTO> findAllDTOs();
 
-    public List<CommentDTO> findAllDTOsByMemberId(Long memberId);
+    public List<CommentDTO> findAllDTOsByMemberId(Long memberId, boolean isDeleted);
 
     public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId);
 }
