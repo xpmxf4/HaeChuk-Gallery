@@ -8,6 +8,8 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static HailYoungHan.Board.entity.QComment.*;
 
 
@@ -48,5 +50,28 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
                 .where(comment.id.eq(commentId))
                 .fetchOne();
 
+    }
+
+    @Override
+    public List<CommentDTO> findAllDTOs() {
+
+        return queryFactory
+                .select(new QCommentDTO(
+                        comment.id,
+                        comment.content,
+                        comment.isDeleted
+                ))
+                .from(comment)
+                .fetch();
+    }
+
+    @Override
+    public List<CommentDTO> findAllDTOsByMemberId(Long memberId) {
+        return null;
+    }
+
+    @Override
+    public List<CommentDTO> findAllDTOsBYMemberIdAndIsDeleted(Long memberId, Boolean isDeleted) {
+        return null;
     }
 }

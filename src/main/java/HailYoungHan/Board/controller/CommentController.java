@@ -2,12 +2,14 @@ package HailYoungHan.Board.controller;
 
 import HailYoungHan.Board.dto.CommentDTO;
 import HailYoungHan.Board.dto.CommentRegiDTO;
+import HailYoungHan.Board.dto.CommentResponseDTO;
 import HailYoungHan.Board.service.CommentService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,5 +38,13 @@ public class CommentController {
         CommentDTO ret = commentService.getSinglePost(commentId);
 
         return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<CommentResponseDTO> getAllComments() {
+        List<CommentDTO> ret = commentService.getAllComments();
+        CommentResponseDTO res = new CommentResponseDTO(ret);
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
