@@ -21,7 +21,7 @@ public class MemberController {
 
     /**
      * 회원 등록
-     * @param memberRegiDTO
+     * @param memberRegiDTO name, password 만 받음
      * @return
      */
     @PostMapping
@@ -37,9 +37,9 @@ public class MemberController {
     }
 
     /**
-     * 특정 회원 조회
-     * @param memberId
-     * @return
+     * 단일 회원 조회
+     * @param memberId 멤버 id 만 받아서 조회
+     * @return MemberDTO
      */
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberDTO> getOne(@PathVariable Long memberId) {
