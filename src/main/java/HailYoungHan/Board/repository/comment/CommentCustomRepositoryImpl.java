@@ -1,4 +1,4 @@
-package HailYoungHan.Board.repository;
+package HailYoungHan.Board.repository.comment;
 
 import HailYoungHan.Board.dto.comment.CommentDTO;
 import HailYoungHan.Board.dto.comment.QCommentDTO;

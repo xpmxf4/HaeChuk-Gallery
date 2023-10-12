@@ -1,4 +1,4 @@
-package HailYoungHan.Board.repository;
+package HailYoungHan.Board.repository.member;
 
 import HailYoungHan.Board.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

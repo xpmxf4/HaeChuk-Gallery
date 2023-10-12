@@ -1,4 +1,4 @@
-package HailYoungHan.Board.exception;
+package HailYoungHan.Board.exception.member;
 
 public class MemberNotFoundException extends RuntimeException {
     public MemberNotFoundException(String message) {

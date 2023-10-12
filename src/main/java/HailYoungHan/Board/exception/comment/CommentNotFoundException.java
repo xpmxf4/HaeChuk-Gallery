@@ -1,4 +1,4 @@
-package HailYoungHan.Board.exception;
+package HailYoungHan.Board.exception.comment;
 
 public class CommentNotFoundException extends RuntimeException {
 

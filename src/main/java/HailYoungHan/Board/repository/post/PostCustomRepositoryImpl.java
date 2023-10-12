@@ -1,4 +1,4 @@
-package HailYoungHan.Board.repository;
+package HailYoungHan.Board.repository.post;
 
 import HailYoungHan.Board.dto.post.PostDTO;
 import HailYoungHan.Board.dto.post.PostUpdateDTO;

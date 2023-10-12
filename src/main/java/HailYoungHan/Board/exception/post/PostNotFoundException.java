@@ -1,4 +1,4 @@
-package HailYoungHan.Board.exception;
+package HailYoungHan.Board.exception.post;
 
 public class PostNotFoundException extends RuntimeException {
     public PostNotFoundException(String message) {

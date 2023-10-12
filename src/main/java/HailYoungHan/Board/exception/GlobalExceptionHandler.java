@@ -1,5 +1,8 @@
 package HailYoungHan.Board.exception;
 
+import HailYoungHan.Board.exception.comment.CommentNotFoundException;
+import HailYoungHan.Board.exception.member.MemberNotFoundException;
+import HailYoungHan.Board.exception.post.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

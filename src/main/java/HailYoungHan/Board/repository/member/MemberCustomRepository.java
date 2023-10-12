@@ -1,4 +1,4 @@
-package HailYoungHan.Board.repository;
+package HailYoungHan.Board.repository.member;
 
 import HailYoungHan.Board.dto.member.MemberDTO;
 

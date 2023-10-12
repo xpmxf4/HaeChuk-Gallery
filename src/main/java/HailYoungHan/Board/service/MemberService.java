@@ -4,7 +4,7 @@ import HailYoungHan.Board.dto.member.MemberDTO;
 import HailYoungHan.Board.dto.member.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
-import HailYoungHan.Board.repository.MemberRepository;
+import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
