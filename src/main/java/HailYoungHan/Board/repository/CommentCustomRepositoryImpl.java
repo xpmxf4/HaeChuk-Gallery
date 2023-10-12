@@ -1,7 +1,7 @@
 package HailYoungHan.Board.repository;
 
 import HailYoungHan.Board.dto.comment.CommentDTO;
-import HailYoungHan.Board.dto.QCommentDTO;
+import HailYoungHan.Board.dto.comment.QCommentDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 

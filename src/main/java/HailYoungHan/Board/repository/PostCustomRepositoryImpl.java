@@ -2,7 +2,7 @@ package HailYoungHan.Board.repository;
 
 import HailYoungHan.Board.dto.post.PostDTO;
 import HailYoungHan.Board.dto.post.PostUpdateDTO;
-import HailYoungHan.Board.dto.QPostDTO;
+import HailYoungHan.Board.dto.post.QPostDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 
