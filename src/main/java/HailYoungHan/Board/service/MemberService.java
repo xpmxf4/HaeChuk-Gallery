@@ -4,6 +4,7 @@ import HailYoungHan.Board.dto.member.MemberDTO;
 import HailYoungHan.Board.dto.member.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
+import HailYoungHan.Board.exception.member.MemberNotFoundException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
@@ -50,15 +51,10 @@ public class MemberService {
     public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
         Member member = memberRepository
                 .findById(memberUpdateDTO.getId())
-                .orElseThrow(() -> new IllegalStateException("이런 회원은 없습니다."));
+                .orElseThrow(() -> new MemberNotFoundException(memberUpdateDTO.getId()));
 
-        if (memberUpdateDTO.getName() != null) {
-            member.setName(memberUpdateDTO.getName());
-        }
-
-        if (memberUpdateDTO.getPassword() != null) {
-            member.setPassword((passwordEncoder.encode(memberUpdateDTO.getPassword())));
-        }
+        memberUpdateDTO.getName().ifPresent(member::setName);
+        memberUpdateDTO.getPassword().ifPresent(member::setPassword);
 
         return memberRepository.save(member);
     }
