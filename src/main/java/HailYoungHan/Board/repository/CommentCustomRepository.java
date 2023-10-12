@@ -1,7 +1,7 @@
 package HailYoungHan.Board.repository;
 
 
-import HailYoungHan.Board.dto.CommentDTO;
+import HailYoungHan.Board.dto.comment.CommentDTO;
 
 import java.util.List;
 

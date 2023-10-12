@@ -1,9 +1,9 @@
 package HailYoungHan.Board.service;
 
 
-import HailYoungHan.Board.dto.PostDTO;
-import HailYoungHan.Board.dto.PostRegiDTO;
-import HailYoungHan.Board.dto.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.PostDTO;
+import HailYoungHan.Board.dto.post.PostRegiDTO;
+import HailYoungHan.Board.dto.post.PostUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.exception.MemberNotFoundException;

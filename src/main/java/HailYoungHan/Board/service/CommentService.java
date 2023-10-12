@@ -1,7 +1,7 @@
 package HailYoungHan.Board.service;
 
-import HailYoungHan.Board.dto.CommentDTO;
-import HailYoungHan.Board.dto.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.CommentDTO;
+import HailYoungHan.Board.dto.comment.CommentRegiDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;

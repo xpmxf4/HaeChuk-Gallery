@@ -1,7 +1,7 @@
 package HailYoungHan.Board.repository;
 
-import HailYoungHan.Board.dto.PostDTO;
-import HailYoungHan.Board.dto.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.PostDTO;
+import HailYoungHan.Board.dto.post.PostUpdateDTO;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package HailYoungHan.Board.repository;
 
-import HailYoungHan.Board.dto.MemberDTO;
+import HailYoungHan.Board.dto.member.MemberDTO;
 import HailYoungHan.Board.dto.QMemberDTO;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;

@@ -1,10 +1,8 @@
 package HailYoungHan.Board.repository;
 
-import HailYoungHan.Board.dto.PostDTO;
-import HailYoungHan.Board.dto.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.PostDTO;
+import HailYoungHan.Board.dto.post.PostUpdateDTO;
 import HailYoungHan.Board.dto.QPostDTO;
-import HailYoungHan.Board.entity.QPost;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 

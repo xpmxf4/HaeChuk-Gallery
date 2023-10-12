@@ -1,6 +1,6 @@
 package HailYoungHan.Board.repository;
 
-import HailYoungHan.Board.dto.MemberDTO;
+import HailYoungHan.Board.dto.member.MemberDTO;
 
 import java.util.List;
 

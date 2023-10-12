@@ -1,4 +1,4 @@
-package HailYoungHan.Board.dto;
+package HailYoungHan.Board.dto.member;
 
 import lombok.Data;
 

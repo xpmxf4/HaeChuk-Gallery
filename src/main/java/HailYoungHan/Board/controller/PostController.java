@@ -1,9 +1,9 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.PostDTO;
-import HailYoungHan.Board.dto.PostRegiDTO;
-import HailYoungHan.Board.dto.PostResponseDTO;
-import HailYoungHan.Board.dto.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.PostDTO;
+import HailYoungHan.Board.dto.post.PostRegiDTO;
+import HailYoungHan.Board.dto.post.PostResponseDTO;
+import HailYoungHan.Board.dto.post.PostUpdateDTO;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.service.PostService;
 import lombok.RequiredArgsConstructor;

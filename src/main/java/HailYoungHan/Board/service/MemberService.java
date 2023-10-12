@@ -1,12 +1,11 @@
 package HailYoungHan.Board.service;
 
-import HailYoungHan.Board.dto.MemberDTO;
-import HailYoungHan.Board.dto.MemberRegiDTO;
-import HailYoungHan.Board.dto.MemberUpdateDTO;
+import HailYoungHan.Board.dto.member.MemberDTO;
+import HailYoungHan.Board.dto.member.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.repository.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

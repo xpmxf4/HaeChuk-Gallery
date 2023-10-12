@@ -1,4 +1,4 @@
-package HailYoungHan.Board.dto;
+package HailYoungHan.Board.dto.post;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;

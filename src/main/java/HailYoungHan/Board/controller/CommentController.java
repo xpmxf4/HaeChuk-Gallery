@@ -1,8 +1,8 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.CommentDTO;
-import HailYoungHan.Board.dto.CommentRegiDTO;
-import HailYoungHan.Board.dto.CommentResponseDTO;
+import HailYoungHan.Board.dto.comment.CommentDTO;
+import HailYoungHan.Board.dto.comment.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.CommentResponseDTO;
 import HailYoungHan.Board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.MemberDTO;
-import HailYoungHan.Board.dto.MemberRegiDTO;
-import HailYoungHan.Board.dto.MemberUpdateDTO;
+import HailYoungHan.Board.dto.member.MemberDTO;
+import HailYoungHan.Board.dto.member.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.service.MemberService;
 import lombok.RequiredArgsConstructor;
