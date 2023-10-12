@@ -2,10 +2,8 @@ package HailYoungHan.Board.dto.comment;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 public class CommentRegiDTO {
 
     private String content;

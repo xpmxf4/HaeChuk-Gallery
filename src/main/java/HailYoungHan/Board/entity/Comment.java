@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Comment extends SysCols {
 
@@ -48,5 +47,9 @@ public class Comment extends SysCols {
     public void addChild(Comment comment) {
         children.add(comment);
         comment.setParent(this);
+    }
+
+    private void setParent(Comment parent) {
+        this.parent = parent;
     }
 }
