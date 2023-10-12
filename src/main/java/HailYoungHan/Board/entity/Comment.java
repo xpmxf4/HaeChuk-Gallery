@@ -2,7 +2,6 @@ package HailYoungHan.Board.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -51,5 +50,13 @@ public class Comment extends SysCols {
 
     private void setParent(Comment parent) {
         this.parent = parent;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public void setMember(Member author) {
+        this.member = author;
     }
 }

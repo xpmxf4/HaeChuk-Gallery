@@ -43,4 +43,12 @@ public class Member extends SysCols {
         comments.add(comment);
         comment.setMember(this);
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

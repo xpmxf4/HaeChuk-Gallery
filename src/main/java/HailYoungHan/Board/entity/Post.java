@@ -44,4 +44,8 @@ public class Post extends SysCols {
         comments.add(comment);
         comment.setPost(this);
     }
+
+    public void setMember(Member author) {
+        this.member = author;
+    }
 }
