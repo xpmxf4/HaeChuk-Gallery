@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<Member> register(@RequestBody MemberRegiDTO memberRegiDTO) {
+    public ResponseEntity<Member> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
         Member member = null;
         try {
             member = memberService.registerMember(memberRegiDTO);
@@ -57,11 +58,11 @@ public class MemberController {
 
     /**
      * 회원 수정
-     * @param memberUpdateDTO
-     * @return
+     * @param memberUpdateDTO id 값을 받아 존재하는 name, password 로 덮음
+     * @return member - 업데이트된 객체
      */
     @PutMapping
-    public ResponseEntity<Member> update(@RequestBody MemberUpdateDTO memberUpdateDTO) {
+    public ResponseEntity<Member> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
         Member member = memberService.updateMember(memberUpdateDTO);
         return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
     }
