@@ -40,7 +40,7 @@ public class MemberService {
 
     public MemberDTO getSingleMember(Long id) {
         if (!memberRepository.existsById(id))
-            throw new IllegalArgumentException("없는 회원입니다.");
+            throw new MemberNotFoundException(id);
 
         return memberRepository.getSingleMember(id);
     }

@@ -45,9 +45,8 @@ public class MemberController {
      * @return MemberDTO
      */
     @GetMapping("/{memberId}")
-    public ResponseEntity<MemberDTO> getOne(@PathVariable Long memberId) {
+    public ResponseEntity<MemberDTO> getOneMember(@PathVariable Long memberId) {
         MemberDTO findMember = memberService.getSingleMember(memberId);
-
         return new ResponseEntity<>(findMember, HttpStatus.OK);
     }
 
@@ -59,13 +58,14 @@ public class MemberController {
     }
 
     /**
-     * 회원 수정
+     * 회원 정보 수정을 위한 API.
      *
-     * @param memberUpdateDTO id 값을 받아 존재하는 name, password 로 덮음
-     * @return member - 업데이트된 객체
+     * @param memberUpdateDTO 사용자로부터 받은 회원 정보. (id 기반으로 name, password를 업데이트할 데이터를 포함)
+     * @return ResponseEntity<Member> - 수정된 회원 정보와 함께 202 (Accepted) 상태 코드를 반환.
      */
     @PutMapping
     public ResponseEntity<Member> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
+
         Member member = memberService.updateMember(memberUpdateDTO);
         return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
     }
