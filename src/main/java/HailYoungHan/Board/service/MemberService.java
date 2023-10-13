@@ -5,6 +5,7 @@ import HailYoungHan.Board.dto.member.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.member.MemberNotFoundException;
+import HailYoungHan.Board.exception.member.NameAlreadyExistsException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
@@ -25,15 +26,16 @@ public class MemberService {
 
     //회원 등록
     @Transactional
-    public Member registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
+    public void registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
         String name = memberRegiDTO.getName();
         String password = memberRegiDTO.getPassword();
 
         if (memberRepository.existsByName(name)) {
-            throw new IllegalStateException("해당 이름은 이미 있는 이름입니다.");
+            throw new NameAlreadyExistsException(name);
         }
+
         Member member = new Member(name, passwordEncoder.encode(password));
-        return memberRepository.save(member);
+        memberRepository.save(member);
     }
 
     public MemberDTO getSingleMember(Long id) {

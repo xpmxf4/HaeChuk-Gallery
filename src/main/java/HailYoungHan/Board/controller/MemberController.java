@@ -26,19 +26,18 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<Member> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
-        Member member = null;
+    public ResponseEntity<Void> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
         try {
-            member = memberService.registerMember(memberRegiDTO);
+            memberService.registerMember(memberRegiDTO);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (IllegalStateException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>(member, HttpStatus.CREATED);
     }
 
     /**
      * 단일 회원 조회
+     *
      * @param memberId 멤버 id 만 받아서 조회
      * @return MemberDTO
      */
@@ -58,6 +57,7 @@ public class MemberController {
 
     /**
      * 회원 수정
+     *
      * @param memberUpdateDTO id 값을 받아 존재하는 name, password 로 덮음
      * @return member - 업데이트된 객체
      */
@@ -70,6 +70,7 @@ public class MemberController {
 
     /**
      * 특정 회원 삭제
+     *
      * @param memberId
      * @return
      */
@@ -81,6 +82,7 @@ public class MemberController {
 
     /**
      * 다수 회원 삭제
+     *
      * @param ids
      * @return
      */
