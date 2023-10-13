@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,8 +54,10 @@ public class MemberService {
                 .findById(memberUpdateDTO.getId())
                 .orElseThrow(() -> new MemberNotFoundException(memberUpdateDTO.getId()));
 
-        memberUpdateDTO.getName().ifPresent(member::setName);
-        memberUpdateDTO.getPassword().ifPresent(member::setPassword);
+        Optional.ofNullable(memberUpdateDTO.getName())
+                .ifPresent(member::setName);
+        Optional.ofNullable(memberUpdateDTO.getPassword())
+                .ifPresent(rawPwd -> member.setPassword(passwordEncoder.encode(rawPwd)));
 
         return memberRepository.save(member);
     }
