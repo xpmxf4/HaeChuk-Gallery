@@ -21,18 +21,21 @@ public class MemberController {
     private final MemberService memberService;
 
     /**
-     * 회원 등록
-     * @param memberRegiDTO name, password 만 받음
-     * @return
+     * 새로운 회원을 등록합니다.
+     *
+     * <p>
+     * 이 API는 회원의 이름과 비밀번호를 입력받아 새로운 회원을 등록합니다.
+     * 성공적으로 회원이 등록되면, HTTP 201 Created 상태와 함께
+     * "회원이 성공적으로 생성되었습니다." 메시지를 반환합니다.
+     * </p>
+     *
+     * @param memberRegiDTO 회원 등록에 필요한 데이터를 포함하며, 이름과 비밀번호만 필요합니다.
+     * @return ResponseEntity 문자열 메시지와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @PostMapping
-    public ResponseEntity<Void> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
-        try {
-            memberService.registerMember(memberRegiDTO);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
+        memberService.registerMember(memberRegiDTO);
+        return new ResponseEntity<>("회원이 성공적으로 생성되었습니다.", HttpStatus.CREATED);
     }
 
     /**
