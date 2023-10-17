@@ -2,6 +2,7 @@ package HailYoungHan.Board.repository.member;
 
 import HailYoungHan.Board.dto.member.MemberDTO;
 import HailYoungHan.Board.dto.member.QMemberDTO;
+import HailYoungHan.Board.exception.member.MemberNotFoundException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;

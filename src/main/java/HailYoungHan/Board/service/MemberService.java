@@ -39,10 +39,10 @@ public class MemberService {
     }
 
     public MemberDTO getSingleMember(Long id) {
-        if (!memberRepository.existsById(id))
+        MemberDTO memberDTO = memberRepository.getSingleMember(id);
+        if (memberDTO == null)
             throw new MemberNotFoundException(id);
-
-        return memberRepository.getSingleMember(id);
+        return memberDTO;
     }
 
     public List<MemberDTO> getAllMembers() {
