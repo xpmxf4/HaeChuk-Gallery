@@ -31,7 +31,8 @@ public class PostService {
         String title = postRegiDTO.getTitle();
         String content = postRegiDTO.getContent();
 
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("No such member"));
+        Member member = memberRepository.findById(memberId)
+                                        .orElseThrow(() -> new MemberNotFoundException(memberId));
         Post post = new Post(title, content, member);
 
         return postRepository.save(post);
