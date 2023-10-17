@@ -26,7 +26,7 @@ public class MemberService {
 
     //회원 등록
     @Transactional
-    public void registerMember(MemberRegiDTO memberRegiDTO) throws IllegalStateException {
+    public void registerMember(MemberRegiDTO memberRegiDTO) {
         String name = memberRegiDTO.getName();
         String password = memberRegiDTO.getPassword();
 
