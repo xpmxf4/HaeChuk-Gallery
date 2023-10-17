@@ -39,9 +39,19 @@ public class Member extends SysCols {
         post.setMember(this);
     }
 
+    public void removePost(Post post) {
+        posts.remove(post);
+        post.setMember(null);
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setMember(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setMember(null);
     }
 
     public void setName(String name) {
