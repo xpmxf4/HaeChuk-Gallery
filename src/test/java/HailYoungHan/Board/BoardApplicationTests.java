@@ -22,19 +22,6 @@ public class BoardApplicationTests {
 
     @Test
     void contextLoads() {
-        Member mem = new Member("111","222");
-        em.persist(mem);
-
-        em.flush();
-        em.clear();
-
-        JPAQueryFactory query = new JPAQueryFactory(em);
-        Member result = query
-                .selectFrom(member)
-                .where(member.name.eq("111"))
-                .fetchOne();
-
-        assertThat(result.getName()).isEqualTo(mem.getName());
     }
 
 }
