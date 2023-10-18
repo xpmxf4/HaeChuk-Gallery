@@ -29,8 +29,8 @@ public class MemberController {
      * "회원이 성공적으로 생성되었습니다." 메시지를 반환합니다.
      * </p>
      *
-     * @param memberRegiDTO 회원 등록에 필요한 데이터를 포함하며, 이름과 비밀번호만 필요합니다.
-     * @return ResponseEntity 문자열 메시지와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     * @param memberRegiDTO 회원 등록에 필요한 데이터를 포함하며, 이름과 비밀번호, 이메일을 필요합니다.
+     * @return ResponseEntity&lt;String&gt; 문자열 메시지와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @PostMapping
     public ResponseEntity<String> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
@@ -39,10 +39,14 @@ public class MemberController {
     }
 
     /**
-     * 단일 회원 조회
+     * 단일 회원을 조회합니다.
      *
-     * @param memberId 멤버 id 만 받아서 조회
-     * @return MemberDTO
+     * <p>
+     * 주어진 회원 ID를 기반으로 해당 회원의 정보를 조회합니다.
+     * </p>
+     *
+     * @param memberId 조회하고자 하는 회원의 ID.
+     * @return ResponseEntity&lt;MemberDTO&gt; 조회된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberDTO> getOneMember(@PathVariable Long memberId) {
@@ -50,32 +54,42 @@ public class MemberController {
         return new ResponseEntity<>(findMember, HttpStatus.OK);
     }
 
+    /**
+     * 등록된 모든 회원을 조회합니다.
+     *
+     * @return ResponseEntity&lt;List&lt;MemberDTO&gt;&gt; 조회된 모든 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     */
     @GetMapping
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
         List<MemberDTO> members = memberService.getAllMembers();
-
         return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
     /**
-     * 회원 정보 수정을 위한 API.
+     * 회원 정보를 수정합니다.
      *
-     * @param memberUpdateDTO 사용자로부터 받은 회원 정보. (id 기반으로 name, password를 업데이트할 데이터를 포함)
-     * @return ResponseEntity<Member> - 수정된 회원 정보와 함께 202 (Accepted) 상태 코드를 반환.
+     * <p>
+     * 주어진 회원 정보를 기반으로 해당 회원의 정보를 수정합니다.
+     * </p>
+     *
+     * @param memberUpdateDTO 수정하고자 하는 회원의 정보.
+     * @return ResponseEntity&lt;Member&gt; 수정된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @PutMapping
     public ResponseEntity<Member> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
-
         Member member = memberService.updateMember(memberUpdateDTO);
         return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
     }
 
-
     /**
-     * 특정 회원 삭제
+     * 특정 회원을 삭제합니다.
      *
-     * @param memberId
-     * @return
+     * <p>
+     * 주어진 회원 ID를 기반으로 해당 회원을 삭제합니다.
+     * </p>
+     *
+     * @param memberId 삭제하고자 하는 회원의 ID.
+     * @return ResponseEntity&lt;Member&gt; HTTP 상태 코드만을 포함하는 응답을 반환합니다.
      */
     @DeleteMapping("/{memberId}")
     public ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
@@ -84,10 +98,14 @@ public class MemberController {
     }
 
     /**
-     * 다수 회원 삭제
+     * 여러 회원들을 삭제합니다.
      *
-     * @param ids
-     * @return
+     * <p>
+     * 주어진 회원 ID 리스트를 기반으로 해당 회원들을 삭제합니다.
+     * </p>
+     *
+     * @param ids 삭제하고자 하는 회원들의 ID 리스트.
+     * @return ResponseEntity<?> HTTP 상태 코드만을 포함하는 응답을 반환합니다.
      */
     @DeleteMapping
     public ResponseEntity<?> deleteMembers(@RequestBody List<Long> ids) {
