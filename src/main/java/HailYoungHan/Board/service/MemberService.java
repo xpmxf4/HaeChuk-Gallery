@@ -29,12 +29,13 @@ public class MemberService {
     public void registerMember(MemberRegiDTO memberRegiDTO) {
         String name = memberRegiDTO.getName();
         String password = memberRegiDTO.getPassword();
+        String email = memberRegiDTO.getEmail();
 
         if (memberRepository.existsByName(name)) {
             throw new NameAlreadyExistsException(name);
         }
 
-        Member member = new Member(name, passwordEncoder.encode(password));
+        Member member = new Member(name, passwordEncoder.encode(password), email);
         memberRepository.save(member);
     }
 
