@@ -5,9 +5,9 @@ import HailYoungHan.Board.dto.member.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.member.MemberNotFoundException;
-import HailYoungHan.Board.exception.member.NameAlreadyExistsException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
+import HailYoungHan.Board.exception.member.EmailAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +30,8 @@ public class MemberService {
         String password = memberRegiDTO.getPassword();
         String email = memberRegiDTO.getEmail();
 
-        if (memberRepository.existsByName(name)) {
-            throw new NameAlreadyExistsException(name);
+        if (memberRepository.existsByEmail(email)) {
+            throw new EmailAlreadyExistsException(email);
         }
 
         Member member = new Member(name, passwordEncoder.encode(password), email);
