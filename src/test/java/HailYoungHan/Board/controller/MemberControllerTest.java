@@ -10,7 +10,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,8 +34,10 @@ class MemberControllerTest {
                 .email("hail_younghan@gmail.com")
                 .build();
 
+        // memberService 의 registerMember 메서드가 호출될 때 아무런 동작도 하지 않도록 설정
         doNothing().when(memberService).registerMember(memberRegiDTO);
 
+        // /members POST 요청 보내고, 응답을 검증
         mockMvc.perform(post("/members")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{ \"name\": \"김영한\", \"email\": \"hail_younghan@gmail.com\", \"password\": \"test1234\" }"))
