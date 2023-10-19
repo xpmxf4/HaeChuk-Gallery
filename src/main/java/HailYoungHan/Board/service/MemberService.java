@@ -23,7 +23,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-
     //회원 등록
     @Transactional
     public void registerMember(MemberRegiDTO memberRegiDTO) {
@@ -75,4 +74,7 @@ public class MemberService {
         memberRepository.deleteAllByIdInBatch(ids);
     }
 
+    public MemberDTO getMemberByEmail(String email) {
+        return memberRepository.getMemberByEmail(email);
+    }
 }

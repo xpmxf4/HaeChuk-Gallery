@@ -9,4 +9,6 @@ public interface MemberCustomRepository {
 
     MemberDTO getSingleMember(Long id) throws MemberNotFoundException;
     List<MemberDTO> getAllMembers();
+
+    MemberDTO getMemberByEmail(String email);
 }

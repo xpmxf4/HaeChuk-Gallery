@@ -23,4 +23,10 @@ public class MemberDTO {
         this.name = name;
         this.email = email;
     }
+
+    @QueryProjection
+    public MemberDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 }

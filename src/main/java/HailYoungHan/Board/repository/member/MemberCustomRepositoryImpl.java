@@ -42,4 +42,18 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .from(member)
                 .fetch();
     }
+
+    @Override
+    public MemberDTO getMemberByEmail(String email) {
+        return queryFactory
+                .select(
+                        new QMemberDTO(
+                                member.name,
+                                member.email
+                        )
+                )
+                .from(member)
+                .where(member.email.eq(email))
+                .fetchOne();
+    }
 }
