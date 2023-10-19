@@ -34,7 +34,7 @@ public class MemberService {
             throw new EmailAlreadyExistsException(email);
         }
 
-        Member member = new Member(name, passwordEncoder.encode(password), email);
+        Member member = new Member(name, email, passwordEncoder.encode(password));
         memberRepository.save(member);
     }
 

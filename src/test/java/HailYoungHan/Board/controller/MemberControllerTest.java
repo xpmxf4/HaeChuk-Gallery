@@ -34,6 +34,7 @@ class MemberControllerTest {
                 .email("hail_younghan@gmail.com")
                 .build();
 
+        memberService.registerMember(memberRegiDTO);
         // memberService 의 registerMember 메서드가 호출될 때 아무런 동작도 하지 않도록 설정
         doNothing().when(memberService).registerMember(memberRegiDTO);
 
