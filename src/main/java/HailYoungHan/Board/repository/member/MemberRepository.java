@@ -9,7 +9,5 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> , MemberCustomRepository{
 
-    List<Member> findByName(String name);
-    boolean existsByName(String name);
     boolean existsByEmail(String email);
 }
