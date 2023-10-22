@@ -1,7 +1,8 @@
 package HailYoungHan.Board.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import HailYoungHan.Board.dto.comment.CommentRegiDTO;
+import HailYoungHan.Board.entity.SysCols;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment extends SysCols {
 
     @Id
@@ -34,13 +37,18 @@ public class Comment extends SysCols {
     @OneToMany(mappedBy = "parent")
     private List<Comment> children = new ArrayList<>();
 
-    public Comment(String content, Member member, Post post, Comment parent) {
-        this.content = content;
-        this.member = member;
-        this.post = post;
-        this.parent = parent;
+    public static Comment mapFromRegiDto(Member author,
+                                         Post commentedPost,
+                                         Comment parentComment,
+                                         CommentRegiDTO commentRegiDTO) {
+
+        return Comment.builder()
+                .content(commentRegiDTO.getContent())
+                .member(author)
+                .post(commentedPost)
+                .parent(parentComment)
+                .build();
     }
-    
 
     //===연관관계 메서드===//
     public void addChild(Comment comment) {

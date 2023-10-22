@@ -1,8 +1,7 @@
 package HailYoungHan.Board.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import HailYoungHan.Board.dto.post.PostRegiDTO;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,7 +9,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends SysCols {
 
     @Id
@@ -28,24 +29,22 @@ public class Post extends SysCols {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public static Post mapFromRegiDto(Member member, PostRegiDTO postRegiDTO) {
+
+        return Post.builder()
+                .member(member)
+                .title(postRegiDTO.getTitle())
+                .content(postRegiDTO.getContent())
+                .build();
     }
 
-    public Post(String title, String content, Member member) {
-        this.title = title;
-        this.content = content;
-        this.member = member;
+    public void setMember(Member author) {
+        this.member = author;
     }
 
     //===연관관계 메서드===//
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setPost(this);
-    }
-
-    public void setMember(Member author) {
-        this.member = author;
     }
 }

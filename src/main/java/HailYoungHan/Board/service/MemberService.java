@@ -66,15 +66,6 @@ public class MemberService {
         memberRepository.update(member);
     }
 
-//    private void fieldNullCheck(MemberUpdateDTO memberUpdateDTO, Member member) {
-//        Optional.ofNullable(memberUpdateDTO.getName())
-//                .ifPresent(member::setName);
-//        Optional.ofNullable(memberUpdateDTO.getPassword())
-//                .ifPresent(rawPwd -> member.setPassword(passwordEncoder.encode(rawPwd)));
-//        Optional.ofNullable(memberUpdateDTO.getEmail())
-//                .ifPresent(member::setEmail);
-//    }
-
     @Transactional
     public void deleteMemberById(Long id) {
         memberRepository.deleteById(id);

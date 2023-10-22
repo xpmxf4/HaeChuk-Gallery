@@ -27,13 +27,10 @@ public class PostService {
     // 게시글 등록
     @Transactional
     public Post registerPost(PostRegiDTO postRegiDTO) {
-        Long memberId = postRegiDTO.getMemberId();
-        String title = postRegiDTO.getTitle();
-        String content = postRegiDTO.getContent();
+        Member member = memberRepository.findById(postRegiDTO.getMemberId())
+                .orElseThrow(() -> new MemberNotFoundException(postRegiDTO.getMemberId()));
 
-        Member member = memberRepository.findById(memberId)
-                                        .orElseThrow(() -> new MemberNotFoundException(memberId));
-        Post post = new Post(title, content, member);
+        Post post = Post.mapFromRegiDto(member, postRegiDTO);
 
         return postRepository.save(post);
     }
