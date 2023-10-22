@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @AllArgsConstructor
-@AtLeastOneNotNull(fields = {"name", "email", "password"})
+//@AtLeastOneNotNull(fields = {"name", "email", "password"})
 public class MemberUpdateDTO {
 
     @NotNull(message = "회원 업데이트시 id 값은 필수입니다")

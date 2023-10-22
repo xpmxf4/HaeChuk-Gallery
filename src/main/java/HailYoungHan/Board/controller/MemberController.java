@@ -76,9 +76,9 @@ public class MemberController {
      * @return ResponseEntity&lt;Member&gt; 수정된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @PutMapping
-    public ResponseEntity<Member> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
-        Member member = memberService.updateMember(memberUpdateDTO);
-        return new ResponseEntity<>(member, HttpStatus.ACCEPTED);
+    public ResponseEntity<Void> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
+        memberService.updateMember(memberUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     /**
@@ -92,7 +92,7 @@ public class MemberController {
      * @return ResponseEntity&lt;Member&gt; HTTP 상태 코드만을 포함하는 응답을 반환합니다.
      */
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<Member> deleteMember(@PathVariable Long memberId) {
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMemberById(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -108,7 +108,7 @@ public class MemberController {
      * @return ResponseEntity<?> HTTP 상태 코드만을 포함하는 응답을 반환합니다.
      */
     @DeleteMapping
-    public ResponseEntity<?> deleteMembers(@RequestBody List<Long> ids) {
+    public ResponseEntity<Void> deleteMembers(@RequestBody List<Long> ids) {
         memberService.deleteMembers(ids);
         return ResponseEntity.ok().build();
     }

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
 
     //회원 등록
     @Transactional
@@ -34,7 +32,12 @@ public class MemberService {
             throw new EmailAlreadyExistsException(email);
         }
 
-        Member member = new Member(name, email, passwordEncoder.encode(password));
+        Member member = Member.builder()
+                .name(name)
+                .email(email)
+                .password(PasswordEncoder.encode(password))
+                .build();
+
         memberRepository.save(member);
     }
 
@@ -51,18 +54,26 @@ public class MemberService {
 
     //특정 회원 정보 수정
     @Transactional
-    public Member updateMember(MemberUpdateDTO memberUpdateDTO) {
-        Member member = memberRepository
-                .findById(memberUpdateDTO.getId())
-                .orElseThrow(() -> new MemberNotFoundException(memberUpdateDTO.getId()));
+    public void updateMember(MemberUpdateDTO memberUpdateDTO) {
+        // DB 에 memberUpdateDTO 의 id 에 해당하는 유저 존재 여부 확인
+        if (!memberRepository.existsById(memberUpdateDTO.getId()))
+            throw new MemberNotFoundException(memberUpdateDTO.getId());
 
-        Optional.ofNullable(memberUpdateDTO.getName())
-                .ifPresent(member::setName);
-        Optional.ofNullable(memberUpdateDTO.getPassword())
-                .ifPresent(rawPwd -> member.setPassword(passwordEncoder.encode(rawPwd)));
+        // memberUpdateDTO ---(map)---> Member(Entity) 로 map
+        Member member = Member.mapFromUpdateDto(memberUpdateDTO);
 
-        return memberRepository.save(member);
+        // DB 업데이트 실행
+        memberRepository.update(member);
     }
+
+//    private void fieldNullCheck(MemberUpdateDTO memberUpdateDTO, Member member) {
+//        Optional.ofNullable(memberUpdateDTO.getName())
+//                .ifPresent(member::setName);
+//        Optional.ofNullable(memberUpdateDTO.getPassword())
+//                .ifPresent(rawPwd -> member.setPassword(passwordEncoder.encode(rawPwd)));
+//        Optional.ofNullable(memberUpdateDTO.getEmail())
+//                .ifPresent(member::setEmail);
+//    }
 
     @Transactional
     public void deleteMemberById(Long id) {

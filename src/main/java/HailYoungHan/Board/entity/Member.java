@@ -1,18 +1,18 @@
 package HailYoungHan.Board.entity;
 
+import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends SysCols {
 
     @Id
@@ -21,15 +21,15 @@ public class Member extends SysCols {
     private Long id;
 
     @Column(nullable = false)
-    @Size(min = 2, max = 50, message = "이름이 2자 이상, 50자 이하가 아닙니다.")
+//    @Size(min = 2, max = 50, message = "이름이 2자 이상, 50자 이하가 아닙니다.")
     private String name;
 
     @Column(nullable = false, unique = true)
-    @Email(message = "유효한 이메일 형식이 아닙니다")
+//    @Email(message = "유효한 이메일 형식이 아닙니다")
     private String email;
 
     @Column(nullable = false, length = 60)
-    @Size(min = 8, message = "비밀번호는 최소 8자 이상이어야 합니다.")
+//    @Size(min = 8, message = "비밀번호는 최소 8자 이상이어야 합니다.")
     private String password;
 
     @JsonIgnore
@@ -44,6 +44,16 @@ public class Member extends SysCols {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public static Member mapFromUpdateDto(MemberUpdateDTO memberUpdateDTO) {
+
+        return Member.builder()
+                .id(memberUpdateDTO.getId())
+                .name(memberUpdateDTO.getName())
+                .email(memberUpdateDTO.getEmail())
+                .password(memberUpdateDTO.getPassword())
+                .build();
     }
 
     //===연관관계 메서드===//
@@ -67,11 +77,4 @@ public class Member extends SysCols {
         comment.setMember(null);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
