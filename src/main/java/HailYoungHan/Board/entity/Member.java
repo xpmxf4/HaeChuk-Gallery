@@ -13,20 +13,15 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends SysCols {
-    public Member() {
-        log.info("Member's NoArgsConstructor called.");
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false)
-//    @Size(min = 2, max = 50, message = "이름이 2자 이상, 50자 이하가 아닙니다.")
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column(nullable = false, unique = true)

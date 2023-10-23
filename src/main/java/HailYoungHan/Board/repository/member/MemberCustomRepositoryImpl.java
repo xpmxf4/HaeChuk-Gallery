@@ -24,7 +24,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .select(new QMemberDTO(
                         member.id,
                         member.name,
-                        member.password
+                        member.email
                 ))
                 .from(member)
                 .where(member.id.eq(id))
@@ -37,7 +37,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .select(new QMemberDTO(
                         member.id,
                         member.name,
-                        member.password
+                        member.email
                 ))
                 .from(member)
                 .fetch();
