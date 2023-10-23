@@ -19,7 +19,10 @@ public class Comment extends SysCols {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
+
+    @Column(length = 500)
     private String content;
+
     private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
