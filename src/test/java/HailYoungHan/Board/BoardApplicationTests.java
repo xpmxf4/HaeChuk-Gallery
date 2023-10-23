@@ -16,12 +16,4 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @Transactional
 public class BoardApplicationTests {
-
-    @Autowired
-    EntityManager em;
-
-    @Test
-    void contextLoads() {
-    }
-
 }

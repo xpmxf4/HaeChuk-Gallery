@@ -3,17 +3,22 @@ package HailYoungHan.Board.entity;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends SysCols {
+    public Member() {
+        log.info("Member's NoArgsConstructor called.");
+    }
 
     @Id
     @GeneratedValue
@@ -39,12 +44,6 @@ public class Member extends SysCols {
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
-
-    public Member(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 
     public static Member mapFromUpdateDto(MemberUpdateDTO memberUpdateDTO) {
 

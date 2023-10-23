@@ -63,7 +63,7 @@ public class MemberService {
         Member member = Member.mapFromUpdateDto(memberUpdateDTO);
 
         // DB 업데이트 실행
-        memberRepository.update(member);
+        memberRepository.save(member);
     }
 
     @Transactional

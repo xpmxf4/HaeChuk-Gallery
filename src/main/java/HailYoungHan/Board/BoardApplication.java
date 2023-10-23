@@ -18,6 +18,6 @@ public class BoardApplication {
 
     @Bean
     AuditorAware<String> auditorAware() {
-        return () -> Optional.of("minjae");
+        return () -> Optional.of("");
     }
 }

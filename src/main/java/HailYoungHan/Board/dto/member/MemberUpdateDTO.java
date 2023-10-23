@@ -1,6 +1,5 @@
 package HailYoungHan.Board.dto.member;
 
-import HailYoungHan.Board.validation.AtLeastOneNotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
