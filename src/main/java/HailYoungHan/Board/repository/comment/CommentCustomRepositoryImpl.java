@@ -41,7 +41,6 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 
         return queryFactory
                 .select(new QCommentDTO(
-                        comment.id,
                         comment.content,
                         comment.isDeleted
                 ))
@@ -56,7 +55,6 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 
         return queryFactory
                 .select(new QCommentDTO(
-                        comment.id,
                         comment.content,
                         comment.isDeleted
                 ))
@@ -68,7 +66,6 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
     public List<CommentDTO> findAllDTOsByMemberId(Long memberId, boolean isDeleted) {
         return queryFactory
                 .select(new QCommentDTO(
-                        comment.id,
                         comment.content,
                         comment.isDeleted
                 ))
@@ -82,7 +79,6 @@ public class CommentCustomRepositoryImpl implements CommentCustomRepository {
 
         return queryFactory
                 .select(new QCommentDTO(
-                        comment.id,
                         comment.content,
                         comment.isDeleted
                 ))
