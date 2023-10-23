@@ -18,8 +18,13 @@ public class Post extends SysCols {
     @GeneratedValue
     @Column(name = "post_id")
     private Long id;
+
+    @Column(length = 50)
     private String title;
+
+    @Column(length = 1000)
     private String content;
+
     private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

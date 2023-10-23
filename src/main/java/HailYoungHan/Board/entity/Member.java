@@ -25,11 +25,9 @@ public class Member extends SysCols {
     private String name;
 
     @Column(nullable = false, unique = true)
-//    @Email(message = "유효한 이메일 형식이 아닙니다")
     private String email;
 
-    @Column(nullable = false, length = 60)
-//    @Size(min = 8, message = "비밀번호는 최소 8자 이상이어야 합니다.")
+    @Column(nullable = false)
     private String password;
 
     @JsonIgnore
