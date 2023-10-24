@@ -69,7 +69,7 @@ public class MemberService {
 
     @Transactional
     public void deleteMembers(List<Long> ids) {
-        memberRepository.deleteAllByIdInBatch(ids);
+        memberRepository.deleteMembers(ids);
     }
 
     public MemberDTO getMemberByEmail(String email) {
