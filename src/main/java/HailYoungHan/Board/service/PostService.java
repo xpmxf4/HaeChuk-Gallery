@@ -38,9 +38,15 @@ public class PostService {
     // 게시글 수정
     @Transactional
     public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
-        if (!memberRepository.existsById(postId))
-            throw new PostNotFoundException("No such postId : " + postId);
+        // DB 에 해당 게시물 존재하는 지 확인
+        if (!postRepository.existsById(postId))
+            throw new PostNotFoundException(postId);
 
+        // postUpdateDTO ---(map)---> Post(Entity) 로 mapping
+//        Post post = Post.mapFromUpdateDto(postUpdateDTO);
+
+
+        // DB 에 save
         return postRepository.updatePost(postId, postUpdateDTO);
     }
 

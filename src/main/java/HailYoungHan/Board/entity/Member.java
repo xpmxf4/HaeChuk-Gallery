@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends SysCols {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "member_id")
     private Long id;
 
@@ -36,14 +36,13 @@ public class Member extends SysCols {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    public static Member mapFromUpdateDto(MemberUpdateDTO memberUpdateDTO) {
-
-        return Member.builder()
-                .id(memberUpdateDTO.getId())
-                .name(memberUpdateDTO.getName())
-                .email(memberUpdateDTO.getEmail())
-                .password(memberUpdateDTO.getPassword())
-                .build();
+    public void mapFromUpdateDto(MemberUpdateDTO updateDTO) {
+        if (updateDTO.getName() != null)
+            this.name = updateDTO.getName();
+        if (updateDTO.getPassword() != null)
+            this.password = updateDTO.getPassword();
+        if (updateDTO.getEmail() != null)
+            this.email = updateDTO.getEmail();
     }
 
     //===연관관계 메서드===//

@@ -12,10 +12,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 //@AtLeastOneNotNull(fields = {"name", "email", "password"})
 public class MemberUpdateDTO {
-
-    @NotNull(message = "회원 업데이트시 id 값은 필수입니다")
-    private Long id;
-
     @Size(min = 2, max = 50, message = "이름은 2자 이상, 50자 이하입니다.")
     @Nullable
     private String name;

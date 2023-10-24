@@ -1,0 +1,10 @@
+INSERT INTO member (member_id, name, email, password) VALUES (1, 'User1', 'user1@email.com', 'password1');
+INSERT INTO member (member_id, name, email, password) VALUES (2, 'User2', 'user2@email.com', 'password2');
+INSERT INTO member (member_id, name, email, password) VALUES (3, 'User3', 'user3@email.com', 'password3');
+INSERT INTO member (member_id, name, email, password) VALUES (4, 'User4', 'user4@email.com', 'password4');
+INSERT INTO member (member_id, name, email, password) VALUES (5, 'User5', 'user5@email.com', 'password5');
+INSERT INTO member (member_id, name, email, password) VALUES (6, 'User6', 'user6@email.com', 'password6');
+INSERT INTO member (member_id, name, email, password) VALUES (7, 'User7', 'user7@email.com', 'password7');
+INSERT INTO member (member_id, name, email, password) VALUES (8, 'User8', 'user8@email.com', 'password8');
+INSERT INTO member (member_id, name, email, password) VALUES (9, 'User9', 'user9@email.com', 'password9');
+INSERT INTO member (member_id, name, email, password) VALUES (10, 'User10', 'user10@email.com', 'password10');

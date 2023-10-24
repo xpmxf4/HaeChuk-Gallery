@@ -17,6 +17,7 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+    defer-datasource-initialization: true
 #        show_sql: true # console
 
 logging:

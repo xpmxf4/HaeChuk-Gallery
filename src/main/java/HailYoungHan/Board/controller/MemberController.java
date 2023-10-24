@@ -75,9 +75,9 @@ public class MemberController {
      * @param memberUpdateDTO 수정하고자 하는 회원의 정보.
      * @return ResponseEntity&lt;Member&gt; 수정된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
-        memberService.updateMember(memberUpdateDTO);
+    @PutMapping("/{userId}")
+    public ResponseEntity<Void> update(@PathVariable Long userId, @RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
+        memberService.updateMember(userId, memberUpdateDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

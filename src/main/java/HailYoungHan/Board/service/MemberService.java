@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -55,13 +54,14 @@ public class MemberService {
 
     //특정 회원 정보 수정
     @Transactional
-    public void updateMember(MemberUpdateDTO memberUpdateDTO) {
+    public void updateMember(Long userId, MemberUpdateDTO memberUpdateDTO) {
         // DB 에 memberUpdateDTO 의 id 에 해당하는 유저 존재 여부 확인
-        if (!memberRepository.existsById(memberUpdateDTO.getId()))
-            throw new MemberNotFoundException(memberUpdateDTO.getId());
+        Member member = memberRepository
+                .findById(userId)
+                .orElseThrow(() -> new MemberNotFoundException(userId));
 
         // memberUpdateDTO ---(map)---> Member(Entity) 로 map
-        Member member = Member.mapFromUpdateDto(memberUpdateDTO);
+        member.mapFromUpdateDto(memberUpdateDTO);
 
         // DB 업데이트 실행
         memberRepository.save(member);
