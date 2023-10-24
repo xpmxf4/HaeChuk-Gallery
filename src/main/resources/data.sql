@@ -1,10 +1,39 @@
-INSERT INTO member (member_id, name, email, password) VALUES (1, 'User1', 'user1@email.com', 'password1');
-INSERT INTO member (member_id, name, email, password) VALUES (2, 'User2', 'user2@email.com', 'password2');
-INSERT INTO member (member_id, name, email, password) VALUES (3, 'User3', 'user3@email.com', 'password3');
-INSERT INTO member (member_id, name, email, password) VALUES (4, 'User4', 'user4@email.com', 'password4');
-INSERT INTO member (member_id, name, email, password) VALUES (5, 'User5', 'user5@email.com', 'password5');
-INSERT INTO member (member_id, name, email, password) VALUES (6, 'User6', 'user6@email.com', 'password6');
-INSERT INTO member (member_id, name, email, password) VALUES (7, 'User7', 'user7@email.com', 'password7');
-INSERT INTO member (member_id, name, email, password) VALUES (8, 'User8', 'user8@email.com', 'password8');
-INSERT INTO member (member_id, name, email, password) VALUES (9, 'User9', 'user9@email.com', 'password9');
-INSERT INTO member (member_id, name, email, password) VALUES (10, 'User10', 'user10@email.com', 'password10');
+INSERT INTO member (member_id, name, email, password)
+VALUES (1, 'User1', 'user1@email.com', 'password1'),
+       (2, 'User2', 'user2@email.com', 'password2'),
+       (3, 'User3', 'user3@email.com', 'password3'),
+       (4, 'User4', 'user4@email.com', 'password4'),
+       (5, 'User5', 'user5@email.com', 'password5'),
+       (6, 'User6', 'user6@email.com', 'password6'),
+       (7, 'User7', 'user7@email.com', 'password7'),
+       (8, 'User8', 'user8@email.com', 'password8'),
+       (9, 'User9', 'user9@email.com', 'password9'),
+       (10, 'User10', 'user10@email.com', 'password10');
+
+INSERT INTO post (post_id, title, content, member_id)
+VALUES (1, 'Title1-1', 'Content for User1 Post1', 1),
+       (2, 'Title1-2', 'Content for User1 Post2', 1),
+       (3, 'Title1-3', 'Content for User1 Post3', 1),
+       (4, 'Title2-1', 'Content for User2 Post1', 2),
+       (5, 'Title2-2', 'Content for User2 Post2', 2),
+       (6, 'Title2-3', 'Content for User2 Post3', 2),
+       (7, 'Title3-1', 'Content for User3 Post1', 3),
+       (8, 'Title3-2', 'Content for User3 Post2', 3),
+       (9, 'Title4-1', 'Content for User4 Post1', 4),
+       (10, 'Title4-2', 'Content for User4 Post2', 4),
+       (11, 'Title4-3', 'Content for User4 Post3', 4),
+       (12, 'Title5-1', 'Content for User5 Post1', 5),
+       (13, 'Title5-2', 'Content for User5 Post2', 5),
+       (14, 'Title6-1', 'Content for User6 Post1', 6),
+       (15, 'Title6-2', 'Content for User6 Post2', 6),
+       (16, 'Title6-3', 'Content for User6 Post3', 6),
+       (17, 'Title7-1', 'Content for User7 Post1', 7),
+       (18, 'Title7-2', 'Content for User7 Post2', 7),
+       (19, 'Title8-1', 'Content for User8 Post1', 8),
+       (20, 'Title8-2', 'Content for User8 Post2', 8),
+       (21, 'Title8-3', 'Content for User8 Post3', 8),
+       (22, 'Title9-1', 'Content for User9 Post1', 9),
+       (23, 'Title9-2', 'Content for User9 Post2', 9),
+       (24, 'Title10-1', 'Content for User10 Post1', 10),
+       (25, 'Title10-2', 'Content for User10 Post2', 10),
+       (26, 'Title10-3', 'Content for User10 Post3', 10);
