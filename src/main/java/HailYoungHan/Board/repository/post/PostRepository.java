@@ -10,4 +10,5 @@ public interface PostRepository extends JpaRepository<Post, Long>,
 //        HibernateRepository<Post>,
         PostCustomRepository {
 
+    void deletePostById(Long postId);
 }

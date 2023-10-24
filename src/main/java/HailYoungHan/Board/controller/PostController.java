@@ -22,6 +22,7 @@ public class PostController {
 
     /**
      * 게시물 추가 API
+     *
      * @param postRegiDTO
      * @return
      */
@@ -33,6 +34,7 @@ public class PostController {
 
     /**
      * 특정 게시글 수정
+     *
      * @param post_id
      * @param postUpdateDTO
      * @return
@@ -47,6 +49,7 @@ public class PostController {
 
     /**
      * 특정 게시글 조회
+     *
      * @param post_id
      * @return PostDTO
      */
@@ -59,6 +62,7 @@ public class PostController {
 
     /**
      * 전체 게시글 조회
+     *
      * @return PostResponseDTO
      */
     @GetMapping
@@ -70,7 +74,6 @@ public class PostController {
     }
 
     /**
-     *
      * @param memberId
      * @return PostResponseDTO
      */
@@ -84,6 +87,7 @@ public class PostController {
 
     /**
      * 특정 유저의 삭제된 게시글들 조회
+     *
      * @param member_id
      * @return PostResponseDTO
      */
@@ -97,8 +101,8 @@ public class PostController {
 
     @DeleteMapping("/{post_id}")
     public ResponseEntity<Long> deletePost(@PathVariable Long post_id) {
-        Long deletedPostId = postService.deletePost(post_id);
+        postService.deletePost(post_id);
 
-        return new ResponseEntity<>(deletedPostId, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

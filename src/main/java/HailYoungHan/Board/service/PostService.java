@@ -34,8 +34,8 @@ public class PostService {
 
         return postRepository.save(post);
     }
-    // 게시글 수정
 
+    // 게시글 수정
     @Transactional
     public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
         if (!memberRepository.existsById(postId))
@@ -75,11 +75,11 @@ public class PostService {
     }
 
     // 게시물 삭제
-    public Long deletePost(Long postId) {
+    public void deletePost(Long postId) {
         if (!postRepository.existsById(postId))
             throw new PostNotFoundException(postId);
 
-        return postRepository.deletePost(postId);
+        postRepository.deletePostById(postId);
     }
 }
 
