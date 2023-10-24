@@ -28,7 +28,7 @@ public class MemberService {
         String password = memberRegiDTO.getPassword();
         String email = memberRegiDTO.getEmail();
 
-        if (memberRepository.existsByEmail(email)) {
+        if (memberRepository.existsByEmail(email)) { // email 은 unique 제약 조건이 있음.
             throw new EmailAlreadyExistsException(email);
         }
 
@@ -43,8 +43,10 @@ public class MemberService {
 
     public MemberDTO getSingleMember(Long id) {
         MemberDTO memberDTO = memberRepository.getSingleMember(id);
+
         if (memberDTO == null)
             throw new MemberNotFoundException(id);
+
         return memberDTO;
     }
 
@@ -70,9 +72,5 @@ public class MemberService {
     @Transactional
     public void deleteMembers(List<Long> ids) {
         memberRepository.deleteMembers(ids);
-    }
-
-    public MemberDTO getMemberByEmail(String email) {
-        return memberRepository.getMemberByEmail(email);
     }
 }
