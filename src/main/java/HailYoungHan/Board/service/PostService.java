@@ -37,17 +37,15 @@ public class PostService {
 
     // 게시글 수정
     @Transactional
-    public Long updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
+    public void updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
         // DB 에 해당 게시물 존재하는 지 확인
-        if (!postRepository.existsById(postId))
-            throw new PostNotFoundException(postId);
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
 
         // postUpdateDTO ---(map)---> Post(Entity) 로 mapping
-//        Post post = Post.mapFromUpdateDto(postUpdateDTO);
-
+        post.mapFromUpdateDto(postUpdateDTO);
 
         // DB 에 save
-        return postRepository.updatePost(postId, postUpdateDTO);
+        postRepository.save(post);
     }
 
     // 특정 게시물 조회

@@ -20,24 +20,6 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public Long updatePost(Long postId, PostUpdateDTO updateDTO) {
-        JPAUpdateClause updateClause = queryFactory.update(post).where(post.id.eq(postId));
-
-        // title 체크
-        if (updateDTO.getTitle() != null && !updateDTO.getTitle().isEmpty()) {
-            updateClause.set(post.title, updateDTO.getTitle());
-        }
-
-        // content 체크
-        if (updateDTO.getContent() != null && !updateDTO.getContent().isEmpty()) {
-            updateClause.set(post.content, updateDTO.getContent());
-        }
-
-        updateClause.execute();
-        return postId;
-    }
-
-    @Override
     public List<PostDTO> findPostsByMemberId(Long memberId) {
 
         return queryFactory

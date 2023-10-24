@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface PostCustomRepository {
 
-    Long updatePost(Long id, PostUpdateDTO updateDTO);
-
     List<PostDTO> findPostsByMemberId(Long memberId);
 
     List<PostDTO> findDeletedPostsByMemberId(Long memberId);

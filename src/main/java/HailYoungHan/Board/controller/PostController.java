@@ -42,9 +42,9 @@ public class PostController {
      * @return 수정된 게시물의 ID와 상태 코드
      */
     @PutMapping("/{post_id}")
-    public ResponseEntity<Long> update(@PathVariable Long post_id, @RequestBody PostUpdateDTO postUpdateDTO) {
-        Long updatedId = postService.updatePost(post_id, postUpdateDTO);
-        return new ResponseEntity<>(updatedId, HttpStatus.ACCEPTED);
+    public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody PostUpdateDTO postUpdateDTO) {
+        postService.updatePost(post_id, postUpdateDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

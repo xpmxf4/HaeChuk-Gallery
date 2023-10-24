@@ -1,6 +1,7 @@
 package HailYoungHan.Board.entity;
 
 import HailYoungHan.Board.dto.post.PostRegiDTO;
+import HailYoungHan.Board.dto.post.PostUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,5 +52,12 @@ public class Post extends SysCols {
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setPost(this);
+    }
+
+    public void mapFromUpdateDto(PostUpdateDTO updateDTO) {
+        if (updateDTO.getTitle() != null)
+            this.content = updateDTO.getTitle();
+        if (updateDTO.getContent() != null)
+            this.content = updateDTO.getContent();
     }
 }
