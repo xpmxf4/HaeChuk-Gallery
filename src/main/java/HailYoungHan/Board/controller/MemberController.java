@@ -82,22 +82,6 @@ public class MemberController {
     }
 
     /**
-     * 특정 회원을 삭제합니다.
-     *
-     * <p>
-     * 주어진 회원 ID를 기반으로 해당 회원을 삭제합니다.
-     * </p>
-     *
-     * @param memberId 삭제하고자 하는 회원의 ID.
-     * @return ResponseEntity&lt;Member&gt; HTTP 상태 코드만을 포함하는 응답을 반환합니다.
-     */
-    @DeleteMapping("/{memberId}")
-    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
-        memberService.deleteMemberById(memberId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
      * 여러 회원들을 삭제합니다.
      *
      * <p>
@@ -105,12 +89,12 @@ public class MemberController {
      * </p>
      *
      * @param ids 삭제하고자 하는 회원들의 ID 리스트.
-     * @return ResponseEntity<?> HTTP 상태 코드만을 포함하는 응답을 반환합니다.
+     * @return ResponseEntity&lt;Void&gt; HTTP 상태 코드만을 포함하는 응답을 반환합니다.
      */
     @DeleteMapping
     public ResponseEntity<Void> deleteMembers(@RequestBody List<Long> ids) {
         memberService.deleteMembers(ids);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

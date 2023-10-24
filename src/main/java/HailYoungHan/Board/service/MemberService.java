@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -64,11 +65,6 @@ public class MemberService {
 
         // DB 업데이트 실행
         memberRepository.save(member);
-    }
-
-    @Transactional
-    public void deleteMemberById(Long id) {
-        memberRepository.deleteById(id);
     }
 
     @Transactional

@@ -3,13 +3,11 @@ package HailYoungHan.Board.entity;
 import HailYoungHan.Board.dto.member.MemberUpdateDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Entity
 @Getter
 @Builder
