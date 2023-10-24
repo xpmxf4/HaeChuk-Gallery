@@ -1,7 +1,6 @@
 package HailYoungHan.Board.entity;
 
 import HailYoungHan.Board.dto.comment.CommentRegiDTO;
-import HailYoungHan.Board.entity.SysCols;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment extends SysCols {
+public class Comment extends SysTimeCols {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

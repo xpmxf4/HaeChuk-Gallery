@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends SysCols {
+public class Member extends SysTimeCols {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "member_id")
