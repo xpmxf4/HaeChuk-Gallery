@@ -1,7 +1,9 @@
 package HailYoungHan.Board.service;
 
-import HailYoungHan.Board.dto.comment.CommentDTO;
-import HailYoungHan.Board.dto.comment.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.query.CommentDbDTO;
+import HailYoungHan.Board.dto.comment.request.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.request.CommentUpdateDTO;
+import HailYoungHan.Board.dto.comment.response.CommentResponseDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
@@ -43,31 +45,35 @@ public class CommentService {
     }
 
     @Transactional
-    public void updateComment(Long commentId, CommentDTO dto) {
-
+    public void updateComment(Long commentId, CommentUpdateDTO updateDTO) {
         if (!commentRepository.existsById(commentId))
             throw new CommentNotFoundException(commentId);
 
-        commentRepository.updateCommentDTO(commentId, dto);
+        // CommentUpdateDTO ---(map)---> Comment(Entity) 로 map
+        Comment comment = updateDTO.mapToEntity(commentId);
+
+        commentRepository.save(comment);
     }
 
-    public CommentDTO getSinglePost(Long commentId) {
+    public CommentDbDTO getSinglePost(Long commentId) {
         if (!commentRepository.existsById(commentId))
             throw new CommentNotFoundException(commentId);
 
         return commentRepository.findDTOById(commentId);
     }
 
-    public List<CommentDTO> getAllComments() {
-
-        return commentRepository.findAllDTOs();
+    public CommentResponseDTO getAllComments() {
+        List<CommentDbDTO> allComments = commentRepository.findAllDTOs();
+        return new CommentResponseDTO(allComments);
     }
 
-    public List<CommentDTO> getMemberComments(Long memberId, boolean isDeleted) {
+    public CommentResponseDTO getMemberComments(Long memberId, boolean isDeleted) {
         if (!memberRepository.existsById(memberId))
             throw new MemberNotFoundException(memberId);
 
-        return commentRepository.findAllDTOsByMemberId(memberId, isDeleted);
+        return new CommentResponseDTO(
+                commentRepository.findAllDTOsByMemberId(memberId, isDeleted)
+        );
     }
 
     public void deleteComment(Long commentId) {

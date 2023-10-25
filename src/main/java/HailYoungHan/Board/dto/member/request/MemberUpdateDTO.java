@@ -1,4 +1,4 @@
-package HailYoungHan.Board.dto.member;
+package HailYoungHan.Board.dto.member.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

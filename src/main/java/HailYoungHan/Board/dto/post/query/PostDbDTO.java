@@ -1,6 +1,7 @@
-package HailYoungHan.Board.dto.post;
+package HailYoungHan.Board.dto.post.query;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,8 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
-public class PostDTO {
+@Builder
+public class PostDbDTO {
 
     @NotNull
     private Long id;
@@ -31,7 +33,7 @@ public class PostDTO {
     private boolean isDeleted;
 
     @QueryProjection
-    public PostDTO(Long id, String title, String content, String writer, boolean isDeleted) {
+    public PostDbDTO(Long id, String title, String content, String writer, boolean isDeleted) {
         this.id = id;
         this.title = title;
         this.content = content;

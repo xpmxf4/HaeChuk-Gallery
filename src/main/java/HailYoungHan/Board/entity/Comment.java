@@ -1,6 +1,6 @@
 package HailYoungHan.Board.entity;
 
-import HailYoungHan.Board.dto.comment.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.request.CommentRegiDTO;
 import lombok.*;
 
 import javax.persistence.*;

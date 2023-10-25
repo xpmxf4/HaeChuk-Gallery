@@ -1,17 +1,16 @@
 package HailYoungHan.Board.repository.post;
 
-import HailYoungHan.Board.dto.post.PostDTO;
-import HailYoungHan.Board.dto.post.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
 
 import java.util.List;
 
 public interface PostCustomRepository {
 
-    List<PostDTO> findPostsByMemberId(Long memberId);
+    List<PostDbDTO> findPostsByMemberId(Long memberId);
 
-    List<PostDTO> findDeletedPostsByMemberId(Long memberId);
+    List<PostDbDTO> findDeletedPostsByMemberId(Long memberId);
 
-    PostDTO findDTObyId(Long id);
+    PostDbDTO findDTObyId(Long id);
 
-    List<PostDTO> findAllDTOs();
+    List<PostDbDTO> findAllDTOs();
 }

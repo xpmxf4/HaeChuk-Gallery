@@ -1,10 +1,8 @@
 package HailYoungHan.Board.repository.post;
 
-import HailYoungHan.Board.dto.post.PostDTO;
-import HailYoungHan.Board.dto.post.PostUpdateDTO;
-import HailYoungHan.Board.dto.post.QPostDTO;
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
+import HailYoungHan.Board.dto.post.query.QPostDbDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.querydsl.jpa.impl.JPAUpdateClause;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,10 +18,10 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDTO> findPostsByMemberId(Long memberId) {
+    public List<PostDbDTO> findPostsByMemberId(Long memberId) {
 
         return queryFactory
-                .select(new QPostDTO(
+                .select(new QPostDbDTO(
                         post.id,
                         post.title,
                         post.content,
@@ -36,9 +34,9 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDTO> findDeletedPostsByMemberId(Long memberId) {
+    public List<PostDbDTO> findDeletedPostsByMemberId(Long memberId) {
         return queryFactory
-                .select(new QPostDTO(
+                .select(new QPostDbDTO(
                         post.id,
                         post.title,
                         post.content,
@@ -51,10 +49,10 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public PostDTO findDTObyId(Long id) {
+    public PostDbDTO findDTObyId(Long id) {
 
         return queryFactory
-                .select(new QPostDTO(
+                .select(new QPostDbDTO(
                         post.id,
                         post.title,
                         post.content,
@@ -67,10 +65,10 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDTO> findAllDTOs() {
+    public List<PostDbDTO> findAllDTOs() {
 
         return queryFactory
-                .select(new QPostDTO(
+                .select(new QPostDbDTO(
                         post.id,
                         post.title,
                         post.content,

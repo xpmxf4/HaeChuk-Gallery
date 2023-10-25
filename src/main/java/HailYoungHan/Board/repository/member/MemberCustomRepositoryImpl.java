@@ -1,8 +1,7 @@
 package HailYoungHan.Board.repository.member;
 
-import HailYoungHan.Board.dto.member.MemberDTO;
-import HailYoungHan.Board.dto.member.QMemberDTO;
-import HailYoungHan.Board.exception.member.MemberNotFoundException;
+import HailYoungHan.Board.dto.member.query.MemberDbDTO;
+import HailYoungHan.Board.dto.member.query.QMemberDbDTO;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -19,9 +18,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public MemberDTO getSingleMember(Long id) {
+    public MemberDbDTO getSingleMember(Long id) {
         return queryFactory
-                .select(new QMemberDTO(
+                .select(new QMemberDbDTO(
                         member.id,
                         member.name,
                         member.email
@@ -32,9 +31,9 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public List<MemberDTO> getAllMembers() {
+    public List<MemberDbDTO> getAllMembers() {
         return queryFactory
-                .select(new QMemberDTO(
+                .select(new QMemberDbDTO(
                         member.id,
                         member.name,
                         member.email
@@ -44,10 +43,10 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
     }
 
     @Override
-    public MemberDTO getMemberByEmail(String email) {
+    public MemberDbDTO getMemberByEmail(String email) {
         return queryFactory
                 .select(
-                        new QMemberDTO(
+                        new QMemberDbDTO(
                                 member.name,
                                 member.email
                         )

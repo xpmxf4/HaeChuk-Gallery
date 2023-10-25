@@ -1,9 +1,9 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.member.MemberDTO;
-import HailYoungHan.Board.dto.member.MemberRegiDTO;
-import HailYoungHan.Board.dto.member.MemberUpdateDTO;
-import HailYoungHan.Board.entity.Member;
+import HailYoungHan.Board.dto.member.query.MemberDbDTO;
+import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
+import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
 import HailYoungHan.Board.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,8 +49,8 @@ public class MemberController {
      * @return ResponseEntity&lt;MemberDTO&gt; 조회된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @GetMapping("/{memberId}")
-    public ResponseEntity<MemberDTO> getOneMember(@PathVariable Long memberId) {
-        MemberDTO findMember = memberService.getSingleMember(memberId);
+    public ResponseEntity<MemberDbDTO> getOneMember(@PathVariable Long memberId) {
+        MemberDbDTO findMember = memberService.getSingleMember(memberId);
         return new ResponseEntity<>(findMember, HttpStatus.OK);
     }
 
@@ -60,9 +60,9 @@ public class MemberController {
      * @return ResponseEntity&lt;List&lt;MemberDTO&gt;&gt; 조회된 모든 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
      */
     @GetMapping
-    public ResponseEntity<List<MemberDTO>> getAllMembers() {
-        List<MemberDTO> members = memberService.getAllMembers();
-        return new ResponseEntity<>(members, HttpStatus.OK);
+    public ResponseEntity<MemberResponseDTO> getAllMembers() {
+        MemberResponseDTO membersResponse = memberService.getAllMembers();
+        return new ResponseEntity<>(membersResponse, HttpStatus.OK);
     }
 
     /**
@@ -96,5 +96,4 @@ public class MemberController {
         memberService.deleteMembers(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

@@ -1,14 +1,14 @@
 package HailYoungHan.Board.repository.member;
 
-import HailYoungHan.Board.dto.member.MemberDTO;
+import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.exception.member.MemberNotFoundException;
 
 import java.util.List;
 
 public interface MemberCustomRepository {
 
-    MemberDTO getSingleMember(Long id) throws MemberNotFoundException;
-    List<MemberDTO> getAllMembers();
+    MemberDbDTO getSingleMember(Long id) throws MemberNotFoundException;
+    List<MemberDbDTO> getAllMembers();
 
-    MemberDTO getMemberByEmail(String email);
+    MemberDbDTO getMemberByEmail(String email);
 }

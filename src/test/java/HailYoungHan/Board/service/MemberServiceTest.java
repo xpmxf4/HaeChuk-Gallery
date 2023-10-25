@@ -1,6 +1,6 @@
 package HailYoungHan.Board.service;
 
-import HailYoungHan.Board.dto.member.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.member.EmailAlreadyExistsException;
 import HailYoungHan.Board.repository.member.MemberRepository;

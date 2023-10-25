@@ -1,7 +1,8 @@
 package HailYoungHan.Board.entity;
 
-import HailYoungHan.Board.dto.post.PostRegiDTO;
-import HailYoungHan.Board.dto.post.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
+import HailYoungHan.Board.dto.post.request.PostRegiDTO;
+import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -59,5 +60,15 @@ public class Post extends SysTimeCols {
             this.content = updateDTO.getTitle();
         if (updateDTO.getContent() != null)
             this.content = updateDTO.getContent();
+    }
+
+    public PostDbDTO mapToDbDTO() {
+        return PostDbDTO.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .writer(member.getName())
+                .isDeleted(isDeleted)
+                .build();
     }
 }

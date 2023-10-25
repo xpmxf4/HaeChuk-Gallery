@@ -1,8 +1,10 @@
 package HailYoungHan.Board.service;
 
-import HailYoungHan.Board.dto.member.MemberDTO;
-import HailYoungHan.Board.dto.member.MemberRegiDTO;
-import HailYoungHan.Board.dto.member.MemberUpdateDTO;
+import HailYoungHan.Board.dto.member.query.MemberDbDTO;
+import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
+import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
+import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.member.MemberNotFoundException;
 import HailYoungHan.Board.repository.member.MemberRepository;
@@ -41,17 +43,18 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public MemberDTO getSingleMember(Long id) {
-        MemberDTO memberDTO = memberRepository.getSingleMember(id);
+    public MemberDbDTO getSingleMember(Long id) {
+        MemberDbDTO memberDbDTO = memberRepository.getSingleMember(id);
 
-        if (memberDTO == null)
+        if (memberDbDTO == null)
             throw new MemberNotFoundException(id);
 
-        return memberDTO;
+        return memberDbDTO;
     }
 
-    public List<MemberDTO> getAllMembers() {
-        return memberRepository.getAllMembers();
+    public MemberResponseDTO getAllMembers() {
+        List<MemberDbDTO> allMembers = memberRepository.getAllMembers();
+        return new MemberResponseDTO(allMembers);
     }
 
     //특정 회원 정보 수정

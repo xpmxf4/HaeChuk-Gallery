@@ -1,6 +1,6 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.member.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

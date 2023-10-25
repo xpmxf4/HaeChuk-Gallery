@@ -1,13 +1,16 @@
-package HailYoungHan.Board.dto.post;
-
+package HailYoungHan.Board.dto.post.request;
 
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
-public class PostUpdateDTO {
+public class PostRegiDTO {
+
+    @NotNull
+    private Long memberId;
 
     @NotBlank
     @Size(min = 1, max = 50)

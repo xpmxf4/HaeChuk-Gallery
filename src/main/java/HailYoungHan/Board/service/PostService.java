@@ -1,9 +1,10 @@
 package HailYoungHan.Board.service;
 
 
-import HailYoungHan.Board.dto.post.PostDTO;
-import HailYoungHan.Board.dto.post.PostRegiDTO;
-import HailYoungHan.Board.dto.post.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
+import HailYoungHan.Board.dto.post.request.PostRegiDTO;
+import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.exception.member.MemberNotFoundException;
@@ -39,7 +40,8 @@ public class PostService {
     @Transactional
     public void updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
         // DB 에 해당 게시물 존재하는 지 확인
-        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId));
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
 
         // postUpdateDTO ---(map)---> Post(Entity) 로 mapping
         post.mapFromUpdateDto(postUpdateDTO);
@@ -49,33 +51,35 @@ public class PostService {
     }
 
     // 특정 게시물 조회
-    public PostDTO getSinglePost(Long postId) {
-        if (!postRepository.existsById(postId))
-            throw new PostNotFoundException("No such postId : " + postId);
+    public PostDbDTO getSinglePost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException(postId));
 
-        return postRepository.findDTObyId(postId);
+        return post.mapToDbDTO();
     }
 
     // 전체 게시물 조회
-    public List<PostDTO> getAllPosts() {
-
-        return postRepository.findAllDTOs();
+    public PostResponseDTO getAllPosts() {
+        List<PostDbDTO> allDTOs = postRepository.findAllDTOs();
+        return new PostResponseDTO(allDTOs);
     }
 
     // 특정 사용자의 게시물 조회
-    public List<PostDTO> findPostsByMemberId(Long memberId) {
+    public PostResponseDTO getPostsByMemberId(Long memberId) {
         if (!memberRepository.existsById(memberId))
             throw new MemberNotFoundException("No such memberId : " + memberId);
 
-        return postRepository.findPostsByMemberId(memberId);
+        List<PostDbDTO> memberPosts = postRepository.findPostsByMemberId(memberId);
+        return new PostResponseDTO(memberPosts);
     }
 
     // 특정 사용자의 삭제된 게시물 조회
-    public List<PostDTO> findDeletedPostsByMemberId(Long memberId) {
+    public PostResponseDTO findDeletedPostsByMemberId(Long memberId) {
         if (!memberRepository.existsById(memberId))
             throw new MemberNotFoundException("No Such memberId : " + memberId);
 
-        return postRepository.findDeletedPostsByMemberId(memberId);
+        List<PostDbDTO> memberDeletedPosts = postRepository.findDeletedPostsByMemberId(memberId);
+        return new PostResponseDTO(memberDeletedPosts);
     }
 
     // 게시물 삭제

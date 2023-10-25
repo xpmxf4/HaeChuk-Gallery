@@ -1,9 +1,9 @@
 package HailYoungHan.Board.controller;
 
-import HailYoungHan.Board.dto.post.PostDTO;
-import HailYoungHan.Board.dto.post.PostRegiDTO;
-import HailYoungHan.Board.dto.post.PostResponseDTO;
-import HailYoungHan.Board.dto.post.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
+import HailYoungHan.Board.dto.post.request.PostRegiDTO;
+import HailYoungHan.Board.dto.post.response.PostResponseDTO;
+import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class PostController {
      * 특정 게시글 수정 API
      * 주어진 ID의 게시물을 수정합니다.
      *
-     * @param post_id 게시물 ID
+     * @param post_id       게시물 ID
      * @param postUpdateDTO 수정할 게시물의 정보
      * @return 수정된 게시물의 ID와 상태 코드
      */
@@ -55,8 +55,8 @@ public class PostController {
      * @return 조회된 게시물 정보와 상태 코드
      */
     @GetMapping("/{post_id}")
-    public ResponseEntity<PostDTO> getSinglePost(@PathVariable Long post_id) {
-        PostDTO res = postService.getSinglePost(post_id);
+    public ResponseEntity<PostDbDTO> getSinglePost(@PathVariable Long post_id) {
+        PostDbDTO res = postService.getSinglePost(post_id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
@@ -68,9 +68,8 @@ public class PostController {
      */
     @GetMapping
     public ResponseEntity<PostResponseDTO> getAllPosts() {
-        List<PostDTO> allPosts = postService.getAllPosts();
-        PostResponseDTO res = new PostResponseDTO(allPosts);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        PostResponseDTO postRes = postService.getAllPosts();
+        return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
     /**
@@ -80,25 +79,23 @@ public class PostController {
      * @param member_id 사용자 ID
      * @return 해당 사용자의 게시물 정보와 상태 코드
      */
-    @GetMapping("/member/{member_id}")
-    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long member_id) {
-        List<PostDTO> memberPosts = postService.findPostsByMemberId(member_id);
-        PostResponseDTO result = new PostResponseDTO(memberPosts);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId) {
+        PostResponseDTO postRes = postService.getPostsByMemberId(memberId);
+        return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
     /**
      * 특정 사용자의 삭제된 게시글 조회 API
      * 주어진 사용자 ID의 삭제된 게시물을 조회합니다.
      *
-     * @param member_id 사용자 ID
+     * @param memberId 사용자 ID
      * @return 해당 사용자의 삭제된 게시물 정보와 상태 코드
      */
-    @GetMapping("/member/{member_id}/deleted")
-    public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long member_id) {
-        List<PostDTO> deletedPosts = postService.findDeletedPostsByMemberId(member_id);
-        PostResponseDTO result = new PostResponseDTO(deletedPosts);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    @GetMapping("/member/{memberId}/deleted")
+    public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long memberId) {
+        PostResponseDTO postRes = postService.findDeletedPostsByMemberId(memberId);
+        return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
     /**
