@@ -18,10 +18,14 @@ public class CommentController {
     private final CommentService commentService;
 
     /**
-     * 댓글 생성
+     * 댓글 생성 API
      *
-     * @param dto
-     * @return
+     * @param dto - 댓글 생성을 위한 요청 데이터
+     *             content: 댓글 내용
+     *             memberId: 댓글 작성자의 ID
+     *             postId: 댓글이 달릴 게시글의 ID
+     *             parentCommentId: 대댓글의 경우 부모 댓글의 ID
+     * @return HTTP 상태 코드 201 (생성됨)
      */
     @PostMapping
     public ResponseEntity<Void> addComment(@RequestBody CommentRegiDTO dto) {
@@ -30,11 +34,13 @@ public class CommentController {
     }
 
     /**
-     * 댓글 수정
+     * 댓글 수정 API
      *
-     * @param updateDTO
-     * @param commentId
-     * @return
+     * @param updateDTO - 댓글 수정을 위한 요청 데이터
+     *                   content: 수정할 댓글 내용
+     *                   isDeleted: 댓글 삭제 여부
+     * @param commentId - 수정할 댓글의 ID
+     * @return HTTP 상태 코드 200 (성공)
      */
     @PutMapping("/{commentId}")
     public ResponseEntity<Void> updateComment(@RequestBody CommentUpdateDTO updateDTO, @PathVariable Long commentId) {
@@ -43,10 +49,10 @@ public class CommentController {
     }
 
     /**
-     * 댓글 ID 로 댓글 조회
+     * 특정 댓글 조회 API
      *
-     * @param commentId
-     * @return CommentDTO
+     * @param commentId - 조회할 댓글의 ID
+     * @return 댓글 데이터와 HTTP 상태 코드 200 (성공)
      */
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentDbDTO> getSingleComment(@PathVariable Long commentId) {
@@ -55,9 +61,9 @@ public class CommentController {
     }
 
     /**
-     * 댓글 전체 조회
+     * 모든 댓글 조회 API
      *
-     * @return &lt;List&lt;CommentDTO&gt;&gt;
+     * @return 댓글 목록 데이터와 HTTP 상태 코드 200 (성공)
      */
     @GetMapping
     public ResponseEntity<CommentResponseDTO> getAllComments() {
@@ -66,11 +72,11 @@ public class CommentController {
     }
 
     /**
-     * 특정 유저의 댓글 조회
+     * 특정 유저의 댓글 조회 API
      *
-     * @param memberId
-     * @param isDeleted
-     * @return
+     * @param memberId - 조회할 유저의 ID
+     * @param isDeleted - 삭제된 댓글 포함 여부 (true: 삭제된 댓글 포함, false: 삭제되지 않은 댓글만)
+     * @return 댓글 목록 데이터와 HTTP 상태 코드 200 (성공)
      */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<CommentResponseDTO> getMemberComments(@PathVariable Long memberId, @RequestParam(required = false) boolean isDeleted) {
@@ -79,10 +85,10 @@ public class CommentController {
     }
 
     /**
-     * 특정 댓글 삭제
+     * 특정 댓글 삭제 API
      *
-     * @param commentId
-     * @return
+     * @param commentId - 삭제할 댓글의 ID
+     * @return 삭제 메시지와 HTTP 상태 코드 200 (성공)
      */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
