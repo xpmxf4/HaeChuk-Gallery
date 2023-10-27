@@ -18,14 +18,20 @@ public class CommentController {
     private final CommentService commentService;
 
     /**
-     * 댓글 생성 API
+     * <p>댓글 생성 API</p>
      *
-     * @param dto - 댓글 생성을 위한 요청 데이터
-     *             content: 댓글 내용
-     *             memberId: 댓글 작성자의 ID
-     *             postId: 댓글이 달릴 게시글의 ID
-     *             parentCommentId: 대댓글의 경우 부모 댓글의 ID
-     * @return HTTP 상태 코드 201 (생성됨)
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>dto</b> – 댓글 생성을 위한 요청 데이터:</li>
+     *     <ul>
+     *         <li><b>content:</b> 댓글 내용</li>
+     *         <li><b>memberId:</b> 댓글 작성자의 ID</li>
+     *         <li><b>postId:</b> 댓글이 달릴 게시글의 ID</li>
+     *         <li><b>parentCommentId:</b> 대댓글의 경우 부모 댓글의 ID</li>
+     *     </ul>
+     * </ul>
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
     public ResponseEntity<Void> addComment(@RequestBody CommentRegiDTO dto) {
@@ -34,13 +40,19 @@ public class CommentController {
     }
 
     /**
-     * 댓글 수정 API
+     * <p>댓글 수정 API</p>
      *
-     * @param updateDTO - 댓글 수정을 위한 요청 데이터
-     *                   content: 수정할 댓글 내용
-     *                   isDeleted: 댓글 삭제 여부
-     * @param commentId - 수정할 댓글의 ID
-     * @return HTTP 상태 코드 200 (성공)
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>updateDTO:</b> 댓글 수정을 위한 요청 데이터</li>
+     *     <ul>
+     *         <li><b>content:</b> 수정할 댓글 내용</li>
+     *         <li><b>isDeleted:</b> 댓글 삭제 여부</li>
+     *     </ul>
+     *     <li><b>commentId:</b> 수정할 댓글의 ID</li>
+     * </ul>
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @PutMapping("/{commentId}")
     public ResponseEntity<Void> updateComment(@RequestBody CommentUpdateDTO updateDTO, @PathVariable Long commentId) {
@@ -49,10 +61,14 @@ public class CommentController {
     }
 
     /**
-     * 특정 댓글 조회 API
+     * <p>특정 댓글 조회 API</p>
      *
-     * @param commentId - 조회할 댓글의 ID
-     * @return 댓글 데이터와 HTTP 상태 코드 200 (성공)
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>commentId:</b> 조회할 댓글의 ID</li>
+     * </ul>
+     * <p><b>Returns:</b></p>
+     * <p>댓글 데이터와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentDbDTO> getSingleComment(@PathVariable Long commentId) {
@@ -61,9 +77,10 @@ public class CommentController {
     }
 
     /**
-     * 모든 댓글 조회 API
+     * <p>모든 댓글 조회 API</p>
      *
-     * @return 댓글 목록 데이터와 HTTP 상태 코드 200 (성공)
+     * <p><b>Returns:</b></p>
+     * <p>댓글 목록 데이터와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping
     public ResponseEntity<CommentResponseDTO> getAllComments() {
@@ -72,11 +89,15 @@ public class CommentController {
     }
 
     /**
-     * 특정 유저의 댓글 조회 API
+     * <p>특정 유저의 댓글 조회 API</p>
      *
-     * @param memberId - 조회할 유저의 ID
-     * @param isDeleted - 삭제된 댓글 포함 여부 (true: 삭제된 댓글 포함, false: 삭제되지 않은 댓글만)
-     * @return 댓글 목록 데이터와 HTTP 상태 코드 200 (성공)
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>memberId:</b> 조회할 유저의 ID</li>
+     *     <li><b>isDeleted:</b> 삭제된 댓글 포함 여부 (true: 삭제된 댓글 포함, false: 삭제되지 않은 댓글만)</li>
+     * </ul>
+     * <p><b>Returns:</b></p>
+     * <p>댓글 목록 데이터와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<CommentResponseDTO> getMemberComments(@PathVariable Long memberId, @RequestParam(required = false) boolean isDeleted) {
@@ -85,14 +106,18 @@ public class CommentController {
     }
 
     /**
-     * 특정 댓글 삭제 API
+     * <p>특정 댓글 삭제 API</p>
      *
-     * @param commentId - 삭제할 댓글의 ID
-     * @return 삭제 메시지와 HTTP 상태 코드 200 (성공)
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>commentId:</b> 삭제할 댓글의 ID</li>
+     * </ul>
+     * <p><b>Returns:</b></p>
+     * <p>삭제 메시지와 HTTP 상태 코드 200 (성공)</p>
      */
     @DeleteMapping("/{commentId}")
     public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
         commentService.deleteComment(commentId);
-        return new ResponseEntity<>(commentId + "deleted", HttpStatus.OK);
+        return new ResponseEntity<>(commentId + " deleted", HttpStatus.OK);
     }
 }
