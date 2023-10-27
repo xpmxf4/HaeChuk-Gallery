@@ -21,11 +21,20 @@ public class PostController {
     private final PostService postService;
 
     /**
-     * 게시물 추가 API
-     * 요청받은 데이터를 통해 게시물을 생성합니다.
+     * <p>게시물 추가 API</p>
      *
-     * @param postRegiDTO 게시물 생성에 필요한 데이터
-     * @return 생성된 게시물 정보와 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>postRegiDTO</b> – 게시물 생성에 필요한 데이터:</li>
+     *     <ul>
+     *         <li><b>memberId:</b> 게시물 작성자의 ID. Not nullable.</li>
+     *         <li><b>title:</b> 게시물의 제목. Not blank, 1-50 characters.</li>
+     *         <li><b>content:</b> 게시물의 내용. Not blank, 1-1000 characters.</li>
+     *     </ul>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>생성된 게시물 정보와 HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
     public ResponseEntity<Post> register(@RequestBody PostRegiDTO postRegiDTO) {
@@ -34,12 +43,20 @@ public class PostController {
     }
 
     /**
-     * 특정 게시글 수정 API
-     * 주어진 ID의 게시물을 수정합니다.
+     * <p>특정 게시글 수정 API</p>
      *
-     * @param post_id       게시물 ID
-     * @param postUpdateDTO 수정할 게시물의 정보
-     * @return 수정된 게시물의 ID와 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>post_id</b> – 수정할 게시물의 ID</li>
+     *     <li><b>postUpdateDTO</b> – 수정할 게시물의 정보:</li>
+     *     <ul>
+     *         <li><b>title:</b> 게시물의 제목. Not blank, 1-50 characters.</li>
+     *         <li><b>content:</b> 게시물의 내용. Not blank, 1-1000 characters.</li>
+     *     </ul>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @PutMapping("/{post_id}")
     public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody PostUpdateDTO postUpdateDTO) {
@@ -48,11 +65,15 @@ public class PostController {
     }
 
     /**
-     * 특정 게시글 조회 API
-     * 주어진 ID의 게시물을 조회합니다.
+     * <p>특정 게시글 조회 API</p>
      *
-     * @param post_id 게시물 ID
-     * @return 조회된 게시물 정보와 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>post_id</b> – 조회할 게시물의 ID</li>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>주어진 ID의 게시물 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/{post_id}")
     public ResponseEntity<PostDbDTO> getSinglePost(@PathVariable Long post_id) {
@@ -61,10 +82,10 @@ public class PostController {
     }
 
     /**
-     * 전체 게시글 조회 API
-     * 모든 게시물을 조회합니다.
+     * <p>전체 게시글 조회 API</p>
      *
-     * @return 모든 게시물의 정보와 상태 코드
+     * <p><b>Returns:</b></p>
+     * <p>모든 게시물의 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping
     public ResponseEntity<PostResponseDTO> getAllPosts() {
@@ -73,11 +94,15 @@ public class PostController {
     }
 
     /**
-     * 특정 사용자의 게시글 조회 API
-     * 주어진 사용자 ID의 게시물을 조회합니다.
+     * <p>특정 사용자의 게시글 조회 API</p>
      *
-     * @param member_id 사용자 ID
-     * @return 해당 사용자의 게시물 정보와 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>memberId</b> – 게시물을 조회할 사용자의 ID</li>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>해당 사용자의 게시물 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/member/{memberId}")
     public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId) {
@@ -86,11 +111,15 @@ public class PostController {
     }
 
     /**
-     * 특정 사용자의 삭제된 게시글 조회 API
-     * 주어진 사용자 ID의 삭제된 게시물을 조회합니다.
+     * <p>특정 사용자의 삭제된 게시글 조회 API</p>
      *
-     * @param memberId 사용자 ID
-     * @return 해당 사용자의 삭제된 게시물 정보와 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>memberId</b> – 삭제된 게시물을 조회할 사용자의 ID</li>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>해당 사용자의 삭제된 게시물 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/member/{memberId}/deleted")
     public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long memberId) {
@@ -99,11 +128,15 @@ public class PostController {
     }
 
     /**
-     * 게시물 삭제 API
-     * 주어진 ID의 게시물을 삭제합니다.
+     * <p>게시물 삭제 API</p>
      *
-     * @param post_id 게시물 ID
-     * @return 상태 코드
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>post_id</b> – 삭제할 게시물의 ID</li>
+     * </ul>
+     *
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @DeleteMapping("/{post_id}")
     public ResponseEntity<Long> deletePost(@PathVariable Long post_id) {
