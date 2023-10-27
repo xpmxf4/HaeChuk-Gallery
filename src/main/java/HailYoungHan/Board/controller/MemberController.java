@@ -21,16 +21,20 @@ public class MemberController {
     private final MemberService memberService;
 
     /**
-     * 새로운 회원을 등록합니다.
+     * <p>회원 등록 API</p>
      *
-     * <p>
-     * 이 API는 회원의 이름과 비밀번호를 입력받아 새로운 회원을 등록합니다.
-     * 성공적으로 회원이 등록되면, HTTP 201 Created 상태와 함께
-     * "회원이 성공적으로 생성되었습니다." 메시지를 반환합니다.
-     * </p>
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>memberRegiDTO</b> – 회원 생성에 필요한 데이터:</li>
+     *     <ul>
+     *         <li><b>name:</b> 회원 이름. Not blank, 2-50 characters.</li>
+     *         <li><b>email:</b> 회원 이메일. Not blank, valid email format.</li>
+     *         <li><b>password:</b> 회원 비밀번호. Not blank, minimum 8 characters.</li>
+     *     </ul>
+     * </ul>
      *
-     * @param memberRegiDTO 회원 등록에 필요한 데이터를 포함하며, 이름과 비밀번호, 이메일을 필요합니다.
-     * @return ResponseEntity&lt;String&gt; 문자열 메시지와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     * <p><b>Returns:</b></p>
+     * <p>"회원이 성공적으로 생성되었습니다." 메시지와 HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
     public ResponseEntity<String> register(@RequestBody @Valid MemberRegiDTO memberRegiDTO) {
@@ -39,14 +43,15 @@ public class MemberController {
     }
 
     /**
-     * 단일 회원을 조회합니다.
+     * <p>단일 회원 조회 API</p>
      *
-     * <p>
-     * 주어진 회원 ID를 기반으로 해당 회원의 정보를 조회합니다.
-     * </p>
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>memberId:</b> 조회하고자 하는 회원의 ID.</li>
+     * </ul>
      *
-     * @param memberId 조회하고자 하는 회원의 ID.
-     * @return ResponseEntity&lt;MemberDTO&gt; 조회된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     * <p><b>Returns:</b></p>
+     * <p>조회된 회원 정보와 HTTP 상태 코드 200 (OK)</p>
      */
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberDbDTO> getOneMember(@PathVariable Long memberId) {
@@ -55,9 +60,10 @@ public class MemberController {
     }
 
     /**
-     * 등록된 모든 회원을 조회합니다.
+     * <p>모든 회원 조회 API</p>
      *
-     * @return ResponseEntity&lt;List&lt;MemberDTO&gt;&gt; 조회된 모든 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     * <p><b>Returns:</b></p>
+     * <p>조회된 모든 회원 정보의 리스트와 HTTP 상태 코드 200 (OK)</p>
      */
     @GetMapping
     public ResponseEntity<MemberResponseDTO> getAllMembers() {
@@ -66,14 +72,21 @@ public class MemberController {
     }
 
     /**
-     * 회원 정보를 수정합니다.
+     * <p>회원 정보 수정 API</p>
      *
-     * <p>
-     * 주어진 회원 정보를 기반으로 해당 회원의 정보를 수정합니다.
-     * </p>
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>userId:</b> 수정하고자 하는 회원의 ID.</li>
+     *     <li><b>memberUpdateDTO</b> – 회원 정보 수정에 필요한 데이터:</li>
+     *     <ul>
+     *         <li><b>name:</b> 회원 이름. Nullable, 2-50 characters.</li>
+     *         <li><b>email:</b> 회원 이메일. Nullable, valid email format.</li>
+     *         <li><b>password:</b> 회원 비밀번호. Nullable, minimum 8 characters.</li>
+     *     </ul>
+     * </ul>
      *
-     * @param memberUpdateDTO 수정하고자 하는 회원의 정보.
-     * @return ResponseEntity&lt;Member&gt; 수정된 회원 정보와 HTTP 상태 코드를 포함하는 응답을 반환합니다.
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 202 (Accepted)</p>
      */
     @PutMapping("/{userId}")
     public ResponseEntity<Void> update(@PathVariable Long userId, @RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
@@ -82,18 +95,20 @@ public class MemberController {
     }
 
     /**
-     * 여러 회원들을 삭제합니다.
+     * <p>여러 회원 삭제 API</p>
      *
-     * <p>
-     * 주어진 회원 ID 리스트를 기반으로 해당 회원들을 삭제합니다.
-     * </p>
+     * <p><b>Params:</b></p>
+     * <ul>
+     *     <li><b>ids:</b> 삭제하고자 하는 회원들의 ID 리스트.</li>
+     * </ul>
      *
-     * @param ids 삭제하고자 하는 회원들의 ID 리스트.
-     * @return ResponseEntity&lt;Void&gt; HTTP 상태 코드만을 포함하는 응답을 반환합니다.
+     * <p><b>Returns:</b></p>
+     * <p>HTTP 상태 코드 200 (OK)</p>
      */
     @DeleteMapping
     public ResponseEntity<Void> deleteMembers(@RequestBody List<Long> ids) {
         memberService.deleteMembers(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
