@@ -7,9 +7,7 @@ import HailYoungHan.Board.dto.comment.response.CommentResponseDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
-import HailYoungHan.Board.exception.domain.comment.CommentNotFoundException;
 import HailYoungHan.Board.exception.domain.member.MemberNotFoundException;
-import HailYoungHan.Board.exception.domain.post.PostNotFoundException;
 import HailYoungHan.Board.repository.comment.CommentRepository;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
@@ -18,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static HailYoungHan.Board.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,13 +31,13 @@ public class CommentService {
     @Transactional
     public void addComment(CommentRegiDTO commentRegiDTO) {
         Member author = memberRepository.findById(commentRegiDTO.getMemberId())
-                .orElseThrow(() -> new MemberNotFoundException(commentRegiDTO.getMemberId()));
+                .orElseThrow(() -> throwMemberNotFoundById(commentRegiDTO.getMemberId()));
 
         Post commentedPost = postRepository.findById(commentRegiDTO.getPostId())
-                .orElseThrow(() -> new PostNotFoundException(commentRegiDTO.getPostId()));
+                .orElseThrow(() -> throwPostNotFoundById(commentRegiDTO.getPostId()));
 
         Comment parentComment = commentRepository.findById(commentRegiDTO.getParentCommentId())
-                .orElseThrow(() -> new CommentNotFoundException(commentRegiDTO.getParentCommentId()));
+                .orElseThrow(() -> throwCommentNotFoundById(commentRegiDTO.getParentCommentId()));
 
         Comment comment = Comment.mapFromRegiDto(author, commentedPost, parentComment, commentRegiDTO);
 
@@ -47,7 +47,7 @@ public class CommentService {
     @Transactional
     public void updateComment(Long commentId, CommentUpdateDTO updateDTO) {
         if (!commentRepository.existsById(commentId))
-            throw new CommentNotFoundException(commentId);
+            throwCommentNotFoundById(commentId);
 
         // CommentUpdateDTO ---(map)---> Comment(Entity) 로 map
         Comment comment = updateDTO.mapToEntity(commentId);
@@ -57,7 +57,7 @@ public class CommentService {
 
     public CommentDbDTO getSinglePost(Long commentId) {
         if (!commentRepository.existsById(commentId))
-            throw new CommentNotFoundException(commentId);
+            throwCommentNotFoundById(commentId);
 
         return commentRepository.findDTOById(commentId);
     }
@@ -69,7 +69,7 @@ public class CommentService {
 
     public CommentResponseDTO getMemberComments(Long memberId, boolean isDeleted) {
         if (!memberRepository.existsById(memberId))
-            throw new MemberNotFoundException(memberId);
+            throwMemberNotFoundById(memberId);
 
         return new CommentResponseDTO(
                 commentRepository.findAllDTOsByMemberId(memberId, isDeleted)
@@ -78,7 +78,7 @@ public class CommentService {
 
     public void deleteComment(Long commentId) {
         if (!commentRepository.existsById(commentId))
-            throw new CommentNotFoundException(commentId);
+            throwCommentNotFoundById(commentId);
 
         commentRepository.deleteById(commentId);
     }

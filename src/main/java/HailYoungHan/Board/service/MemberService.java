@@ -5,15 +5,17 @@ import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
 import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
 import HailYoungHan.Board.entity.Member;
+import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.exception.domain.member.MemberNotFoundException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
-import HailYoungHan.Board.exception.domain.member.EmailAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static HailYoungHan.Board.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class MemberService {
         String email = memberRegiDTO.getEmail();
 
         if (memberRepository.existsByEmail(email)) { // email 은 unique 제약 조건이 있음.
-            throw new EmailAlreadyExistsException(email);
+            throwEmailAlreadyExists(email);
         }
 
         Member member = Member.builder()
@@ -46,7 +48,7 @@ public class MemberService {
         MemberDbDTO memberDbDTO = memberRepository.getSingleMember(id);
 
         if (memberDbDTO == null)
-            throw new MemberNotFoundException(id);
+            throwMemberNotFoundById(id);
 
         return memberDbDTO;
     }
@@ -62,7 +64,7 @@ public class MemberService {
         // DB 에 memberUpdateDTO 의 id 에 해당하는 유저 존재 여부 확인
         Member member = memberRepository
                 .findById(userId)
-                .orElseThrow(() -> new MemberNotFoundException(userId));
+                .orElseThrow(() -> throwMemberNotFoundById(userId));
 
         // memberUpdateDTO ---(map)---> Member(Entity) 로 map
         member.mapFromUpdateDto(memberUpdateDTO);

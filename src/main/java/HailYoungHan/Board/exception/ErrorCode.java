@@ -23,26 +23,26 @@ public enum ErrorCode {
     private final String detail; // %s 가 포함된 detail
 
     public static CustomException throwNameAlreadyExists(String name) {
-        return new CustomException(NAME_ALREADY_EXISTS, name);
+        throw new CustomException(NAME_ALREADY_EXISTS, name);
     }
 
     public static CustomException throwEmailAlreadyExists(String email) {
-        return new CustomException(EMAIL_ALREADY_EXISTS, email);
+        throw new CustomException(EMAIL_ALREADY_EXISTS, email);
     }
 
     public static CustomException throwMemberNotFoundById(Long id) {
-        return new CustomException(MEMBER_NOT_FOUND_BY_ID, id.toString());
+        throw new CustomException(MEMBER_NOT_FOUND_BY_ID, id.toString());
     }
 
     public static CustomException throwMemberNotFoundByName(String name) {
-        return new CustomException(MEMBER_NOT_FOUND_BY_NAME, name);
+        throw new CustomException(MEMBER_NOT_FOUND_BY_NAME, name);
     }
 
     public static CustomException throwPostNotFoundById(Long id) {
-        return new CustomException(POST_NOT_FOUND_BY_ID, id.toString());
+        throw new CustomException(POST_NOT_FOUND_BY_ID, id.toString());
     }
 
     public static CustomException throwCommentNotFoundById(Long id) {
-        return new CustomException(COMMENT_NOT_FOUND_BY_ID, id.toString());
+        throw new CustomException(COMMENT_NOT_FOUND_BY_ID, id.toString());
     }
 }
