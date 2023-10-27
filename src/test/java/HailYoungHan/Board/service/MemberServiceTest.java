@@ -2,7 +2,7 @@ package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.entity.Member;
-import HailYoungHan.Board.exception.member.EmailAlreadyExistsException;
+import HailYoungHan.Board.exception.domain.member.EmailAlreadyExistsException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package HailYoungHan.Board.repository.member;
 
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
-import HailYoungHan.Board.exception.member.MemberNotFoundException;
+import HailYoungHan.Board.exception.domain.member.MemberNotFoundException;
 
 import java.util.List;
 

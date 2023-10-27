@@ -1,4 +1,4 @@
-package HailYoungHan.Board.exception.member;
+package HailYoungHan.Board.exception.domain.member;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     /**

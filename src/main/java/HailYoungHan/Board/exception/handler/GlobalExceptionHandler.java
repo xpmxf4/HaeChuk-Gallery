@@ -1,10 +1,10 @@
-package HailYoungHan.Board.exception;
+package HailYoungHan.Board.exception.handler;
 
-import HailYoungHan.Board.exception.comment.CommentNotFoundException;
-import HailYoungHan.Board.exception.member.EmailAlreadyExistsException;
-import HailYoungHan.Board.exception.member.MemberNotFoundException;
-import HailYoungHan.Board.exception.member.NameAlreadyExistsException;
-import HailYoungHan.Board.exception.post.PostNotFoundException;
+import HailYoungHan.Board.exception.domain.comment.CommentNotFoundException;
+import HailYoungHan.Board.exception.domain.member.EmailAlreadyExistsException;
+import HailYoungHan.Board.exception.domain.member.MemberNotFoundException;
+import HailYoungHan.Board.exception.domain.member.NameAlreadyExistsException;
+import HailYoungHan.Board.exception.domain.post.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

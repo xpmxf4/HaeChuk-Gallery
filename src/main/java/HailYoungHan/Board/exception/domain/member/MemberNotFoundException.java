@@ -1,4 +1,4 @@
-package HailYoungHan.Board.exception.member;
+package HailYoungHan.Board.exception.domain.member;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
