@@ -36,7 +36,7 @@ public class Member extends SysTimeCols {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    public void mapFromUpdateDto(MemberUpdateDTO updateDTO) {
+    public void mapFromUpdateDto(MemberUpdateDTO updateDTO) { // if문을 왜 씀?
         if (updateDTO.getName() != null)
             this.name = updateDTO.getName();
         if (updateDTO.getPassword() != null)

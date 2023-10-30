@@ -3,8 +3,6 @@ package HailYoungHan.Board.exception.handler;
 import HailYoungHan.Board.exception.CustomException;
 import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.exception.ErrorResponse;
-import HailYoungHan.Board.exception.domain.comment.CommentNotFoundException;
-import HailYoungHan.Board.exception.domain.post.PostNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

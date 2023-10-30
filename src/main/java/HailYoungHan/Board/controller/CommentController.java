@@ -72,8 +72,9 @@ public class CommentController {
      */
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentDbDTO> getSingleComment(@PathVariable Long commentId) {
-        CommentDbDTO memberComment = commentService.getSinglePost(commentId);
-        return new ResponseEntity<>(memberComment, HttpStatus.OK);
+//        CommentDbDTO memberComment = commentService.getSinglePost(commentId);
+//        return new ResponseEntity<>(memberComment, HttpStatus.OK);
+        return null;
     }
 
     /**

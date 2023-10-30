@@ -22,11 +22,10 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return queryFactory
                 .select(new QMemberDbDTO(
                         member.id,
-                        member.name,
-                        member.email
+                        member.email,
+                        member.name
                 ))
                 .from(member)
-                .where(member.id.eq(id))
                 .fetchOne();
     }
 
