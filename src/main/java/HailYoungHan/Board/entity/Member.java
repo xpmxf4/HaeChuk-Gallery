@@ -37,12 +37,9 @@ public class Member extends SysTimeCols {
     private List<Comment> comments = new ArrayList<>();
 
     public void mapFromUpdateDto(MemberUpdateDTO updateDTO) { // if문을 왜 씀?
-        if (updateDTO.getName() != null)
-            this.name = updateDTO.getName();
-        if (updateDTO.getPassword() != null)
-            this.password = updateDTO.getPassword();
-        if (updateDTO.getEmail() != null)
-            this.email = updateDTO.getEmail();
+        this.name = updateDTO.getName();
+        this.password = updateDTO.getPassword();
+        this.email = updateDTO.getEmail();
     }
 
     //===연관관계 메서드===//
