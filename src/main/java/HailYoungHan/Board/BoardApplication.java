@@ -17,8 +17,6 @@ import java.util.Optional;
 public class BoardApplication {
 
     public static void main(String[] args) {
-        log.info(String.valueOf(DomainNameUtil.isValidEmailDomainAddress(".com")));
-
         SpringApplication.run(BoardApplication.class, args);
     }
 

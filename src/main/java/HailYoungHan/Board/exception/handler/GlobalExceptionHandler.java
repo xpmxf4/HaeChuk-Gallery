@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class, RuntimeException.class})
-    protected ResponseEntity<ErrorResponse> catchException(RuntimeException e) {
-        log.error("예외 핸들링", e);
+    protected ResponseEntity<ErrorResponse> catchException(Exception e) {
+        log.error(e.getMessage());
         return ResponseEntity.internalServerError()
                 .body(new ErrorResponse(e.getMessage(), e.toString()));
     }

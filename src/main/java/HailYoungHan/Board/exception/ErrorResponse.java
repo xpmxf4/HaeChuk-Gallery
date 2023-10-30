@@ -1,7 +1,5 @@
 package HailYoungHan.Board.exception;
 
-import org.springframework.http.HttpStatus;
-
 import java.util.List;
 
 public class ErrorResponse {
