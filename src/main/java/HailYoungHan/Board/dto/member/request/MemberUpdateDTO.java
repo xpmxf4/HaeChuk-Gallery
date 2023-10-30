@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -15,7 +16,7 @@ public class MemberUpdateDTO {
     @Nullable // @NotBlank 박으라고
     private String name;
 
-    @Email(message = "유효한 이메일 형식이 아닙니다.") // 민재왈 : 씨발롬아 뚫린다니까, @Pattern 쓰라고
+    @Pattern(regexp = "^[A-Za-z]+@[A-Za-z]+\\.[A-Za-z]{2,}$")
     @Nullable // @NotBlank
     private String email;
 

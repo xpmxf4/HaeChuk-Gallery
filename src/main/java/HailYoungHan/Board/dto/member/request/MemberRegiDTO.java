@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -17,7 +18,7 @@ public class MemberRegiDTO {
     private String name;
 
     @NotBlank(message = "회원 등록시 이메일은 필수입니다.")
-    @Email(message = "유효한 이메일 형식이 아닙니다")
+    @Pattern(regexp = "^[A-Za-z]+@[A-Za-z]+\\.[A-Za-z]{2,}$")
     private String email;
 
     @NotBlank(message = "회원 등록시 비밀번호는 필수입니다.")
