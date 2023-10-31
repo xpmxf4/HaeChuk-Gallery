@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.Optional;
 
 @SpringBootApplication
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @Slf4j
 public class BoardApplication {
 
@@ -22,6 +22,6 @@ public class BoardApplication {
 
     @Bean
     AuditorAware<String> auditorAware() {
-        return () -> Optional.of("");
+        return () -> Optional.of("CoRaveler");
     }
 }

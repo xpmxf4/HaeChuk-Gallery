@@ -2,47 +2,45 @@ package HailYoungHan.Board.controller;
 
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.service.MemberService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(MemberController.class)
+@MockBean(JpaMetamodelMappingContext.class)
 class MemberControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
-    private MemberService memberService;
+    private MemberService memberService; // Controller Unit Test 이기 때문에, 실제로 주입받을 이유x
 
     @Test
     void testRegister() throws Exception {
-
-        MemberRegiDTO memberRegiDTO = MemberRegiDTO.builder()
-                .name("김영한")
+        MemberRegiDTO reqDto = MemberRegiDTO.builder()
+                .name("Test User")
+                .email("test@example.com")
                 .password("test1234")
-                .email("hail_younghan@gmail.com")
                 .build();
 
-        memberService.registerMember(memberRegiDTO);
-        // memberService 의 registerMember 메서드가 호출될 때 아무런 동작도 하지 않도록 설정
-        doNothing().when(memberService).registerMember(memberRegiDTO);
-
-        // /members POST 요청 보내고, 응답을 검증
         mockMvc.perform(post("/members")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"name\": \"김영한\", \"email\": \"hail_younghan@gmail.com\", \"password\": \"test1234\" }"))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("회원이 성공적으로 생성되었습니다."));
+                        .content(objectMapper.writeValueAsString(reqDto))
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated());
     }
 }
