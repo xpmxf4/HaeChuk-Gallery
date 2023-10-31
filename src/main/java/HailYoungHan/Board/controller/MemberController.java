@@ -79,9 +79,9 @@ public class MemberController {
      *     <li><b>userId:</b> 수정하고자 하는 회원의 ID.</li>
      *     <li><b>memberUpdateDTO</b> – 회원 정보 수정에 필요한 데이터:</li>
      *     <ul>
-     *         <li><b>name:</b> 회원 이름. Nullable, 2-50 characters.</li>
-     *         <li><b>email:</b> 회원 이메일. Nullable, valid email format.</li>
-     *         <li><b>password:</b> 회원 비밀번호. Nullable, minimum 8 characters.</li>
+     *         <li><b>name:</b> 회원 이름. NotBlank, 2-50 characters.</li>
+     *         <li><b>email:</b> 회원 이메일. NotBlank, valid email format.</li>
+     *         <li><b>password:</b> 회원 비밀번호. NotBlank, minimum 8 characters.</li>
      *     </ul>
      * </ul>
      *

@@ -2,9 +2,6 @@ package HailYoungHan.Board.dto.member.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
-
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
