@@ -2,6 +2,7 @@ package HailYoungHan.Board.controller;
 
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
 import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
 import HailYoungHan.Board.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -112,11 +113,12 @@ class MemberControllerTest {
     @Test
     public void testUpdate() throws Exception {
         // given - 상황 만들기
+        Long memberId = 1L;
 
         //when - 동작
 
         //then - 검증
-     }
+    }
 
     @Test
     void testDeleteMembers() {
