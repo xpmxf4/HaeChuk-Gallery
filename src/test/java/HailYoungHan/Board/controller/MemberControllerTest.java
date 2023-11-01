@@ -110,8 +110,13 @@ class MemberControllerTest {
     }
 
     @Test
-    void testUpdate() {
-    }
+    public void testUpdate() throws Exception {
+        // given - 상황 만들기
+
+        //when - 동작
+
+        //then - 검증
+     }
 
     @Test
     void testDeleteMembers() {

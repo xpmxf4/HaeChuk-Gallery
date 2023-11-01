@@ -76,7 +76,7 @@ public class MemberController {
      *
      * <p><b>Params:</b></p>
      * <ul>
-     *     <li><b>userId:</b> 수정하고자 하는 회원의 ID.</li>
+     *     <li><b>memberId:</b> 수정하고자 하는 회원의 ID.</li>
      *     <li><b>memberUpdateDTO</b> – 회원 정보 수정에 필요한 데이터:</li>
      *     <ul>
      *         <li><b>name:</b> 회원 이름. NotBlank, 2-50 characters.</li>
@@ -88,9 +88,9 @@ public class MemberController {
      * <p><b>Returns:</b></p>
      * <p>HTTP 상태 코드 202 (Accepted)</p>
      */
-    @PutMapping("/{userId}")
-    public ResponseEntity<Void> update(@PathVariable Long userId, @RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
-        memberService.updateMember(userId, memberUpdateDTO);
+    @PutMapping("/{memberId}")
+    public ResponseEntity<Void> update(@PathVariable Long memberId, @RequestBody @Valid MemberUpdateDTO memberUpdateDTO) {
+        memberService.updateMember(memberId, memberUpdateDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
