@@ -109,7 +109,7 @@ class MemberControllerTest {
     @Test
     public void testUpdate() throws Exception {
         // given - 상황 만들기
-        Long memberId = 1L;
+        long memberId = 1L;
         MemberUpdateDTO updateDTO = MemberUpdateDTO.builder()
                 .name("test")
                 .email("test@example.com")
