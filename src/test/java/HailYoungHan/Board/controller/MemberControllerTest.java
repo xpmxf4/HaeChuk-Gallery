@@ -13,14 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -52,7 +49,6 @@ class MemberControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
-
 
     @Test
     public void testGetOneMember() throws Exception {
@@ -131,6 +127,20 @@ class MemberControllerTest {
     }
 
     @Test
-    void testDeleteMembers() {
+    public void testDeleteMembers() throws Exception {
+        // given - 상황 만들기
+        List<Long> ids = new ArrayList<>();
+        for (long i = 1; i <= 3; i++) {
+            ids.add(i);
+        }
+
+        // when - 동작
+        ResultActions perform = mockMvc.perform(delete("/members")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(ids)));
+
+        // then - 검증
+        perform
+                .andExpect(status().isOk());
     }
 }
