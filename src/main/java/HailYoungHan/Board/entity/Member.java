@@ -30,10 +30,12 @@ public class Member extends SysTimeCols {
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @Builder.Default
     private List<Post> posts = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
     public void mapFromUpdateDto(MemberUpdateDTO updateDTO) { // if문을 왜 씀?
