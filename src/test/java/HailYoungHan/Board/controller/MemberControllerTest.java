@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
 import java.util.ArrayList;
@@ -21,8 +22,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -114,10 +114,20 @@ class MemberControllerTest {
     public void testUpdate() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
+        MemberUpdateDTO updateDTO = MemberUpdateDTO.builder()
+                .name("test")
+                .email("test@example.com")
+                .password("test1234")
+                .build();
 
         //when - 동작
+        ResultActions perform = mockMvc.perform(put("/members/" + memberId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updateDTO)
+                ));
 
         //then - 검증
+        perform.andExpect(status().isAccepted());
     }
 
     @Test
