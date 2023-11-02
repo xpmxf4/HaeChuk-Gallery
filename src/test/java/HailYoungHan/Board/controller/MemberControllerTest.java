@@ -36,7 +36,7 @@ class MemberControllerTest {
     private MemberService memberService; // Controller Unit Test 이기 때문에, 실제로 주입받을 이유x
 
     @Test
-    void testRegister() throws Exception {
+    void shouldCreateMemberWithStatusCreated() throws Exception {
         MemberRegiDTO reqDto = MemberRegiDTO.builder()
                 .name("Test User")
                 .email("test@example.com")
@@ -51,7 +51,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void testGetOneMember() throws Exception {
+    public void shouldGetMemberByIdWithStatusOk() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         MemberDbDTO expectedMember = MemberDbDTO.builder()
@@ -76,7 +76,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void testGetAllMembers() throws Exception {
+    public void shouldGetAllMembersWithStatusOk() throws Exception {
         // given - 상황 만들기
         List<MemberDbDTO> expectedMembers = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -107,7 +107,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void shouldUpdateMemberWithStatusAccepted() throws Exception {
         // given - 상황 만들기
         long memberId = 1L;
         MemberUpdateDTO updateDTO = MemberUpdateDTO.builder()
@@ -127,7 +127,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void testDeleteMembers() throws Exception {
+    public void shouldDeleteMultipleMembersWithStatusOk() throws Exception {
         // given - 상황 만들기
         List<Long> ids = new ArrayList<>();
         for (long i = 1; i <= 3; i++) {
