@@ -1,8 +1,10 @@
 package HailYoungHan.Board.controller;
 
+import HailYoungHan.Board.controller.PostController;
 import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,8 +15,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.hamcrest.Matchers.is;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -99,38 +107,90 @@ class PostControllerTest {
     }
 
     @Test
-    public void getGetAllPosts() throws Exception {
-        // given - 상황 만들기
+    public void testGetAllPosts() throws Exception {
+        // given
+        List<PostDbDTO> allPosts = Arrays.asList(
+                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
+                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false)
+        );
+        PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
+        given(postService.getAllPosts()).willReturn(postResponseDTO);
 
-        //when - 동작
+        // when
+        ResultActions perform = mockMvc.perform(get("/posts")
+                .contentType(MediaType.APPLICATION_JSON));
 
-        //then - 검증
+        // then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.posts", hasSize(2)))
+                .andExpect(jsonPath("$.posts[0].title", is("Title1")))
+                .andExpect(jsonPath("$.posts[1].title", is("Title2")));
     }
 
     @Test
     public void testGetPostsByMemberId() throws Exception {
-        // given - 상황 만들기
+        // given
+        Long memberId = 1L;
+        List<PostDbDTO> memberPosts = Arrays.asList(
+                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
+                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false)
+        );
+        PostResponseDTO postResponseDTO = new PostResponseDTO(memberPosts);
+        given(postService.getPostsByMemberId(memberId))
+                .willReturn(postResponseDTO);
 
-        //when - 동작
+        // when
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId)
+                .contentType(MediaType.APPLICATION_JSON));
 
-        //then - 검증
+        // then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.posts", hasSize(1)))
+                .andExpect(jsonPath("$.posts[0].id", is(1L)))
+                .andExpect(jsonPath("$.posts[1].id", is(2L)));
     }
 
     @Test
     public void testGetDeletedPostsByMemberId() throws Exception {
-        // given - 상황 만들기
+        // given
+        Long memberId = 1L;
+        List<PostDbDTO> deletedPosts = Arrays.asList(
+                new PostDbDTO(1L, "Deleted Title", "Deleted Content", "Writer1", true),
+                new PostDbDTO(2L, "Deleted Title2", "Deleted Content 2", "Writer1", true)
+        );
+        PostResponseDTO postResponseDTO = new PostResponseDTO(deletedPosts);
+        given(postService.findDeletedPostsByMemberId(memberId)).willReturn(postResponseDTO);
 
-        //when - 동작
+        // when
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "/deleted")
+                .contentType(MediaType.APPLICATION_JSON));
 
-        //then - 검증
+        // then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.posts", hasSize(1)))
+                .andExpect(jsonPath("$.posts[0].title", is("Deleted Title")))
+                .andExpect(jsonPath("$.posts[0].writer", is("Writer1")))
+                .andExpect(jsonPath("$.posts[0].isDeleted", is(true)))
+                .andExpect(jsonPath("$.posts[1].title", is("Deleted Title2")))
+                .andExpect(jsonPath("$.posts[1].writer", is("Writer1")))
+                .andExpect(jsonPath("$.posts[1].isDeleted", is(true)));
     }
 
     @Test
     public void testDeletePost() throws Exception {
-        // given - 상황 만들기
+        // given
+        Long postId = 1L;
+        doNothing().when(postService).deletePost(postId);
 
-        //when - 동작
+        // when
+        ResultActions perform = mockMvc.perform(delete("/posts/" + postId)
+                .contentType(MediaType.APPLICATION_JSON));
 
-        //then - 검증
+        // then
+        perform
+                .andExpect(status().isOk());
     }
 }
