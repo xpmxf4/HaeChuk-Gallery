@@ -23,6 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+// test_<Action>_<Resource>_<Condition>
 @WebMvcTest(PostController.class)
 class PostControllerTest {
 
@@ -36,7 +37,7 @@ class PostControllerTest {
     private PostService postService;
 
     @Test
-    public void shouldCreatePostWhenDataIsValid() throws Exception {
+    public void test_Create_Post_ValidData_Success() throws Exception {
         // given - 상황 만들기
         PostRegiDTO postRegiDTO = PostRegiDTO.builder()
                 .memberId(1L)
@@ -55,7 +56,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldUpdatePostWhenPostExistsAndDataIsValid() throws Exception {
+    public void test_Update_Post_Exists_ValidData_Success() throws Exception {
         // given - 상황 만들기
         long postId = 1;
         PostUpdateDTO updateDTO = PostUpdateDTO.builder()
@@ -75,7 +76,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldReturnSinglePostWhenPostIdIsGiven() throws Exception {
+    public void test_Get_SinglePost_By_PostId_Success() throws Exception {
         // given - 상황 만들기
         Long postId = 1L;
         PostDbDTO expectedPost = PostDbDTO.builder()
@@ -104,7 +105,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldReturnAllPostsWhenRequested() throws Exception {
+    public void test_Get_AllPosts_Success() throws Exception {
         // given
         List<PostDbDTO> allPosts = Arrays.asList(
                 new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
@@ -126,7 +127,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldReturnPostsForGivenMemberId() throws Exception {
+    public void test_Get_Posts_By_MemberId_Success() throws Exception {
         // given
         Long memberId = 1L;
         List<PostDbDTO> memberPosts = Arrays.asList(
@@ -150,7 +151,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldReturnDeletedPostsForGivenMemberId() throws Exception {
+    public void test_Get_DeletedPosts_By_MemberId_Success() throws Exception {
         // given
         Long memberId = 1L;
         List<PostDbDTO> deletedPosts = Arrays.asList(
@@ -177,7 +178,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void shouldDeletePostWhenPostIdIsProvided() throws Exception {
+    public void test_Delete_Post_By_PostId_Success() throws Exception {
         // given
         Long postId = 1L;
         doNothing().when(postService).deletePost(postId);
