@@ -39,7 +39,7 @@ class PostControllerTest {
     private PostService postService;
 
     @Test
-    public void testRegister() throws Exception {
+    public void shouldCreatePostWhenDataIsValid() throws Exception {
         // given - 상황 만들기
         PostRegiDTO postRegiDTO = PostRegiDTO.builder()
                 .memberId(1L)
@@ -58,7 +58,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void shouldUpdatePostWhenPostExistsAndDataIsValid() throws Exception {
         // given - 상황 만들기
         long postId = 1;
         PostUpdateDTO updateDTO = PostUpdateDTO.builder()
@@ -78,7 +78,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void testGetSinglePost() throws Exception {
+    public void shouldReturnSinglePostWhenPostIdIsGiven() throws Exception {
         // given - 상황 만들기
         Long postId = 1L;
         PostDbDTO expectedPost = PostDbDTO.builder()
@@ -107,7 +107,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void testGetAllPosts() throws Exception {
+    public void shouldReturnAllPostsWhenRequested() throws Exception {
         // given
         List<PostDbDTO> allPosts = Arrays.asList(
                 new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
@@ -129,7 +129,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void testGetPostsByMemberId() throws Exception {
+    public void shouldReturnPostsForGivenMemberId() throws Exception {
         // given
         Long memberId = 1L;
         List<PostDbDTO> memberPosts = Arrays.asList(
@@ -147,13 +147,13 @@ class PostControllerTest {
         // then
         perform
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.posts", hasSize(1)))
-                .andExpect(jsonPath("$.posts[0].id", is(1L)))
-                .andExpect(jsonPath("$.posts[1].id", is(2L)));
+                .andExpect(jsonPath("$.posts", hasSize(2)))
+                .andExpect(jsonPath("$.posts[0].id", is(1)))
+                .andExpect(jsonPath("$.posts[1].id", is(2)));
     }
 
     @Test
-    public void testGetDeletedPostsByMemberId() throws Exception {
+    public void shouldReturnDeletedPostsForGivenMemberId() throws Exception {
         // given
         Long memberId = 1L;
         List<PostDbDTO> deletedPosts = Arrays.asList(
@@ -170,7 +170,7 @@ class PostControllerTest {
         // then
         perform
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.posts", hasSize(1)))
+                .andExpect(jsonPath("$.posts", hasSize(2)))
                 .andExpect(jsonPath("$.posts[0].title", is("Deleted Title")))
                 .andExpect(jsonPath("$.posts[0].writer", is("Writer1")))
                 .andExpect(jsonPath("$.posts[0].isDeleted", is(true)))
@@ -180,7 +180,7 @@ class PostControllerTest {
     }
 
     @Test
-    public void testDeletePost() throws Exception {
+    public void shouldDeletePostWhenPostIdIsProvided() throws Exception {
         // given
         Long postId = 1L;
         doNothing().when(postService).deletePost(postId);
