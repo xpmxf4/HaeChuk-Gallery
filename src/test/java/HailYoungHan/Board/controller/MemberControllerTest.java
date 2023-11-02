@@ -1,5 +1,6 @@
 package HailYoungHan.Board.controller;
 
+import HailYoungHan.Board.controller.MemberController;
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
@@ -36,7 +37,7 @@ class MemberControllerTest {
     private MemberService memberService; // Controller Unit Test 이기 때문에, 실제로 주입받을 이유x
 
     @Test
-    void shouldCreateMemberWithStatusCreated() throws Exception {
+    void test_Create_Member_ValidData_Success() throws Exception {
         MemberRegiDTO reqDto = MemberRegiDTO.builder()
                 .name("Test User")
                 .email("test@example.com")
@@ -51,7 +52,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void shouldGetMemberByIdWithStatusOk() throws Exception {
+    public void test_Get_Member_By_Id_Success() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         MemberDbDTO expectedMember = MemberDbDTO.builder()
@@ -76,7 +77,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void shouldGetAllMembersWithStatusOk() throws Exception {
+    public void test_Get_All_Members_Success() throws Exception {
         // given - 상황 만들기
         List<MemberDbDTO> expectedMembers = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -107,7 +108,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void shouldUpdateMemberWithStatusAccepted() throws Exception {
+    public void test_Update_Member_ValidData_Accepted() throws Exception {
         // given - 상황 만들기
         long memberId = 1L;
         MemberUpdateDTO updateDTO = MemberUpdateDTO.builder()
@@ -127,7 +128,7 @@ class MemberControllerTest {
     }
 
     @Test
-    public void shouldDeleteMultipleMembersWithStatusOk() throws Exception {
+    public void test_Delete_Multiple_Members_Success() throws Exception {
         // given - 상황 만들기
         List<Long> ids = new ArrayList<>();
         for (long i = 1; i <= 3; i++) {
