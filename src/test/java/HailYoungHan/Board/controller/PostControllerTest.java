@@ -1,5 +1,6 @@
 package HailYoungHan.Board.controller;
 
+import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
 import HailYoungHan.Board.service.PostService;
@@ -12,9 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(PostController.class)
 class PostControllerTest {
@@ -70,10 +72,30 @@ class PostControllerTest {
     @Test
     public void testGetSinglePost() throws Exception {
         // given - 상황 만들기
+        Long postId = 1L;
+        PostDbDTO expectedPost = PostDbDTO.builder()
+                .id(postId)
+                .title("title")
+                .content("content")
+                .writer("writer")
+                .isDeleted(false)
+                .build();
+
+        given(postService.getSinglePost(postId))
+                .willReturn(expectedPost);
 
         //when - 동작
+        ResultActions perform = mockMvc.perform(get("/posts/" + postId)
+                .contentType(MediaType.APPLICATION_JSON));
 
         //then - 검증
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(postId.intValue())))
+                .andExpect(jsonPath("$.title", is("title")))
+                .andExpect(jsonPath("$.content", is("content")))
+                .andExpect(jsonPath("$.writer", is("writer")))
+                .andExpect(jsonPath("$.isDeleted", is(false)));
     }
 
     @Test

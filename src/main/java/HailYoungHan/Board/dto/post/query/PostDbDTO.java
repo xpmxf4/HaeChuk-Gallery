@@ -1,9 +1,11 @@
 package HailYoungHan.Board.dto.post.query;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,7 +32,7 @@ public class PostDbDTO {
     private String writer;
 
     @NotNull
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     @QueryProjection
     public PostDbDTO(Long id, String title, String content, String writer, boolean isDeleted) {
