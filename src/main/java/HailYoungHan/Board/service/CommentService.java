@@ -59,7 +59,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public CommentDbDTO getSinglePost(Long commentId) {
+    public CommentDbDTO getSingleCommentById(Long commentId) {
         if (!commentRepository.existsById(commentId))
             throw new CustomException(COMMENT_NOT_FOUND_BY_ID, commentId);
 
@@ -71,12 +71,21 @@ public class CommentService {
         return new CommentResponseDTO(allComments);
     }
 
-    public CommentResponseDTO getMemberComments(Long memberId, boolean isDeleted) {
+    public CommentResponseDTO getMemberAllComments(Long memberId) {
         if (!memberRepository.existsById(memberId))
             throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
 
         return new CommentResponseDTO(
-                commentRepository.findAllDTOsByMemberId(memberId, isDeleted)
+                commentRepository.findAllDTOsByMemberId(memberId)
+        );
+    }
+
+    public CommentResponseDTO getMemberAllDeletedComments(Long memberId) {
+        if(!memberRepository.existsById(memberId))
+            throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
+
+        return new CommentResponseDTO(
+                commentRepository.findAllDeletedDTOsByMemberId(memberId, true)
         );
     }
 

@@ -34,7 +34,7 @@ public class CommentController {
      * <p>HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
-    public ResponseEntity<Void> addComment(@RequestBody CommentRegiDTO dto) {
+    public ResponseEntity<Void> createComment(@RequestBody CommentRegiDTO dto) {
         commentService.addComment(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -72,9 +72,8 @@ public class CommentController {
      */
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentDbDTO> getSingleComment(@PathVariable Long commentId) {
-//        CommentDbDTO memberComment = commentService.getSinglePost(commentId);
-//        return new ResponseEntity<>(memberComment, HttpStatus.OK);
-        return null;
+        CommentDbDTO memberComment = commentService.getSingleCommentById(commentId);
+        return new ResponseEntity<>(memberComment, HttpStatus.OK);
     }
 
     /**
@@ -95,14 +94,19 @@ public class CommentController {
      * <p><b>Params:</b></p>
      * <ul>
      *     <li><b>memberId:</b> 조회할 유저의 ID</li>
-     *     <li><b>isDeleted:</b> 삭제된 댓글 포함 여부 (true: 삭제된 댓글 포함, false: 삭제되지 않은 댓글만)</li>
      * </ul>
      * <p><b>Returns:</b></p>
      * <p>댓글 목록 데이터와 HTTP 상태 코드 200 (성공)</p>
      */
-    @GetMapping("/member/{memberId}")
-    public ResponseEntity<CommentResponseDTO> getMemberComments(@PathVariable Long memberId, @RequestParam(required = false) boolean isDeleted) {
-        CommentResponseDTO commentRes = commentService.getMemberComments(memberId, isDeleted);
+    @GetMapping("/members/{memberId}/")
+    public ResponseEntity<CommentResponseDTO> getMemberComments(@PathVariable Long memberId) {
+        CommentResponseDTO commentRes = commentService.getMemberAllComments(memberId);
+        return new ResponseEntity<>(commentRes, HttpStatus.OK);
+    }
+
+    @GetMapping("/members/{memberId}/isDeleted")
+    public ResponseEntity<CommentResponseDTO> getMemberDeletedComments(@PathVariable Long memberId) {
+        CommentResponseDTO commentRes = commentService.getMemberAllDeletedComments(memberId);
         return new ResponseEntity<>(commentRes, HttpStatus.OK);
     }
 

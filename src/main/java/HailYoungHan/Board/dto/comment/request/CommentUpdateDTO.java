@@ -1,11 +1,15 @@
 package HailYoungHan.Board.dto.comment.request;
 
 import HailYoungHan.Board.entity.Comment;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@Builder
+@Getter
 public class CommentUpdateDTO {
 
     @NotBlank
@@ -13,7 +17,8 @@ public class CommentUpdateDTO {
     private String content;
 
     @NotNull
-    private Boolean isDeleted;
+    @Builder.Default
+    private Boolean isDeleted = false;
 
     public Comment mapToEntity(Long commentId) {
         return Comment.builder()

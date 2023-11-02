@@ -8,11 +8,12 @@ import java.util.List;
 public interface CommentCustomRepository {
 
 
-    public CommentDbDTO findDTOById(Long commentId);
+    CommentDbDTO findDTOById(Long commentId);
 
-    public List<CommentDbDTO> findAllDTOs();
+    List<CommentDbDTO> findAllDTOs();
 
-    public List<CommentDbDTO> findAllDTOsByMemberId(Long memberId, boolean isDeleted);
+    public List<CommentDbDTO> findAllDTOsByMemberId(Long memberId);
 
-    public List<CommentDbDTO> findAllDTOsByMemberIdAndIsDeleted(Long memberId);
+    List<CommentDbDTO> findAllDeletedDTOsByMemberId(Long memberId, boolean isDeleted);
+
 }

@@ -1,6 +1,7 @@
 package HailYoungHan.Board.dto.comment.request;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
+@Builder
 public class CommentRegiDTO {
 
     @NotBlank
