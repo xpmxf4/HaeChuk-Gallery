@@ -4,6 +4,7 @@ import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
 import HailYoungHan.Board.dto.post.response.PostResponseDTO;
+import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -75,6 +77,7 @@ class PostControllerTest {
                 .andExpect(status().isOk());
     }
 
+
     @Test
     public void test_Get_SinglePost_By_PostId_Success() throws Exception {
         // given - 상황 만들기
@@ -111,6 +114,7 @@ class PostControllerTest {
                 new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
                 new PostDbDTO(2L, "Title2", "Content2", "Writer2", false)
         );
+
         PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
         given(postService.getAllPosts()).willReturn(postResponseDTO);
 
@@ -124,6 +128,48 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.posts", hasSize(2)))
                 .andExpect(jsonPath("$.posts[0].title", is("Title1")))
                 .andExpect(jsonPath("$.posts[1].title", is("Title2")));
+    }
+
+    @Test
+    public void test_Singleton_Get_AllPosts_Success() throws Exception {
+        // given
+        List<PostDbDTO> allPosts = Collections.singletonList(
+                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false)
+        );
+
+        PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
+        given(postService.getAllPosts()).willReturn(postResponseDTO);
+
+        // when
+        ResultActions perform = mockMvc.perform(get("/posts")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.posts", hasSize(1)))
+                .andExpect(jsonPath("$.posts[0].title", is("Title1")));
+    }
+
+    @Test
+    public void test_Arrays_asList_Get_AllPosts_Success() throws Exception {
+        // given
+        List<PostDbDTO> allPosts = Arrays.asList(
+                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false)
+        );
+
+        PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
+        given(postService.getAllPosts()).willReturn(postResponseDTO);
+
+        // when
+        ResultActions perform = mockMvc.perform(get("/posts")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        perform
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.posts", hasSize(1)))
+                .andExpect(jsonPath("$.posts[0].title", is("Title1")));
     }
 
     @Test
