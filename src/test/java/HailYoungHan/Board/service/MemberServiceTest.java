@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static HailYoungHan.Board.exception.ErrorCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -82,7 +83,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원 정보를 정확하게 조회하여 반환하는가?")
+    @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원 정보를 정확하게 조회하여 반환하는 가?")
     public void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
@@ -175,5 +176,43 @@ class MemberServiceTest {
         // 이는 실제로 DB 에서 불러온 엔티티객체 내부 함수를 호출하는 격이라 힘들다.
         // 적어도 Member 내부에 map 함수가 있다면.
         // 별도의 mapper 를 써야할 수도...?
+    }
+
+    @Test
+    @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원의 정보를 수정하는 가?")
+    public void updateMember_ShouldCallMapFromUpdateDto_WhenMemberIdIsValid() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        MemberUpdateDTO updateDto = MemberUpdateDTO.builder()
+                .name("New")
+                .email("new@example.com")
+                .password("new password")
+                .build();
+        Member memberToUpdate = Member.builder()
+                .id(1L)
+                .name("old name")
+                .email("old@example.com")
+                .password("old password")
+                .build();
+        given(memberRepository.findById(memberId))
+                .willReturn(Optional.of(memberToUpdate));
+
+        // when - 동작
+        memberService.updateMember(memberId, updateDto);
+
+        // then - 검증
+        assertThat(memberToUpdate.getName()).isEqualTo(updateDto.getName());
+        assertThat(memberToUpdate.getEmail()).isEqualTo(updateDto.getEmail());
+        assertThat(memberToUpdate.getPassword()).isEqualTo(updateDto.getPassword());
+    }
+
+    @Test
+    public void deleteMembers_ShouldThrowException_WhenIdsIsEmpty() throws Exception {
+        // given - 상황 만들기
+
+
+        // when - 동작
+
+        // then - 검증
     }
 }
