@@ -2,6 +2,7 @@ package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
 import HailYoungHan.Board.exception.ErrorCode;
@@ -14,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static HailYoungHan.Board.exception.ErrorCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +34,7 @@ class MemberServiceTest {
     private MemberService memberService;
 
     @Test
-    @DisplayName("이미 존재하는 이메일로 회원 등록 시 CustomException을 발생시켜야 한다")
+    @DisplayName("이미 존재하는 이메일로 회원 등록 시 CustomException 을 발생시켜야 한다")
     public void registerMember_ShouldThrowException_WhenEmailAlreadyExists() {
 //        System.out.println("============================================="+memberRepository.getClass()); // MemberRepository$MockitoMock$q8bTQU93
 //        System.out.println("============================================="+memberService.getClass());    // MemberService
@@ -94,11 +98,13 @@ class MemberServiceTest {
 
         // then - 검증
         assertThat(actualMember).isEqualTo(expectedMember);
-        then(memberRepository).should(times(1)).getSingleMember(memberId);
+        then(memberRepository)
+                .should(times(1))
+                .getSingleMember(memberId);
     }
 
     @Test
-    @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID")
+    @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID Exception 발생")
     public void getSingleMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
@@ -118,5 +124,26 @@ class MemberServiceTest {
         then(memberRepository)
                 .should(never())
                 .getSingleMember(anyLong());
+    }
+
+    @Test
+    @DisplayName("DB 내에 존재하는 모든 회원의 목록 조회 테스트")
+    public void getAllMembers_ShouldReturnMembers() throws Exception {
+        // given - 상황 만들기
+        List<MemberDbDTO> expectedMembers = Arrays.asList(
+                new MemberDbDTO(1L, "name1", "test@example.com"),
+                new MemberDbDTO(1L, "name1", "test@example.com")
+        );
+        MemberResponseDTO expectedResult = new MemberResponseDTO(expectedMembers);
+        given(memberRepository.getAllMembers()).willReturn(expectedMembers);
+
+        // when - 동작
+        MemberResponseDTO actualResult = memberService.getAllMembers();
+
+        // then - 검증
+        assertThat(actualResult.getMembers()).isEqualTo(expectedResult.getMembers());
+        then(memberRepository)
+                .should(times(1))
+                .getAllMembers();
     }
 }
