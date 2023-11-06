@@ -58,11 +58,11 @@ public class MemberService {
 
     //특정 회원 정보 수정
     @Transactional
-    public void updateMember(Long userId, MemberUpdateDTO memberUpdateDTO) {
+    public void updateMember(Long memberId, MemberUpdateDTO memberUpdateDTO) {
         // DB 에 memberUpdateDTO 의 id 에 해당하는 유저 존재 여부 확인
         Member member = memberRepository
-                .findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND_BY_ID, userId));
+                .findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND_BY_ID, memberId));
 
         // memberUpdateDTO ---(map)---> Member(Entity) 로 map
         member.mapFromUpdateDto(memberUpdateDTO);

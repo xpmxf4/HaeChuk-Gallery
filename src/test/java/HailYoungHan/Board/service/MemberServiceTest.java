@@ -2,6 +2,7 @@ package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
+import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
 import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
@@ -145,5 +146,34 @@ class MemberServiceTest {
         then(memberRepository)
                 .should(times(1))
                 .getAllMembers();
+    }
+
+    @Test
+    @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID Exception 발생")
+    public void updateMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        MemberUpdateDTO updateDto = MemberUpdateDTO.builder()
+                .name("name")
+                .email("error@example.com")
+                .password("changed pwd")
+                .build();
+        given(memberRepository.findById(memberId))
+                .willThrow(new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId));
+
+        // when - 동작
+        CustomException thrownException = assertThrows(CustomException.class,
+                () -> memberService.updateMember(memberId, updateDto));
+
+        // then - 검증
+        assertEquals(MEMBER_NOT_FOUND_BY_ID, thrownException.getErrorCode(),
+                "에러 코드가 MEMBER_NOT_FOUND_BY_ID 이어야 합니다.");
+        then(memberRepository)
+                .should(times(1))
+                .findById(memberId);
+        // mapFromUpdateDto 를 verify() 로 검증하고 싶지만
+        // 이는 실제로 DB 에서 불러온 엔티티객체 내부 함수를 호출하는 격이라 힘들다.
+        // 적어도 Member 내부에 map 함수가 있다면.
+        // 별도의 mapper 를 써야할 수도...?
     }
 }
