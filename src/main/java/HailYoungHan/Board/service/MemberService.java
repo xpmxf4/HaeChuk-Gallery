@@ -79,10 +79,7 @@ public class MemberService {
             throw new CustomException(MEMBER_IDS_IS_EMPTY_OR_NULL,
                     memberIds == null ? null : memberIds.toString());
 
-        if (memberIds.stream().anyMatch(id -> id == null || id <= 0))
-            throw new CustomException(INVALID_MEMBER_ID_IS_INCLUDED);
-
         if (memberRepository.countByIds(memberIds) != memberIds.size())
-            throw new CustomException(NON_EXISTENT_MEMBER_ID_IS_INCLUDED);
+            throw new CustomException(INVALID_MEMBER_ID_IS_INCLUDED);
     }
 }

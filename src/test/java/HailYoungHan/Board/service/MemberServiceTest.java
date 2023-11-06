@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -207,29 +208,40 @@ class MemberServiceTest {
     }
 
     @Test
+    @DisplayName("비어있는 ID 목록 제공 시 CustomException 발생")
     public void deleteMembers_ShouldThrowException_WhenIdsIsEmpty() throws Exception {
         // given - 상황 만들기
+        List<Long> memberIds = Collections.emptyList();
 
-        // when - 동작
-
-        // then - 검증
+        // when - 동작 & then - 검증
+        assertThrows(CustomException.class,
+                () -> memberService.deleteMembers(memberIds),
+                "memberIds 가 비어있을 경우 MEMBER_IDS_IS_EMPTY_OR_NULL 가 발생해야 합니다.");
     }
 
     @Test
+    @DisplayName("유효하지 않은 ID가 포함된 목록 제공 시 CustomException 발생")
     public void deleteMembers_ShouldThrowException_WhenInvalidIdIsIncluded() throws Exception {
         // given - 상황 만들기
+        List<Long> memberIds = Arrays.asList(1L, 2L, 0L);
 
-        // when - 동작
-
-        // then - 검증
+        // when - 동작 & then - 검증
+        assertThrows(CustomException.class,
+                () -> memberService.deleteMembers(memberIds),
+                "memberIds 에 유효하지 않은 값이 존재하지 않는 경우 INVALID_MEMBER_ID_IS_INCLUDED 가 발생해야 합니다.");
     }
 
     @Test
-    public void deleteMembers_ShouldDeleteMember() throws Exception {
+    @DisplayName("유효한 ID 목록 제공 시 해당 멤버 삭제")
+    public void deleteMembers_ShouldDeleteMember_WhenValidIdsAreProvided() throws Exception {
         // given - 상황 만들기
+        List<Long> memberIds = Arrays.asList(1L, 2L, 3L);
+        given(memberRepository.countByIds(memberIds)).willReturn(3L);
 
         // when - 동작
+        memberService.deleteMembers(memberIds);
 
         // then - 검증
+        verify(memberRepository, times(1)).deleteMembers(memberIds);
     }
 }
