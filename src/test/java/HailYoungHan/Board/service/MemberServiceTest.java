@@ -4,6 +4,7 @@ import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
+import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static HailYoungHan.Board.exception.ErrorCode.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,4 +97,26 @@ class MemberServiceTest {
         then(memberRepository).should(times(1)).getSingleMember(memberId);
     }
 
+    @Test
+    @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID")
+    public void getSingleMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        given(memberRepository.existsById(memberId)).willReturn(false);
+
+        // when - 동작
+        CustomException thrownException = assertThrows(
+                CustomException.class,
+                () -> memberService.getSingleMember(memberId)
+        );
+
+        // then - 검증
+        assertEquals(MEMBER_NOT_FOUND_BY_ID, thrownException.getErrorCode(), "에러 코드가 MEMBER_NOT_FOUND_BY_ID 이어야 합니다.");
+        then(memberRepository)
+                .should(times(1))
+                .existsById(memberId);
+        then(memberRepository)
+                .should(never())
+                .getSingleMember(anyLong());
+    }
 }
