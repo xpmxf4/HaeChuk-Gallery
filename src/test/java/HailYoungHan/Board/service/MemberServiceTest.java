@@ -28,6 +28,7 @@ class MemberServiceTest {
     public void registerMember_ShouldThrowException_WhenEmailAlreadyExists() {
 //        System.out.println("============================================="+memberRepository.getClass()); // MemberRepository$MockitoMock$q8bTQU93
 //        System.out.println("============================================="+memberService.getClass());    // MemberService
+
         // Given
         String email = "jane@example.com";
         MemberRegiDTO memberRegiDTO = MemberRegiDTO.builder()
@@ -46,4 +47,25 @@ class MemberServiceTest {
         then(memberRepository).should(never()).save(any(Member.class));
     }
 
+    @Test
+    public void registerMember_ShouldSaveNewMember_WhenEmailDoesntExists() throws Exception {
+        // given - 상황 만들기
+        String email = "test@example.com";
+        MemberRegiDTO memberForInput = MemberRegiDTO.builder()
+                .name("daeminjae")
+                .password("password1234")
+                .email(email)
+                .build();
+        given(memberRepository.existsByEmail(email)).willReturn(false);
+
+        //when - 동작
+        memberService.registerMember(memberForInput);
+
+        //then - 검증
+        then(memberRepository)
+                .should(times(1))
+                .save(argThat(member ->
+                        member.getEmail().equals(email)
+                ));
+     }
 }
