@@ -6,6 +6,7 @@ import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.util.PasswordEncoder;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,22 +70,27 @@ class MemberServiceTest {
                 .save(argThat(member ->
                         member.getEmail().equals(email)
                 ));
-     }
+    }
 
-     @Test
-     public void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
-         // given - 상황 만들기
+    @Test
+    @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원 정보를 정확하게 조회하여 반환하는가?")
+    public void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        MemberDbDTO expectedMember = MemberDbDTO.builder()
+                .id(1L)
+                .name("daeminjae")
+                .email("javajunsuk@gmail.com")
+                .build();
+        given(memberRepository.existsById(memberId)).willReturn(true);
+        given(memberRepository.getSingleMember(memberId)).willReturn(expectedMember);
 
-         Long memberId = 1L;
-         given(memberRepository.existsById(memberId)).willReturn(true);
+        // when - 동작
+        MemberDbDTO actualMember = memberService.getSingleMember(memberId);
 
-         // when - 동작
-         MemberDbDTO result = memberService.getSingleMember(memberId);
-
-         // then - 검증
-         then(memberRepository)
-                 .should(times(1));
-
-      }
+        // then - 검증
+        assertThat(actualMember).isEqualTo(expectedMember);
+        then(memberRepository).should(times(1)).getSingleMember(memberId);
+    }
 
 }
