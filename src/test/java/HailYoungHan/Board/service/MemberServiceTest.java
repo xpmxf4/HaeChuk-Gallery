@@ -1,5 +1,6 @@
 package HailYoungHan.Board.service;
 
+import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.dto.member.request.MemberRegiDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
@@ -68,4 +69,21 @@ class MemberServiceTest {
                         member.getEmail().equals(email)
                 ));
      }
+
+     @Test
+     public void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
+         // given - 상황 만들기
+
+         Long memberId = 1L;
+         given(memberRepository.existsById(memberId)).willReturn(true);
+
+         // when - 동작
+         MemberDbDTO result = memberService.getSingleMember(memberId);
+
+         // then - 검증
+         then(memberRepository)
+                 .should(times(1));
+
+      }
+
 }

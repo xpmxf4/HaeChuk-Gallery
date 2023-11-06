@@ -45,9 +45,10 @@ public class MemberService {
     }
 
     public MemberDbDTO getSingleMember(Long memberId) {
-        MemberDbDTO memberDbDTO = memberRepository.getSingleMember(memberId);
+        if(!memberRepository.existsById(memberId))
+            throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
 
-        return memberDbDTO;
+        return memberRepository.getSingleMember(memberId);
     }
 
     public MemberResponseDTO getAllMembers() {
