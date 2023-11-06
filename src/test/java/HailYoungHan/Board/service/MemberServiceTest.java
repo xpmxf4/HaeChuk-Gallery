@@ -28,6 +28,7 @@ class MemberServiceTest {
     private MemberService memberService;
 
     @Test
+    @DisplayName("이미 존재하는 이메일로 회원 등록 시 CustomException을 발생시켜야 한다")
     public void registerMember_ShouldThrowException_WhenEmailAlreadyExists() {
 //        System.out.println("============================================="+memberRepository.getClass()); // MemberRepository$MockitoMock$q8bTQU93
 //        System.out.println("============================================="+memberService.getClass());    // MemberService
@@ -51,6 +52,7 @@ class MemberServiceTest {
     }
 
     @Test
+    @DisplayName("존재하지 않는 이메일로 회원을 등록하면 새 회원 정보를 저장해야 한다")
     public void registerMember_ShouldSaveNewMember_WhenEmailDoesntExists() throws Exception {
         // given - 상황 만들기
         String email = "test@example.com";
