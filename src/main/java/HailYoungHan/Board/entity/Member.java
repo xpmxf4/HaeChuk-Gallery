@@ -1,6 +1,7 @@
 package HailYoungHan.Board.entity;
 
 import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
+import HailYoungHan.Board.entity.SysTimeCols;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
