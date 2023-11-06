@@ -19,4 +19,8 @@ public interface MemberRepository extends JpaRepository<Member, Long>,
     @Modifying
     @Query("delete Member m where m.id in :ids")
     void deleteMembers(List<Long> ids);
+
+    @Modifying
+    @Query("select count(m) from Member m where m.id in :ids")
+    long countByIds(List<Long> ids);
 }

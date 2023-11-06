@@ -45,7 +45,7 @@ public class MemberService {
     }
 
     public MemberDbDTO getSingleMember(Long memberId) {
-        if(!memberRepository.existsById(memberId))
+        if (!memberRepository.existsById(memberId))
             throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
 
         return memberRepository.getSingleMember(memberId);
@@ -69,7 +69,20 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMembers(List<Long> ids) {
-        memberRepository.deleteMembers(ids);
+    public void deleteMembers(List<Long> memberIds) {
+        validateMemberIds(memberIds);
+        memberRepository.deleteMembers(memberIds);
+    }
+
+    private void validateMemberIds(List<Long> memberIds) {
+        if (memberIds == null || memberIds.isEmpty())
+            throw new CustomException(MEMBER_IDS_IS_EMPTY_OR_NULL,
+                    memberIds == null ? null : memberIds.toString());
+
+        if (memberIds.stream().anyMatch(id -> id == null || id <= 0))
+            throw new CustomException(INVALID_MEMBER_ID_IS_INCLUDED);
+
+        if (memberRepository.countByIds(memberIds) != memberIds.size())
+            throw new CustomException(NON_EXISTENT_MEMBER_ID_IS_INCLUDED);
     }
 }

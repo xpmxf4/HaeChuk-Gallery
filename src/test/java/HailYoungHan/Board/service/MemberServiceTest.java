@@ -210,6 +210,23 @@ class MemberServiceTest {
     public void deleteMembers_ShouldThrowException_WhenIdsIsEmpty() throws Exception {
         // given - 상황 만들기
 
+        // when - 동작
+
+        // then - 검증
+    }
+
+    @Test
+    public void deleteMembers_ShouldThrowException_WhenInvalidIdIsIncluded() throws Exception {
+        // given - 상황 만들기
+
+        // when - 동작
+
+        // then - 검증
+    }
+
+    @Test
+    public void deleteMembers_ShouldDeleteMember() throws Exception {
+        // given - 상황 만들기
 
         // when - 동작
 
