@@ -6,16 +6,13 @@ import HailYoungHan.Board.dto.member.request.MemberUpdateDTO;
 import HailYoungHan.Board.dto.member.response.MemberResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.exception.CustomException;
-import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.repository.member.MemberRepository;
-import HailYoungHan.Board.util.PasswordEncoder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.Collections;

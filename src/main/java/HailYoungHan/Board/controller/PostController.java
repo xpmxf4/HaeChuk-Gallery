@@ -37,9 +37,9 @@ public class PostController {
      * <p>생성된 게시물 정보와 HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
-    public ResponseEntity<Post> register(@RequestBody PostRegiDTO postRegiDTO) {
-        Post post = postService.registerPost(postRegiDTO);
-        return new ResponseEntity<>(post, HttpStatus.CREATED);
+    public ResponseEntity<Void> register(@RequestBody PostRegiDTO postRegiDTO) {
+        postService.registerPost(postRegiDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**

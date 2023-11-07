@@ -29,7 +29,7 @@ public class PostService {
 
     // 게시글 등록
     @Transactional
-    public Post registerPost(PostRegiDTO postRegiDTO) {
+    public void registerPost(PostRegiDTO postRegiDTO) {
         Long memberId = postRegiDTO.getMemberId();
 
         Member member = memberRepository.findById(memberId)
@@ -37,7 +37,7 @@ public class PostService {
 
         Post post = Post.mapFromRegiDto(member, postRegiDTO);
 
-        return postRepository.save(post);
+        postRepository.save(post);
     }
 
     // 게시글 수정
