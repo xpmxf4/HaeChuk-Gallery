@@ -41,8 +41,12 @@ public class CommentService {
                 .orElseThrow(() -> new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId));
         Post commentedPost = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND_BY_ID, postId));
-        Comment parentComment = commentRepository.findById(parentCommentId)
-                .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND_BY_ID, parentCommentId));
+        // 부모 댓글 ID가 null이 아닐 때만 부모 댓글 조회
+        Comment parentComment = null;
+        if (parentCommentId != null) {
+            parentComment = commentRepository.findById(parentCommentId)
+                    .orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND_BY_ID, parentCommentId));
+        }
 
         Comment comment = Comment.mapFromRegiDto(author, commentedPost, parentComment, commentRegiDTO);
         commentRepository.save(comment);
