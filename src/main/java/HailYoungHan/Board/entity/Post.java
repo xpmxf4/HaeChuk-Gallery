@@ -55,9 +55,9 @@ public class Post extends SysTimeCols {
         comment.setPost(this);
     }
 
-    public void mapFromUpdateDto(PostUpdateDTO updateDTO) {
+    public void updateFieldsFromUpdateDto(PostUpdateDTO updateDTO) {
         if (updateDTO.getTitle() != null)
-            this.content = updateDTO.getTitle();
+            this.title = updateDTO.getTitle();
         if (updateDTO.getContent() != null)
             this.content = updateDTO.getContent();
     }

@@ -47,10 +47,10 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND_BY_ID, postId));
 
-//        postUpdateDTO---(map)--->Post(Entity) 로 mapping
-        post.mapFromUpdateDto(postUpdateDTO);
+        // post 의 field 들 업데이트
+        post.updateFieldsFromUpdateDto(postUpdateDTO);
 
-//         DB 에 save
+        // DB 에 save
         postRepository.save(post);
     }
 
