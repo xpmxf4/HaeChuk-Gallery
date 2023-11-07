@@ -1,6 +1,9 @@
 package HailYoungHan.Board.service;
 
+import HailYoungHan.Board.dto.comment.query.CommentDbDTO;
 import HailYoungHan.Board.dto.comment.request.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.request.CommentUpdateDTO;
+import HailYoungHan.Board.dto.comment.response.CommentResponseDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
@@ -14,9 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 
@@ -37,7 +41,7 @@ class CommentServiceTest {
 
     @Test
     @DisplayName("새 댓글을 추가할 때 성공적으로 저장되어야 한다")
-    void whenAddingNewComment_ItShouldBeSavedSuccessfully() {
+    void addComment_ShouldSaveComment_WhenCommentRegiDTOIsValid() {
         // Given
         Long memberId = 1L;
         Long postId = 1L;
@@ -58,5 +62,28 @@ class CommentServiceTest {
 
         // Then
         then(commentRepository).should(times(1)).save(any(Comment.class));
+    }
+
+    @Test
+    @DisplayName("댓글을 업데이트할 때 성공적으로 저장되어야 한다")
+    void updateComment_ShouldSaveUpdatedComment_WhenCommentUpdateDTOIsValid() throws Exception {
+        // given
+        Long commentId = 1L;
+        CommentUpdateDTO updateDTO = CommentUpdateDTO.builder()
+                .content("updated content")
+                .isDeleted(false)
+                .build();
+        Comment comment = Comment.builder()
+                .id(commentId)
+                .content("content")
+                .isDeleted(true).build();
+        given(commentRepository.findById(commentId))
+                .willReturn(Optional.of(comment));
+
+        // when
+        commentService.updateComment(commentId, updateDTO);
+
+        // then
+        verify(commentRepository).save(comment);
     }
 }

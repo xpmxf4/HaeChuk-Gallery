@@ -1,6 +1,7 @@
 package HailYoungHan.Board.entity;
 
 import HailYoungHan.Board.dto.comment.request.CommentRegiDTO;
+import HailYoungHan.Board.dto.comment.request.CommentUpdateDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -50,6 +51,13 @@ public class Comment extends SysTimeCols {
                 .post(commentedPost)
                 .parent(parentComment)
                 .build();
+    }
+
+    public void updateFieldsFromUpdateDto(CommentUpdateDTO updateDTO) {
+        if (updateDTO.getContent() != null)
+            this.content = updateDTO.getContent();
+        if (updateDTO.getIsDeleted() != null)
+            this.isDeleted = updateDTO.getIsDeleted();
     }
 
     //===연관관계 메서드===//

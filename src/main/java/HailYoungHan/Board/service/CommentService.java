@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static HailYoungHan.Board.exception.ErrorCode.*;
 
@@ -54,13 +55,11 @@ public class CommentService {
 
     @Transactional
     public void updateComment(Long commentId, CommentUpdateDTO updateDTO) {
-        if (!commentRepository.existsById(commentId))
-            throw new CustomException(COMMENT_NOT_FOUND_BY_ID, commentId);
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new CustomException(COMMENT_NOT_FOUND_BY_ID, commentId));
 
         // CommentUpdateDTO ---(map)---> Comment(Entity) 로 map
-        Comment comment = updateDTO.mapToEntity(commentId);
-
-        commentRepository.save(comment);
+        comment.updateFieldsFromUpdateDto(updateDTO);
     }
 
     public CommentDbDTO getSingleCommentById(Long commentId) {
