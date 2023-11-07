@@ -3,8 +3,10 @@ package HailYoungHan.Board.service;
 import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
+import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
+import HailYoungHan.Board.exception.CustomException;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -16,10 +18,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -123,6 +126,71 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("특정 사용자의 게시글을 조회하면 해당 사용자의 게시글 목록을 반환해야 한다")
+    public void getPostsByMemberId_ShouldReturnMemberPosts_WhenMemberIdIsValid() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        List<PostDbDTO> memberPosts = Arrays.asList(new PostDbDTO(1L, "Member's Title1", "Content1", "Writer1", false),
+                new PostDbDTO(2L, "Member's Title2", "Content2", "Writer2", false));
+        given(memberRepository.existsById(memberId)).willReturn(true);
+        given(postRepository.findPostsByMemberId(memberId)).willReturn(memberPosts);
+
+        // when - 동작
+        PostResponseDTO response = postService.getPostsByMemberId(memberId);
+
+        // then - 검증
+        assertNotNull(response);
+        assertEquals(2, response.getPosts().size());
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 회원 ID로 게시글을 조회하면 예외를 발생시켜야 한다")
+    public void getPostsByNonExistingMemberId_ShouldThrowException() {
+        // given - 상황 만들기
+        Long nonExistingMemberId = 99L;
+        given(memberRepository.existsById(nonExistingMemberId)).willReturn(false);
+
+        // when - 동작 & then - 검증
+        assertThrows(CustomException.class, () -> {
+            postService.getPostsByMemberId(nonExistingMemberId);
+        });
+    }
+
+    @Test
+    @DisplayName("모든 게시글을 조회하면 게시글 목록을 반환해야 한다")
+    public void getAllPosts_ShouldReturnAllPosts() throws Exception {
+        // given - 상황 만들기
+        List<PostDbDTO> allPosts = Arrays.asList(new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
+                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false));
+        given(postRepository.findAllDTOs()).willReturn(allPosts);
+
+        // when - 동작
+        PostResponseDTO response = postService.getAllPosts();
+
+        // then - 검증
+        assertNotNull(response);
+        assertEquals(2, response.getPosts().size());
+    }
+
+    @Test
+    @DisplayName("특정 사용자가 작성한 삭제된 게시글을 조회하면 해당 게시글 목록을 반환해야 한다")
+    public void findDeletedPostsByMemberId_ShouldReturnDeletedMemberPosts_WhenMemberIdIsValid() throws Exception {
+        // given - 상황 만들기
+        Long memberId = 1L;
+        List<PostDbDTO> memberDeletedPosts = Arrays.asList(new PostDbDTO(1L, "Deleted Title1", "Content1", "Writer1", true),
+                new PostDbDTO(2L, "Deleted Title2", "Content2", "Writer1", false));
+        given(memberRepository.existsById(memberId)).willReturn(true);
+        given(postRepository.findDeletedPostsByMemberId(memberId)).willReturn(memberDeletedPosts);
+
+        // when - 동작
+        PostResponseDTO response = postService.findDeletedPostsByMemberId(memberId);
+
+        // then - 검증
+        assertNotNull(response);
+        assertEquals(2, response.getPosts().size());
+    }
+
+    @Test
     @DisplayName("유효한 게시글 ID로 게시글을 삭제하면 해당 게시글을 삭제해야 한다")
     public void deletePost_ShouldDeletePost_WhenPostIdIsValid() throws Exception {
         // given - 상황 만들기
@@ -136,5 +204,18 @@ class PostServiceTest {
         // then - 검증
         verify(postRepository, times(1)).deletePostById(postId);
 
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 게시글 ID로 게시글을 삭제하려 하면 예외를 발생시켜야 한다")
+    public void deleteNonExistingPost_ShouldThrowException() {
+        // given - 상황 만들기
+        Long nonExistingPostId = 99L;
+        given(postRepository.existsById(nonExistingPostId)).willReturn(false);
+
+        // when - 동작 & then - 검증
+        assertThrows(CustomException.class, () -> {
+            postService.deletePost(nonExistingPostId);
+        });
     }
 }
