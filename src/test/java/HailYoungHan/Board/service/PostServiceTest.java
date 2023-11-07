@@ -82,11 +82,7 @@ class PostServiceTest {
                 .title("Updated Title")
                 .content("Updated Content")
                 .build();
-        Post existingPost = Post.builder()
-                .id(postId)
-                .title("Title")
-                .content("Content")
-                .build();
+        Post existingPost = mock(Post.class);
         when(postRepository.findById(postId))
                 .thenReturn(Optional.of(existingPost));
 
@@ -94,8 +90,9 @@ class PostServiceTest {
         postService.updatePost(postId, postUpdateDTO);
 
         // then - 검증
-        assertEquals("Updated Title", existingPost.getTitle());
-        assertEquals("Updated Content", existingPost.getContent());
+        verify(existingPost).updateFieldsFromUpdateDto(postUpdateDTO);
+        verify(postRepository).findById(postId);
+        verifyNoMoreInteractions(postRepository);
     }
 
     @Test

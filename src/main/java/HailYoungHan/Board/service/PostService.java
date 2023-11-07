@@ -49,9 +49,6 @@ public class PostService {
 
         // post 의 field 들 업데이트
         post.updateFieldsFromUpdateDto(postUpdateDTO);
-
-        // DB 에 save
-        postRepository.save(post);
     }
 
     // 특정 게시물 조회

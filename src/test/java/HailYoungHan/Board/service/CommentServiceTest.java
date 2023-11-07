@@ -7,9 +7,11 @@ import HailYoungHan.Board.dto.comment.response.CommentResponseDTO;
 import HailYoungHan.Board.entity.Comment;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
+import HailYoungHan.Board.exception.CustomException;
 import HailYoungHan.Board.repository.comment.CommentRepository;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
+import HailYoungHan.Board.service.CommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,7 +63,8 @@ class CommentServiceTest {
         commentService.addComment(regiDTO);
 
         // Then
-        then(commentRepository).should(times(1)).save(any(Comment.class));
+        then(commentRepository).should(times(1))
+                .save(any(Comment.class));
     }
 
     @Test
@@ -71,19 +74,134 @@ class CommentServiceTest {
         Long commentId = 1L;
         CommentUpdateDTO updateDTO = CommentUpdateDTO.builder()
                 .content("updated content")
-                .isDeleted(false)
                 .build();
-        Comment comment = Comment.builder()
+        Comment commentToUpdate = Comment.builder()
                 .id(commentId)
                 .content("content")
-                .isDeleted(true).build();
+                .isDeleted(false)
+                .build();
         given(commentRepository.findById(commentId))
-                .willReturn(Optional.of(comment));
+                .willReturn(Optional.of(commentToUpdate));
 
         // when
         commentService.updateComment(commentId, updateDTO);
 
         // then
-        verify(commentRepository).save(comment);
+        /*
+        // BDD -> 객체의 상태 변화에 더 초점을 맞추고 있기에, 택하지는 않음
+        verify(comment).updateFieldsFromUpdateDto(updateDTO); // updateFieldsFromUpdateDto 가 updateDTO 를 가지고 호출이 되었나
+        verify(commentRepository).findById(commentId); // findById 가 commentId 를 가지고 호출이 되었나
+        verifyNoMoreInteractions(commentRepository); // findById 외에 다른 repository 함수가 호출이 되었나
+         */
+        assertThat(commentToUpdate.getContent()).isEqualTo(updateDTO.getContent());
+    }
+
+    @Test
+    @DisplayName("댓글을 조회할 때 해당 댓글이 반환되어야 한다")
+    void getSingleCommentById_ShouldReturnComment_WhenCommentIdIsValid() throws Exception {
+        // given
+        Long commentId = 1L;
+        CommentDbDTO output = CommentDbDTO.builder()
+                .content("content")
+                .isDeleted(false)
+                .build();
+        given(commentRepository.existsById(commentId))
+                .willReturn(true);
+        given(commentRepository.findDTOById(commentId))
+                .willReturn(output);
+
+        // when
+        CommentDbDTO result = commentService.getSingleCommentById(commentId);
+
+        // then
+        assertThat(result.getContent()).isEqualTo(output.getContent());
+        assertThat(result.getIsDeleted()).isEqualTo(output.getIsDeleted());
+    }
+
+    @Test
+    @DisplayName("모든 댓글을 조회할 때 성공적으로 반환되어야 한다")
+    void getAllComments_ShouldReturnAllComments() {
+        // given
+        List<CommentDbDTO> allComments = List.of(new CommentDbDTO("content", false));
+        given(commentRepository.findAllDTOs()).willReturn(allComments);
+
+        // when
+        CommentResponseDTO result = commentService.getAllComments();
+
+        // then
+        assertThat(result.getComments()).hasSize(allComments.size());
+    }
+
+    @Test
+    @DisplayName("멤버의 모든 댓글을 조회할 때 성공적으로 반환되어야 한다")
+    void getMemberAllComments_ShouldReturnMembersComments_WhenMemberIdIsValid() {
+        // given
+        Long memberId = 1L;
+        List<CommentDbDTO> membersComments = List.of(new CommentDbDTO("content", false));
+        given(memberRepository.existsById(memberId)).willReturn(true);
+        given(commentRepository.findAllDTOsByMemberId(memberId)).willReturn(membersComments);
+
+        // when
+        CommentResponseDTO result = commentService.getMemberAllComments(memberId);
+
+        // then
+        assertThat(result.getComments()).isEqualTo(membersComments);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 멤버 ID로 댓글 조회 시 예외가 발생해야 한다")
+    void getMemberAllComments_ShouldThrowException_WhenMemberIdIsInvalid() {
+        // given
+        Long invalidMemberId = 99L;
+        given(memberRepository.existsById(invalidMemberId)).willReturn(false);
+
+        // when, then
+        assertThatThrownBy(() -> commentService.getMemberAllComments(invalidMemberId))
+                .isInstanceOf(CustomException.class)
+                .hasMessageContaining("해당 멤버 ID가 없습니다: " + invalidMemberId);
+    }
+
+    @Test
+    @DisplayName("멤버의 삭제된 모든 댓글을 조회할 때 성공적으로 반환되어야 한다")
+    void getMemberAllDeletedComments_ShouldReturnMembersDeletedComments_WhenMemberIdIsValid() {
+        // given
+        Long memberId = 1L;
+        List<CommentDbDTO> deletedComments = List.of(new CommentDbDTO("content", true));
+        given(memberRepository.existsById(memberId)).willReturn(true);
+        given(commentRepository.findAllDeletedDTOsByMemberId(memberId, true)).willReturn(deletedComments);
+
+        // when
+        CommentResponseDTO result = commentService.getMemberAllDeletedComments(memberId);
+
+        // then
+        assertThat(result.getComments()).isEqualTo(deletedComments);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 댓글 삭제 시 예외가 발생해야 한다")
+    void deleteComment_ShouldThrowException_WhenCommentIdIsInvalid() {
+        // given
+        Long invalidCommentId = 99L;
+        given(commentRepository.existsById(invalidCommentId)).willReturn(false);
+
+        // when/then
+        assertThatThrownBy(() -> commentService.deleteComment(invalidCommentId))
+                .isInstanceOf(CustomException.class)
+                .hasMessageContaining("해당 댓글 ID가 없습니다: " + invalidCommentId);
+    }
+
+    @Test
+    @DisplayName("댓글을 삭제할 때 해당 댓글이 삭제되어야 한다")
+    void deleteComment_ShouldRemoveComment_WhenCommentIdIsValid() throws Exception {
+        // given
+        Long commentId = 1L;
+        when(commentRepository.existsById(commentId))
+                .thenReturn(true);
+
+        // when
+        commentService.deleteComment(commentId);
+
+        // then
+        verify(commentRepository).deleteById(commentId);
     }
 }
