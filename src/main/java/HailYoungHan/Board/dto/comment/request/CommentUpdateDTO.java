@@ -19,12 +19,4 @@ public class CommentUpdateDTO {
     @NotNull
     @Builder.Default
     private Boolean isDeleted = false;
-
-    public Comment mapToEntity(Long commentId) {
-        return Comment.builder()
-                .id(commentId)
-                .content(content)
-                .isDeleted(isDeleted)
-                .build();
-    }
 }
