@@ -22,8 +22,8 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
         return queryFactory
                 .select(new QMemberDbDTO(
                         member.id,
-                        member.email,
-                        member.name
+                        member.name,
+                        member.email
                 ))
                 .from(member)
                 .fetchOne();
