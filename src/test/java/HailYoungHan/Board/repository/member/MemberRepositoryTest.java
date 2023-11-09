@@ -2,7 +2,7 @@ package HailYoungHan.Board.repository.member;
 
 import HailYoungHan.Board.dto.member.query.MemberDbDTO;
 import HailYoungHan.Board.entity.Member;
-import HailYoungHan.Board.repository.member.MemberRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,24 @@ class MemberRepositoryTest {
     @Autowired
     private TestEntityManager em;
 
-    @Test
-    @DisplayName("단일 회원 조회")
-    public void getSingleMember_ShouldReturnMember_WhenMemberExists() throws Exception {
+    private Member member;
+
+    @BeforeEach
+    public void setUp() {
         // given - 상황 만들기
-        Member member = Member.builder()
+        member = Member.builder()
                 .name("tester")
                 .email("test@example.com")
                 .password("password")
                 .build();
         em.persist(member);
+        em.flush();
+        em.clear();
+    }
 
+    @Test
+    @DisplayName("단일 회원 조회")
+    public void getSingleMember_ShouldReturnMember_WhenMemberExists() throws Exception {
         // when - 동작
         MemberDbDTO foundMember = memberRepository.getSingleMember(member.getId());
 
