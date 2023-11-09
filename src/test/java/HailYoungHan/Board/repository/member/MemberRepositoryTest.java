@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -36,6 +39,55 @@ class MemberRepositoryTest {
     }
 
     @Test
+    @DisplayName("이메일 존재 여부 확인")
+    public void existsByEmail_ShouldReturnTrue_WhenEmailExists() {
+        // when
+        boolean exists = memberRepository.existsByEmail(member.getEmail());
+
+        // then
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    @DisplayName("여러 회원 삭제")
+    public void deleteMembers_ShouldDeleteGivenMembers() {
+        // given
+        Member anotherMember = Member.builder()
+                .name("tester2")
+                .email("test2@example.com")
+                .password("password2")
+                .build();
+        em.persist(anotherMember);
+
+        List<Long> ids = Arrays.asList(member.getId(), anotherMember.getId());
+
+        // when
+        memberRepository.deleteMembers(ids);
+        em.flush();
+        em.clear();
+
+        // then
+        boolean existsMember1 = memberRepository.existsById(member.getId());
+        boolean existsMember2 = memberRepository.existsById(anotherMember.getId());
+
+        assertThat(existsMember1).isFalse();
+        assertThat(existsMember2).isFalse();
+    }
+
+    @Test
+    @DisplayName("특정 ID 집합에 대한 회원 수 확인")
+    public void countByIds_ShouldReturnCountForGivenIds() {
+        // given
+        List<Long> ids = Arrays.asList(member.getId());
+
+        // when
+        long count = memberRepository.countByIds(ids);
+
+        // then
+        assertThat(count).isEqualTo(1);
+    }
+
+    @Test
     @DisplayName("단일 회원 조회")
     public void getSingleMember_ShouldReturnMember_WhenMemberExists() throws Exception {
         // when - 동작
@@ -44,6 +96,29 @@ class MemberRepositoryTest {
         // then - 검증
         assertThat(foundMember).isNotNull();
         assertThat(foundMember.getId()).isEqualTo(member.getId());
+        assertThat(foundMember.getEmail()).isEqualTo(member.getEmail());
+    }
+
+    @Test
+    @DisplayName("모든 회원 조회")
+    public void getAllMembers_ShouldReturnAllMembers() {
+        // when
+        List<MemberDbDTO> members = memberRepository.getAllMembers();
+
+        // then
+        assertThat(members).isNotEmpty();
+        assertThat(members).hasSize(1);
+        assertThat(members.get(0).getEmail()).isEqualTo(member.getEmail());
+    }
+
+    @Test
+    @DisplayName("이메일로 회원 조회")
+    public void getMemberByEmail_ShouldReturnMember_WhenEmailExists() {
+        // when
+        MemberDbDTO foundMember = memberRepository.getMemberByEmail(member.getEmail());
+
+        // then
+        assertThat(foundMember).isNotNull();
         assertThat(foundMember.getEmail()).isEqualTo(member.getEmail());
     }
 }
