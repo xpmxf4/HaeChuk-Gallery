@@ -44,7 +44,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.isDeleted
                 ))
                 .from(post)
-                .where(post.member.id.eq(memberId).and(post.isDeleted))
+                .where(post.member.id.eq(memberId).and(post.isDeleted.eq(true)))
                 .fetch();
     }
 

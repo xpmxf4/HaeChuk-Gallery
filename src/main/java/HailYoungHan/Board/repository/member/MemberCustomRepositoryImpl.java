@@ -26,6 +26,7 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                         member.email
                 ))
                 .from(member)
+                .where(member.id.eq(id))
                 .fetchOne();
     }
 

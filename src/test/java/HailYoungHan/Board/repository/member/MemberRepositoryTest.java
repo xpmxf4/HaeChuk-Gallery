@@ -10,9 +10,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class MemberRepositoryTest {
@@ -120,5 +122,35 @@ class MemberRepositoryTest {
         // then
         assertThat(foundMember).isNotNull();
         assertThat(foundMember.getEmail()).isEqualTo(member.getEmail());
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 멤버 ID로 단일 멤버 조회 시 null을 반환해야 한다")
+    public void getSingleMember_NonExistingId_ShouldReturnNull() {
+        MemberDbDTO result = memberRepository.getSingleMember(Long.MAX_VALUE);
+
+        assertNull(result);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 이메일로 멤버 조회 시 null을 반환해야 한다")
+    public void getMemberByEmail_NonExistingEmail_ShouldReturnNull() {
+        MemberDbDTO result = memberRepository.getMemberByEmail("nonexisting@example.com");
+
+        assertNull(result);
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 멤버 ID 리스트로 멤버 삭제 시도 시 예외가 발생하지 않아야 한다")
+    public void deleteMembers_NonExistingIds_ShouldNotThrowException() {
+        assertDoesNotThrow(() -> memberRepository.deleteMembers(Collections.singletonList(Long.MAX_VALUE)));
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 멤버 ID 리스트로 멤버 수를 카운트 시 0을 반환해야 한다")
+    public void countByIds_NonExistingIds_ShouldReturnZero() {
+        long count = memberRepository.countByIds(Collections.singletonList(Long.MAX_VALUE));
+
+        assertEquals(0, count);
     }
 }
