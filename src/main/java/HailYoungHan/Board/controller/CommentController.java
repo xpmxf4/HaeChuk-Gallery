@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comments")
@@ -34,7 +36,7 @@ public class CommentController {
      * <p>HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
-    public ResponseEntity<Void> createComment(@RequestBody CommentRegiDTO dto) {
+    public ResponseEntity<Void> createComment(@RequestBody @Valid CommentRegiDTO dto) {
         commentService.addComment(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -55,7 +57,7 @@ public class CommentController {
      * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @PutMapping("/{commentId}")
-    public ResponseEntity<Void> updateComment(@RequestBody CommentUpdateDTO updateDTO, @PathVariable Long commentId) {
+    public ResponseEntity<Void> updateComment(@RequestBody @Valid CommentUpdateDTO updateDTO, @PathVariable Long commentId) {
         commentService.updateComment(commentId, updateDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

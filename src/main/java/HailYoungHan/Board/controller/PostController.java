@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,7 @@ public class PostController {
      * <p>생성된 게시물 정보와 HTTP 상태 코드 201 (생성됨)</p>
      */
     @PostMapping
-    public ResponseEntity<Void> register(@RequestBody PostRegiDTO postRegiDTO) {
+    public ResponseEntity<Void> register(@RequestBody @Valid PostRegiDTO postRegiDTO) {
         postService.registerPost(postRegiDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -59,7 +60,7 @@ public class PostController {
      * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @PutMapping("/{post_id}")
-    public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody PostUpdateDTO postUpdateDTO) {
+    public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody @Valid PostUpdateDTO postUpdateDTO) {
         postService.updatePost(post_id, postUpdateDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
