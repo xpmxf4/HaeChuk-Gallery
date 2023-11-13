@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
-        log.error("커스템 에러 핸들링 : " +e.getMessage());
+        log.error("커스템 에러 핸들링 : " + e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
 
         return ResponseEntity.status(e.getHttpStatus())
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorResponse> handleArgNotValidException(MethodArgumentNotValidException e) {
-        log.error("필드 에러 핸들링 : "+ e.getMessage());
+        log.error("필드 에러 핸들링 : " + e.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ErrorResponse.fromErrorCodeToResponse(FILED_VALIDATION_FAILED));

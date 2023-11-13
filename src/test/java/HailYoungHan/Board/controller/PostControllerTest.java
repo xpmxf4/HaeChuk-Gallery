@@ -23,6 +23,8 @@ import static HailYoungHan.Board.exception.ErrorCode.MEMBER_NOT_FOUND_BY_ID;
 import static HailYoungHan.Board.exception.ErrorCode.POST_NOT_FOUND_BY_ID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -216,14 +218,17 @@ class PostControllerTest {
     @DisplayName("게시물 수정 - 존재하지 않는 게시물 ID로 실패")
     void updatePost_ShouldReturnNotFound_WhenPostDoesNotExist() throws Exception {
         // given - 존재하지 않는 게시물 ID 및 수정 정보
-        long nonExistingPostId = 999L;
+        long nonExistingPostId = 1L;
         PostUpdateDTO updateDTO = PostUpdateDTO.builder()
                 .title("title")
                 .content("content")
                 .build();
-        doThrow(new CustomException(POST_NOT_FOUND_BY_ID, "999"))
+//        doThrow(new CustomException(POST_NOT_FOUND_BY_ID, nonExistingPostId))
+//                .when(postService)
+//                .updatePost(nonExistingPostId, updateDTO);
+        doThrow(new CustomException(POST_NOT_FOUND_BY_ID, nonExistingPostId))
                 .when(postService)
-                .updatePost(nonExistingPostId, updateDTO);
+                .updatePost(anyLong(), any(PostUpdateDTO.class));
 
         // when - 게시물 수정 API 호출
         ResultActions perform = mockMvc.perform(put("/posts/" + nonExistingPostId)
@@ -240,7 +245,7 @@ class PostControllerTest {
         // given - 존재하지 않는 게시물 ID
         Long nonExistingPostId = 999L;
         given(postService.getSinglePost(nonExistingPostId))
-                .willThrow(new CustomException(POST_NOT_FOUND_BY_ID, "999"));
+                .willThrow(new CustomException(POST_NOT_FOUND_BY_ID, nonExistingPostId));
 
         // when - 특정 게시물 조회 API 호출
         ResultActions perform = mockMvc.perform(get("/posts/" + nonExistingPostId)

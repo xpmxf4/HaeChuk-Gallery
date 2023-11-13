@@ -44,7 +44,8 @@ public class PostService {
     @Transactional
     public void updatePost(Long postId, PostUpdateDTO postUpdateDTO) {
         // DB 에 해당 게시물 존재하는 지 확인
-        Post post = postRepository.findById(postId)
+        Post post = postRepository
+                .findById(postId)
                 .orElseThrow(() -> new CustomException(POST_NOT_FOUND_BY_ID, postId));
 
         // post 의 field 들 업데이트

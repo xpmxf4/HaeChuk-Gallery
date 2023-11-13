@@ -60,7 +60,7 @@ public class PostController {
      * <p>HTTP 상태 코드 200 (성공)</p>
      */
     @PutMapping("/{post_id}")
-    public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody @Valid PostUpdateDTO postUpdateDTO) {
+    public ResponseEntity<Void> update(@PathVariable Long post_id, @RequestBody PostUpdateDTO postUpdateDTO) {
         postService.updatePost(post_id, postUpdateDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
