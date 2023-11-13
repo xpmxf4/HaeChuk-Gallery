@@ -20,6 +20,10 @@ public enum ErrorCode {
     POST_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "해당 게시물 ID가 없습니다: %s"),
     COMMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "해당 댓글 ID가 없습니다: %s");
 
+    /* 409 CONFLICT */
+    // 여기에 INVALID_MEMBER_ID_IS_INCLUDED 넣을까 고민했는 데
+    // IETF 명세에 따라 상태 수정이 아닌 삭제라서 안 넣음
+    // https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8
 
     private final HttpStatus httpStatus;
     private final String detail; // %s 가 포함된 detail

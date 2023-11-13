@@ -1,7 +1,10 @@
 package HailYoungHan.Board.exception;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class ErrorResponse {
 
     private final String message;
