@@ -35,7 +35,7 @@ public class Post extends SysTimeCols {
     private Member member;
 
     @OneToMany(mappedBy = "post")
-    @Builder.Defaultg
+    @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
     public static Post mapFromRegiDto(Member member, PostRegiDTO postRegiDTO) {
