@@ -27,6 +27,7 @@ public class Post extends SysTimeCols {
     @Column(length = 1000)
     private String content;
 
+    @Builder.Default
     private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,6 +35,7 @@ public class Post extends SysTimeCols {
     private Member member;
 
     @OneToMany(mappedBy = "post")
+    @Builder.Defaultg
     private List<Comment> comments = new ArrayList<>();
 
     public static Post mapFromRegiDto(Member member, PostRegiDTO postRegiDTO) {

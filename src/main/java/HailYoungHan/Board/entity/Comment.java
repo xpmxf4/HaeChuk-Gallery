@@ -23,6 +23,7 @@ public class Comment extends SysTimeCols {
     @Column(length = 500)
     private String content;
 
+    @Builder.Default
     private Boolean isDeleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +38,7 @@ public class Comment extends SysTimeCols {
     @JoinColumn(name = "parent_comment_id")
     private Comment parent;
 
+    @Builder.Default
     @OneToMany(mappedBy = "parent")
     private List<Comment> children = new ArrayList<>();
 
