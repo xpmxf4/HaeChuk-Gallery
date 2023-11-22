@@ -33,7 +33,6 @@ jobs:
           arguments: build
       - name: Deploy to EC2
         run: |
-          echo "${{ EC2_SSH_KEY }}"
           scp -i ${{ secrets.EC2_SSH_KEY }} ./build/libs/HaeChukGael.jar ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com:~/
           ssh -i ${{ secrets.EC2_SSH_KEY }} ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com "sudo systemctl restart HaeChukGael"
         env:
