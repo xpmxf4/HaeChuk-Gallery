@@ -33,8 +33,14 @@ jobs:
           arguments: build
       - name: Deploy to EC2
         run: |
-          scp -i ${{ secrets.EC2_SSH_KEY }} ./build/libs/HaeChukGael.jar ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com:~/
-          ssh -i ${{ secrets.EC2_SSH_KEY }} ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com "sudo systemctl restart HaeChukGael"
+          # GitHub Secrets에서 EC2 SSH 키를 파일로 생성합니다.
+          echo "${{ secrets.EC2_SSH_KEY }}" > ec2_ssh_key.pem
+          chmod 600 ec2_ssh_key.pem
+
+          # 생성된 키 파일을 사용하여 EC2 인스턴스로 파일을 전송합니다.
+          scp -i ec2_ssh_key.pem ./build/libs/HaeChukGael.jar ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com:~/
+
+          # EC2 인스턴스에서 애플리케이션을 재시작합니다.
+          ssh -i ec2_ssh_key.pem ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com "sudo systemctl restart HaeChukGael"
         env:
-          # GitHub Secrets에서 EC2 SSH 키를 가져옵니다.
           EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
