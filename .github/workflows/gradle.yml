@@ -18,17 +18,28 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: build
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+        with:
+          arguments: build
+      - name: Deploy to EC2
+        run: |
+          # SCP를 사용하여 빌드된 JAR 파일을 EC2 인스턴스로 복사합니다.
+          # 'Board-0.0.1-SNAPSHOT.jar'는 build.gradle에서 지정된 파일명입니다.
+          scp -i ${{ secrets.EC2_SSH_KEY }} ./build/libs/HaeChukGael.jar ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com:~/
+          
+          # SSH를 사용하여 EC2 인스턴스에 접속한 후 스프링 부트 애플리케이션을 재시작하는 명령을 실행합니다.
+          # 'your-app'는 EC2에서 실행 중인 스프링 부트 애플리케이션의 서비스명으로 교체해야 합니다.
+          ssh -i ${{ secrets.EC2_SSH_KEY }} ubuntu@ec2-3-38-201-172.ap-northeast-2.compute.amazonaws.com "sudo systemctl restart HaeChukGael"
+        env:
+          # GitHub Secrets에서 EC2 SSH 키를 가져옵니다.
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
