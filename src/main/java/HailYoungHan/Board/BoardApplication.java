@@ -20,8 +20,4 @@ public class BoardApplication {
         SpringApplication.run(BoardApplication.class, args);
     }
 
-    @Bean
-    AuditorAware<String> auditorAware() {
-        return () -> Optional.of("CoRaveler");
-    }
 }
