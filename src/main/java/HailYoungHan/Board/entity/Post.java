@@ -17,8 +17,7 @@ import java.util.List;
 public class Post extends SysTimeCols {
 
     @Id
-    @GeneratedValue
-    @Column(name = "post_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 50)
