@@ -77,6 +77,11 @@ public class PostService {
         return new PostResponseDTO(memberPosts);
     }
 
+    public PostResponseDTO searchByKeyword(String keyword) {
+        List<PostDbDTO> searchResult = postRepository.findDTOsByKeyword(keyword);
+        return new PostResponseDTO(searchResult);
+    }
+
     // 특정 사용자의 삭제된 게시물 조회
     public PostResponseDTO findDeletedPostsByMemberId(Long memberId) {
         if (!memberRepository.existsById(memberId))

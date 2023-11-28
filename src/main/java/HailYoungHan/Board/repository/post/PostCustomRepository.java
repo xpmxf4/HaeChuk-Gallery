@@ -13,4 +13,6 @@ public interface PostCustomRepository {
     PostDbDTO findDTObyId(Long id);
 
     List<PostDbDTO> findAllDTOs();
+
+    List<PostDbDTO> findDTOsByKeyword(String keyword);
 }

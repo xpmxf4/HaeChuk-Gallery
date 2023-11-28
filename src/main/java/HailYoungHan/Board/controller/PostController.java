@@ -111,6 +111,12 @@ public class PostController {
         return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<PostResponseDTO> searchPostsWithKeyword(@RequestParam String keyword) {
+        PostResponseDTO result = postService.searchByKeyword(keyword);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     /**
      * <p>특정 사용자의 삭제된 게시글 조회 API</p>
      *

@@ -27,6 +27,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.content,
                         post.member.name,
                         post.isDeleted
+                        , post.reg_date
                 ))
                 .from(post)
                 .where(post.member.id.eq(memberId))
@@ -41,7 +42,8 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.title,
                         post.content,
                         post.member.name,
-                        post.isDeleted
+                        post.isDeleted,
+                        post.reg_date
                 ))
                 .from(post)
                 .where(post.member.id.eq(memberId).and(post.isDeleted.eq(true)))
@@ -58,6 +60,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.content,
                         post.member.name,
                         post.isDeleted
+                        , post.reg_date
                 ))
                 .from(post)
                 .where(post.id.eq(id))
@@ -73,9 +76,27 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.title,
                         post.content,
                         post.member.name,
-                        post.isDeleted
+                        post.isDeleted,
+                        post.reg_date
                 ))
                 .from(post)
+                .fetch();
+    }
+
+    public List<PostDbDTO> findDTOsByKeyword(String keyword) {
+
+        return queryFactory
+                .select(new QPostDbDTO(
+                        post.id,
+                        post.title,
+                        post.content,
+                        post.member.name,
+                        post.isDeleted,
+                        post.reg_date
+                ))
+                .from(post)
+                .where(post.title.contains(keyword)
+                        .or(post.content.contains(keyword)))
                 .fetch();
     }
 }

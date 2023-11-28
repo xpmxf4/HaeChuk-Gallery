@@ -10,6 +10,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -34,12 +35,15 @@ public class PostDbDTO {
     @NotNull
     private Boolean isDeleted;
 
+    private LocalDateTime reg_date;
+
     @QueryProjection
-    public PostDbDTO(Long id, String title, String content, String writer, boolean isDeleted) {
+    public PostDbDTO(Long id, String title, String content, String writer, boolean isDeleted, LocalDateTime reg_date) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
         this.isDeleted = isDeleted;
+        this.reg_date = reg_date;
     }
 }
