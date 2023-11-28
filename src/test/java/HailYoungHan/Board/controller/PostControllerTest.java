@@ -115,8 +115,8 @@ class PostControllerTest {
     void getAllPosts_ShouldReturnAllPosts_WhenCalled() throws Exception {
         // given - 게시물 리스트 준비
         List<PostDbDTO> allPosts = Arrays.asList(
-                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
-                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false)
+                PostDbDTO.builder().id(1L).title("Title1").content("Content1").writer("Writer1").isDeleted(false).build(),
+                PostDbDTO.builder().id(2L).title("Title2").content("Content2").writer("Writer2").isDeleted(false).build()
         );
         PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
         given(postService.getAllPosts()).willReturn(postResponseDTO);
@@ -138,8 +138,8 @@ class PostControllerTest {
         // given - 특정 사용자의 게시물 리스트 준비
         Long memberId = 1L;
         List<PostDbDTO> memberPosts = Arrays.asList(
-                new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
-                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false)
+                PostDbDTO.builder().id(1L).title("Title1").content("Content1").writer("Writer1").isDeleted(false).build(),
+                PostDbDTO.builder().id(2L).title("Title2").content("Content2").writer("Writer2").isDeleted(false).build()
         );
         PostResponseDTO postResponseDTO = new PostResponseDTO(memberPosts);
         given(postService.getPostsByMemberId(memberId)).willReturn(postResponseDTO);
@@ -161,9 +161,22 @@ class PostControllerTest {
         // given - 특정 사용자의 삭제된 게시물 리스트 준비
         Long memberId = 1L;
         List<PostDbDTO> deletedPosts = Arrays.asList(
-                new PostDbDTO(1L, "Deleted Title", "Deleted Content", "Writer1", true),
-                new PostDbDTO(2L, "Deleted Title2", "Deleted Content 2", "Writer1", true)
+                PostDbDTO.builder()
+                        .id(1L)
+                        .title("Deleted Title")
+                        .content("Deleted Content")
+                        .writer("Writer1")
+                        .isDeleted(true)
+                        .build(),
+                PostDbDTO.builder()
+                        .id(2L)
+                        .title("Deleted Title2")
+                        .content("Deleted Content 2")
+                        .writer("Writer1")
+                        .isDeleted(true)
+                        .build()
         );
+
         PostResponseDTO postResponseDTO = new PostResponseDTO(deletedPosts);
         given(postService.findDeletedPostsByMemberId(memberId)).willReturn(postResponseDTO);
 

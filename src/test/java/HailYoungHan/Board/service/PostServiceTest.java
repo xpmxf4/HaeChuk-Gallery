@@ -127,8 +127,23 @@ class PostServiceTest {
     public void getPostsByMemberId_ShouldReturnMemberPosts_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
-        List<PostDbDTO> memberPosts = Arrays.asList(new PostDbDTO(1L, "Member's Title1", "Content1", "Writer1", false),
-                new PostDbDTO(2L, "Member's Title2", "Content2", "Writer2", false));
+        List<PostDbDTO> memberPosts = Arrays.asList(
+                PostDbDTO.builder()
+                        .id(1L)
+                        .title("Member's Title1")
+                        .content("Content1")
+                        .writer("Writer1")
+                        .isDeleted(false)
+                        .build(),
+                PostDbDTO.builder()
+                        .id(2L)
+                        .title("Member's Title2")
+                        .content("Content2")
+                        .writer("Writer2")
+                        .isDeleted(false)
+                        .build()
+        );
+
         given(memberRepository.existsById(memberId)).willReturn(true);
         given(postRepository.findPostsByMemberId(memberId)).willReturn(memberPosts);
 
@@ -157,8 +172,23 @@ class PostServiceTest {
     @DisplayName("모든 게시글을 조회하면 게시글 목록을 반환해야 한다")
     public void getAllPosts_ShouldReturnAllPosts() throws Exception {
         // given - 상황 만들기
-        List<PostDbDTO> allPosts = Arrays.asList(new PostDbDTO(1L, "Title1", "Content1", "Writer1", false),
-                new PostDbDTO(2L, "Title2", "Content2", "Writer2", false));
+        List<PostDbDTO> allPosts = Arrays.asList(
+                PostDbDTO.builder()
+                        .id(1L)
+                        .title("Title1")
+                        .content("Content1")
+                        .writer("Writer1")
+                        .isDeleted(false)
+                        .build(),
+                PostDbDTO.builder()
+                        .id(2L)
+                        .title("Title2")
+                        .content("Content2")
+                        .writer("Writer2")
+                        .isDeleted(false)
+                        .build()
+        );
+
         given(postRepository.findAllDTOs()).willReturn(allPosts);
 
         // when - 동작
@@ -174,8 +204,23 @@ class PostServiceTest {
     public void findDeletedPostsByMemberId_ShouldReturnDeletedMemberPosts_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
-        List<PostDbDTO> memberDeletedPosts = Arrays.asList(new PostDbDTO(1L, "Deleted Title1", "Content1", "Writer1", true),
-                new PostDbDTO(2L, "Deleted Title2", "Content2", "Writer1", false));
+        List<PostDbDTO> memberDeletedPosts = Arrays.asList(
+                PostDbDTO.builder()
+                        .id(1L)
+                        .title("Deleted Title1")
+                        .content("Content1")
+                        .writer("Writer1")
+                        .isDeleted(true)
+                        .build(),
+                PostDbDTO.builder()
+                        .id(2L)
+                        .title("Deleted Title2")
+                        .content("Content2")
+                        .writer("Writer1")
+                        .isDeleted(false)
+                        .build()
+        );
+
         given(memberRepository.existsById(memberId)).willReturn(true);
         given(postRepository.findDeletedPostsByMemberId(memberId)).willReturn(memberDeletedPosts);
 
