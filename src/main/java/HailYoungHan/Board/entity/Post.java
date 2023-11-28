@@ -3,6 +3,7 @@ package HailYoungHan.Board.entity;
 import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
+import HailYoungHan.Board.entity.SysTimeCols;
 import lombok.*;
 
 import javax.persistence.*;

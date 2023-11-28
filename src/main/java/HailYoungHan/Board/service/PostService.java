@@ -12,6 +12,7 @@ import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static HailYoungHan.Board.exception.ErrorCode.*;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
