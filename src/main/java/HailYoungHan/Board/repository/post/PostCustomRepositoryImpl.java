@@ -2,6 +2,7 @@ package HailYoungHan.Board.repository.post;
 
 import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.query.QPostDbDTO;
+import HailYoungHan.Board.repository.post.PostCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDbDTO> findPostsByMemberId(Long memberId) {
+    public List<PostDbDTO> findPostsByMemberId(Long memberId,Integer offset, Integer limit) {
 
         return queryFactory
                 .select(new QPostDbDTO(
@@ -31,11 +32,14 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                 ))
                 .from(post)
                 .where(post.member.id.eq(memberId))
+                .orderBy(post.reg_date.desc())
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 
     @Override
-    public List<PostDbDTO> findDeletedPostsByMemberId(Long memberId) {
+    public List<PostDbDTO> findDeletedPostsByMemberId(Long memberId,Integer offset, Integer limit) {
         return queryFactory
                 .select(new QPostDbDTO(
                         post.id,
@@ -47,6 +51,9 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                 ))
                 .from(post)
                 .where(post.member.id.eq(memberId).and(post.isDeleted.eq(true)))
+                .orderBy(post.reg_date.desc())
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 
@@ -68,7 +75,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     @Override
-    public List<PostDbDTO> findAllDTOs() {
+    public List<PostDbDTO> findAllDTOs(Integer offset, Integer limit) {
 
         return queryFactory
                 .select(new QPostDbDTO(
@@ -80,10 +87,13 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.reg_date
                 ))
                 .from(post)
+                .orderBy(post.reg_date.desc())
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 
-    public List<PostDbDTO> findDTOsByKeyword(String keyword) {
+    public List<PostDbDTO> findDTOsByKeyword(String keyword, Integer offset, Integer limit) {
 
         return queryFactory
                 .select(new QPostDbDTO(
@@ -97,6 +107,9 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                 .from(post)
                 .where(post.title.contains(keyword)
                         .or(post.content.contains(keyword)))
+                .orderBy(post.reg_date.desc())
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 }
