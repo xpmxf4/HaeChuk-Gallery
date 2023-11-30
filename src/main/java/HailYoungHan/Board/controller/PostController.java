@@ -4,7 +4,6 @@ import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.request.PostRegiDTO;
 import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.dto.post.request.PostUpdateDTO;
-import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -89,8 +87,8 @@ public class PostController {
      * <p>모든 게시물의 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping
-    public ResponseEntity<PostResponseDTO> getAllPosts() {
-        PostResponseDTO postRes = postService.getAllPosts();
+    public ResponseEntity<PostResponseDTO> getAllPosts(@RequestParam Integer offset, @RequestParam Integer limit) {
+        PostResponseDTO postRes = postService.getAllPosts(offset, limit);
         return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
@@ -106,14 +104,14 @@ public class PostController {
      * <p>해당 사용자의 게시물 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/member/{memberId}")
-    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId) {
-        PostResponseDTO postRes = postService.getPostsByMemberId(memberId);
+    public ResponseEntity<PostResponseDTO> getPostsByMemberId(@PathVariable Long memberId, @RequestParam Integer offset, @RequestParam Integer limit) {
+        PostResponseDTO postRes = postService.getPostsByMemberId(memberId, offset, limit);
         return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<PostResponseDTO> searchPostsWithKeyword(@RequestParam String keyword) {
-        PostResponseDTO result = postService.searchByKeyword(keyword);
+    public ResponseEntity<PostResponseDTO> searchPostsWithKeyword(@RequestParam String keyword, @RequestParam Integer offset, @RequestParam Integer limit) {
+        PostResponseDTO result = postService.searchByKeyword(keyword, offset, limit);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -129,8 +127,8 @@ public class PostController {
      * <p>해당 사용자의 삭제된 게시물 정보와 HTTP 상태 코드 200 (성공)</p>
      */
     @GetMapping("/member/{memberId}/deleted")
-    public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long memberId) {
-        PostResponseDTO postRes = postService.findDeletedPostsByMemberId(memberId);
+    public ResponseEntity<PostResponseDTO> getDeletedPostsByMemberId(@PathVariable Long memberId, @RequestParam Integer offset, @RequestParam Integer limit) {
+        PostResponseDTO postRes = postService.findDeletedPostsByMemberId(memberId, offset, limit);
         return new ResponseEntity<>(postRes, HttpStatus.OK);
     }
 

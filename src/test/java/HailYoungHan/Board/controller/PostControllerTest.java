@@ -119,10 +119,10 @@ class PostControllerTest {
                 PostDbDTO.builder().id(2L).title("Title2").content("Content2").writer("Writer2").isDeleted(false).build()
         );
         PostResponseDTO postResponseDTO = new PostResponseDTO(allPosts);
-        given(postService.getAllPosts()).willReturn(postResponseDTO);
+        given(postService.getAllPosts(1, 50)).willReturn(postResponseDTO);
 
         // when - 전체 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts")
+        ResultActions perform = mockMvc.perform(get("/posts?offset=1&limit=50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 모든 게시물 정보 확인
@@ -142,10 +142,10 @@ class PostControllerTest {
                 PostDbDTO.builder().id(2L).title("Title2").content("Content2").writer("Writer2").isDeleted(false).build()
         );
         PostResponseDTO postResponseDTO = new PostResponseDTO(memberPosts);
-        given(postService.getPostsByMemberId(memberId)).willReturn(postResponseDTO);
+        given(postService.getPostsByMemberId(memberId, 1, 50)).willReturn(postResponseDTO);
 
         // when - 특정 사용자의 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId)
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId+"?offset=1&limit=50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 게시물 정보 확인
@@ -178,10 +178,10 @@ class PostControllerTest {
         );
 
         PostResponseDTO postResponseDTO = new PostResponseDTO(deletedPosts);
-        given(postService.findDeletedPostsByMemberId(memberId)).willReturn(postResponseDTO);
+        given(postService.findDeletedPostsByMemberId(memberId, 1, 50)).willReturn(postResponseDTO);
 
         // when - 특정 사용자의 삭제된 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "/deleted")
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "/deleted?offset=1&limit=50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 삭제된 게시물 정보 확인
@@ -273,11 +273,11 @@ class PostControllerTest {
     void getPostsByMemberId_ShouldReturnNotFound_WhenMemberDoesNotExist() throws Exception {
         // given - 존재하지 않는 사용자 ID
         Long nonExistingMemberId = 999L;
-        given(postService.getPostsByMemberId(nonExistingMemberId))
+        given(postService.getPostsByMemberId(nonExistingMemberId, 1, 50))
                 .willThrow(new CustomException(MEMBER_NOT_FOUND_BY_ID, "999"));
 
         // when - 특정 사용자의 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + nonExistingMemberId)
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + nonExistingMemberId+"?offset=1&limit=50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 게시물 정보 없음 확인 (HTTP 상태 코드 404)

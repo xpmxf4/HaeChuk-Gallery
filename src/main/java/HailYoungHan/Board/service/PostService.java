@@ -8,7 +8,6 @@ import HailYoungHan.Board.dto.post.response.PostResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.Post;
 import HailYoungHan.Board.exception.CustomException;
-import HailYoungHan.Board.exception.ErrorCode;
 import HailYoungHan.Board.repository.member.MemberRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -63,31 +62,31 @@ public class PostService {
     }
 
     // 전체 게시물 조회
-    public PostResponseDTO getAllPosts() {
-        List<PostDbDTO> allDTOs = postRepository.findAllDTOs();
+    public PostResponseDTO getAllPosts(Integer offset, Integer limit) {
+        List<PostDbDTO> allDTOs = postRepository.findAllDTOs(offset, limit);
         return new PostResponseDTO(allDTOs);
     }
 
     // 특정 사용자의 게시물 조회
-    public PostResponseDTO getPostsByMemberId(Long memberId) {
+    public PostResponseDTO getPostsByMemberId(Long memberId, Integer offset, Integer limit) {
         if (!memberRepository.existsById(memberId))
             throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
 
-        List<PostDbDTO> memberPosts = postRepository.findPostsByMemberId(memberId);
+        List<PostDbDTO> memberPosts = postRepository.findPostsByMemberId(memberId, offset, limit);
         return new PostResponseDTO(memberPosts);
     }
 
-    public PostResponseDTO searchByKeyword(String keyword) {
-        List<PostDbDTO> searchResult = postRepository.findDTOsByKeyword(keyword);
+    public PostResponseDTO searchByKeyword(String keyword, Integer offset, Integer limit) {
+        List<PostDbDTO> searchResult = postRepository.findDTOsByKeyword(keyword, offset, limit);
         return new PostResponseDTO(searchResult);
     }
 
     // 특정 사용자의 삭제된 게시물 조회
-    public PostResponseDTO findDeletedPostsByMemberId(Long memberId) {
+    public PostResponseDTO findDeletedPostsByMemberId(Long memberId, Integer offset, Integer limit) {
         if (!memberRepository.existsById(memberId))
             throw new CustomException(MEMBER_NOT_FOUND_BY_ID, memberId);
 
-        List<PostDbDTO> memberDeletedPosts = postRepository.findDeletedPostsByMemberId(memberId);
+        List<PostDbDTO> memberDeletedPosts = postRepository.findDeletedPostsByMemberId(memberId, offset, limit);
         return new PostResponseDTO(memberDeletedPosts);
     }
 

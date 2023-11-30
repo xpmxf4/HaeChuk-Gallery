@@ -49,7 +49,7 @@ class PostRepositoryTest {
     @DisplayName("지정된 멤버 ID에 대한 모든 게시글을 찾아야 한다")
     public void findPostsByMemberId_ShouldReturnPostsForGivenMemberId() throws Exception {
         // when
-        List<PostDbDTO> foundPosts = postRepository.findPostsByMemberId(member.getId());
+        List<PostDbDTO> foundPosts = postRepository.findPostsByMemberId(member.getId(), 0, 50);
 
         // then
         assertThat(foundPosts).isNotEmpty();
@@ -67,9 +67,12 @@ class PostRepositoryTest {
                 .isDeleted(true)
                 .build();
         em.persist(post);
+        em.flush();
 
         // when
-        List<PostDbDTO> foundDeletedPosts = postRepository.findDeletedPostsByMemberId(member.getId());
+        List<PostDbDTO> foundDeletedPosts = postRepository.findDeletedPostsByMemberId(
+                member.getId(), 0, 50);
+        System.out.println(foundDeletedPosts.toString());
 
         // then
         assertThat(foundDeletedPosts).isNotEmpty();
@@ -91,7 +94,7 @@ class PostRepositoryTest {
     @DisplayName("모든 게시글 DTO를 반환해야 한다")
     public void findAllDTOs_ShouldReturnAllPostDTOs() throws Exception {
         // when
-        List<PostDbDTO> allPosts = postRepository.findAllDTOs();
+        List<PostDbDTO> allPosts = postRepository.findAllDTOs(0, 50);
 
         // then
         assertThat(allPosts).hasSize(1); // 초기 설정에서 하나의 포스트만 추가하였기 때문
@@ -112,7 +115,7 @@ class PostRepositoryTest {
     @DisplayName("존재하지 않는 멤버 ID로 게시글 조회 시 빈 목록을 반환해야 한다")
     public void findPostsByNonExistingMemberId_ShouldReturnEmptyList() {
         // when
-        List<PostDbDTO> result = postRepository.findPostsByMemberId(Long.MAX_VALUE);
+        List<PostDbDTO> result = postRepository.findPostsByMemberId(Long.MAX_VALUE, 1, 50);
 
         // then
         assertThat(result).isEmpty();
@@ -122,7 +125,7 @@ class PostRepositoryTest {
     @DisplayName("존재하지 않는 멤버 ID로 삭제된 게시글 조회 시 빈 목록을 반환해야 한다")
     public void findDeletedPostsByNonExistingMemberId_ShouldReturnEmptyList() {
         // when
-        List<PostDbDTO> result = postRepository.findDeletedPostsByMemberId(Long.MAX_VALUE);
+        List<PostDbDTO> result = postRepository.findDeletedPostsByMemberId(Long.MAX_VALUE, 1, 50);
 
         // then
         assertThat(result).isEmpty();

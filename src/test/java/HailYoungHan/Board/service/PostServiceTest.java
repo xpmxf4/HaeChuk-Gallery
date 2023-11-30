@@ -145,10 +145,10 @@ class PostServiceTest {
         );
 
         given(memberRepository.existsById(memberId)).willReturn(true);
-        given(postRepository.findPostsByMemberId(memberId)).willReturn(memberPosts);
+        given(postRepository.findPostsByMemberId(memberId, 1, 50)).willReturn(memberPosts);
 
         // when - 동작
-        PostResponseDTO response = postService.getPostsByMemberId(memberId);
+        PostResponseDTO response = postService.getPostsByMemberId(memberId, 1, 50);
 
         // then - 검증
         assertNotNull(response);
@@ -163,9 +163,8 @@ class PostServiceTest {
         given(memberRepository.existsById(nonExistingMemberId)).willReturn(false);
 
         // when - 동작 & then - 검증
-        assertThrows(CustomException.class, () -> {
-            postService.getPostsByMemberId(nonExistingMemberId);
-        });
+        assertThrows(CustomException.class, () ->
+                postService.getPostsByMemberId(nonExistingMemberId, 1, 50));
     }
 
     @Test
@@ -189,10 +188,10 @@ class PostServiceTest {
                         .build()
         );
 
-        given(postRepository.findAllDTOs()).willReturn(allPosts);
+        given(postRepository.findAllDTOs(1, 50)).willReturn(allPosts);
 
         // when - 동작
-        PostResponseDTO response = postService.getAllPosts();
+        PostResponseDTO response = postService.getAllPosts(1, 50);
 
         // then - 검증
         assertNotNull(response);
@@ -222,10 +221,10 @@ class PostServiceTest {
         );
 
         given(memberRepository.existsById(memberId)).willReturn(true);
-        given(postRepository.findDeletedPostsByMemberId(memberId)).willReturn(memberDeletedPosts);
+        given(postRepository.findDeletedPostsByMemberId(memberId, 0, 50)).willReturn(memberDeletedPosts);
 
         // when - 동작
-        PostResponseDTO response = postService.findDeletedPostsByMemberId(memberId);
+        PostResponseDTO response = postService.findDeletedPostsByMemberId(memberId, 0, 50);
 
         // then - 검증
         assertNotNull(response);
