@@ -8,6 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static HailYoungHan.Board.entity.QMember.member;
 import static HailYoungHan.Board.entity.QPost.*;
 
 public class PostCustomRepositoryImpl implements PostCustomRepository {
@@ -87,6 +88,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.reg_date
                 ))
                 .from(post)
+                .leftJoin(post.member)
                 .orderBy(post.reg_date.desc())
                 .offset(offset)
                 .limit(limit)
@@ -94,7 +96,6 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     }
 
     public List<PostDbDTO> findDTOsByKeyword(String keyword, Integer offset, Integer limit) {
-
         return queryFactory
                 .select(new QPostDbDTO(
                         post.id,
@@ -105,6 +106,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
                         post.reg_date
                 ))
                 .from(post)
+                .leftJoin(post.member, member) // 여기서 post.member와 member 엔티티를 연결
                 .where(post.title.contains(keyword)
                         .or(post.content.contains(keyword)))
                 .orderBy(post.reg_date.desc())
