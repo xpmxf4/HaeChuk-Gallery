@@ -31,6 +31,7 @@ public class Post extends SysTimeCols {
     @Builder.Default
     private Boolean isDeleted = false;
 
+    @Column(name = "\"like\"")
     private Integer like;
 
     @ManyToOne(fetch = FetchType.LAZY)
