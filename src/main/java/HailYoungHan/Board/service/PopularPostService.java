@@ -2,7 +2,6 @@ package HailYoungHan.Board.service;
 
 import HailYoungHan.Board.dto.popularPost.query.PopularPostDTO;
 import HailYoungHan.Board.dto.popularPost.response.PopularPostResponseDTO;
-import HailYoungHan.Board.entity.PopularPost;
 import HailYoungHan.Board.repository.popularPost.PopularPostRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
