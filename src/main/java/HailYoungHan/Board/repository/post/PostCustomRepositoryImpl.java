@@ -2,7 +2,6 @@ package HailYoungHan.Board.repository.post;
 
 import HailYoungHan.Board.dto.post.query.PostDbDTO;
 import HailYoungHan.Board.dto.post.query.QPostDbDTO;
-import HailYoungHan.Board.repository.post.PostCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
