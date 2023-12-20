@@ -4,8 +4,6 @@ import HailYoungHan.Board.dto.popularPost.query.PopularPostDTO;
 import HailYoungHan.Board.dto.popularPost.response.PopularPostResponseDTO;
 import HailYoungHan.Board.entity.Member;
 import HailYoungHan.Board.entity.PopularPost;
-import HailYoungHan.Board.entity.QMember;
-import HailYoungHan.Board.entity.QPost;
 import HailYoungHan.Board.repository.popularPost.PopularPostRepository;
 import HailYoungHan.Board.repository.post.PostRepository;
 import com.querydsl.core.Tuple;
@@ -18,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static HailYoungHan.Board.entity.QMember.member;
 import static HailYoungHan.Board.entity.QPost.post;
 
 @Service
