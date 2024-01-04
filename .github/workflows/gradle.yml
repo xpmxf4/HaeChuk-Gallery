@@ -40,3 +40,10 @@ jobs:
           EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           EC2_USER: ${{ secrets.EC2_USER }}
           EC2_HOST: ${{ secrets.EC2_HOST }}
+      - name: Verify deployment
+        run: |
+          ssh -i ec2_ssh_key.pem -o StrictHostKeyChecking=accept-new ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "systemctl is-active HaeChukGael.service || exit 1"
+        env:
+          EC2_SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
