@@ -10,7 +10,7 @@ import java.util.Optional;
 // BoardApplication 에서 @EnableJpaAuditing 제외하기 위한 설정 클래스
 @Configuration
 @EnableJpaAuditing
-public class JpaAuditingConfiguration {
+public class JpaAuditingConfig {
 
     @Bean
     AuditorAware<String> auditorAware() {
