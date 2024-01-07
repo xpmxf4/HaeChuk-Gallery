@@ -137,15 +137,14 @@ jacocoTestCoverageVerification {
 
 			// 제외할 파일 패턴
 			excludes = [
-					// Exclude all classes in the entity package
+					// 엔티티 패키지에 있는 모든 클래스를 제외합니다.
 					'hailyounghan.board.entity.*',
-					// Exclude all Q classes (assuming they follow a naming convention like Q<EntityName>)
+					// 모든 Q 클래스를 제외합니다 (Q<EntityName>과 같은 명명 규칙을 따르는 것으로 가정).
 					'*Q*',
-					// Exclude all config classes
+					// 모든 설정(config) 클래스를 제외합니다.
 					'hailyounghan.board.config.*',
-					// Exclude all DTO classes
+					// 모든 DTO 클래스를 제외합니다.
 					'hailyounghan.board.dto.*'
-					// Add more patterns as needed
 			]
 		}
 	}
