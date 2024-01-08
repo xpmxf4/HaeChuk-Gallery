@@ -25,7 +25,7 @@ public class PopularPostCustomRepositoryImpl implements PopularPostCustomReposit
                 .select(new QPopularPostDTO(
                         popularPost.id,
                         popularPost.title,
-                        member.name
+                        popularPost.member.name
                 ))
                 .from(popularPost)
                 .fetch();
