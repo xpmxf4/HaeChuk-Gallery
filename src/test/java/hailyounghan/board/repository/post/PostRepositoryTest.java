@@ -4,6 +4,7 @@ import com.querydsl.core.Tuple;
 import hailyounghan.board.dto.post.query.PostDbDTO;
 import hailyounghan.board.entity.Member;
 import hailyounghan.board.entity.Post;
+import hailyounghan.board.repository.post.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

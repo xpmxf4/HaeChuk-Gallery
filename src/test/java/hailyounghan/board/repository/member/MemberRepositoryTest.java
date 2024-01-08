@@ -2,6 +2,7 @@ package hailyounghan.board.repository.member;
 
 import hailyounghan.board.dto.member.query.MemberDbDTO;
 import hailyounghan.board.entity.Member;
+import hailyounghan.board.repository.member.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
