@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,30 @@ class CommentServiceTest {
         // Then
         then(commentRepository).should(times(1))
                 .save(any(Comment.class));
+    }
+
+    @Test
+    @DisplayName("부모 댓글이 존재하지 않을 때 예외를 발생시켜야 한다")
+    void addComment_ShouldThrowException_WhenParentCommentDoesNotExist() {
+        // given
+        Long memberId = 1L;
+        Long postId = 1L;
+        Long invalidParentCommentId = 99L; // 존재하지 않는 부모 댓글 ID
+        CommentRegiDTO regiDTO = CommentRegiDTO.builder()
+                .content("Test content")
+                .memberId(memberId)
+                .postId(postId)
+                .parentCommentId(invalidParentCommentId)
+                .build();
+
+        given(memberRepository.findById(memberId)).willReturn(Optional.of(mock(Member.class)));
+        given(postRepository.findById(postId)).willReturn(Optional.of(mock(Post.class)));
+        given(commentRepository.findById(invalidParentCommentId)).willReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(() -> commentService.addComment(regiDTO))
+                .isInstanceOf(CustomException.class)
+                .hasMessageContaining("해당 댓글 ID가 없습니다: 99");
     }
 
     @Test
