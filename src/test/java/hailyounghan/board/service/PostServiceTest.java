@@ -43,7 +43,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("등록 정보가 유효하면 게시글을 등록해야 한다.")
-    public void registerPost_ShouldSavePost_WhenPostRegiDTOIsValid() throws Exception {
+    void registerPost_ShouldSavePost_WhenPostRegiDTOIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         Member member = Member.builder()
@@ -75,7 +75,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("업데이트 정보가 유효하면 게시글의 세부 사항을 변경해야 한다")
-    public void updatePost_ShouldChangePostDetails_WhenUpdateInfoIsValid() throws Exception {
+    void updatePost_ShouldChangePostDetails_WhenUpdateInfoIsValid() throws Exception {
         // given - 상황 만들기
         Long postId = 1L;
         PostUpdateDTO postUpdateDTO = PostUpdateDTO.builder()
@@ -97,7 +97,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("유효한 게시글 ID로 단일 게시글을 조회하면 해당 게시글을 반환해야 한다")
-    public void getSinglePost_ShouldReturnPost_WhenPostIdIsValid() throws Exception {
+    void getSinglePost_ShouldReturnPost_WhenPostIdIsValid() throws Exception {
         // given - 상황 만들기
         Long postId = 1L;
         Member writer = Member.builder()
@@ -124,7 +124,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("특정 사용자의 게시글을 조회하면 해당 사용자의 게시글 목록을 반환해야 한다")
-    public void getPostsByMemberId_ShouldReturnMemberPosts_WhenMemberIdIsValid() throws Exception {
+    void getPostsByMemberId_ShouldReturnMemberPosts_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         List<PostDbDTO> memberPosts = Arrays.asList(
@@ -157,7 +157,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 회원 ID로 게시글을 조회하면 예외를 발생시켜야 한다")
-    public void getPostsByNonExistingMemberId_ShouldThrowException() {
+    void getPostsByNonExistingMemberId_ShouldThrowException() {
         // given - 상황 만들기
         Long nonExistingMemberId = 99L;
         given(memberRepository.existsById(nonExistingMemberId)).willReturn(false);
@@ -169,7 +169,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("모든 게시글을 조회하면 게시글 목록을 반환해야 한다")
-    public void getAllPosts_ShouldReturnAllPosts() throws Exception {
+    void getAllPosts_ShouldReturnAllPosts() throws Exception {
         // given - 상황 만들기
         List<PostDbDTO> allPosts = Arrays.asList(
                 PostDbDTO.builder()
@@ -200,7 +200,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("특정 사용자가 작성한 삭제된 게시글을 조회하면 해당 게시글 목록을 반환해야 한다")
-    public void findDeletedPostsByMemberId_ShouldReturnDeletedMemberPosts_WhenMemberIdIsValid() throws Exception {
+    void findDeletedPostsByMemberId_ShouldReturnDeletedMemberPosts_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         List<PostDbDTO> memberDeletedPosts = Arrays.asList(
@@ -233,7 +233,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("유효한 게시글 ID로 게시글을 삭제하면 해당 게시글을 삭제해야 한다")
-    public void deletePost_ShouldDeletePost_WhenPostIdIsValid() throws Exception {
+    void deletePost_ShouldDeletePost_WhenPostIdIsValid() throws Exception {
         // given - 상황 만들기
         Long postId = 1L;
         doNothing().when(postRepository).deletePostById(postId);
@@ -249,7 +249,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 게시글 ID로 게시글을 삭제하려 하면 예외를 발생시켜야 한다")
-    public void deleteNonExistingPost_ShouldThrowException() {
+    void deleteNonExistingPost_ShouldThrowException() {
         // given - 상황 만들기
         Long nonExistingPostId = 99L;
         given(postRepository.existsById(nonExistingPostId)).willReturn(false);

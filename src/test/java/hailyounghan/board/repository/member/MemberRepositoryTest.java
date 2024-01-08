@@ -2,7 +2,6 @@ package hailyounghan.board.repository.member;
 
 import hailyounghan.board.dto.member.query.MemberDbDTO;
 import hailyounghan.board.entity.Member;
-import hailyounghan.board.repository.member.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ class MemberRepositoryTest {
     private Member member;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // given - 상황 만들기
         member = Member.builder()
                 .name("tester")
@@ -43,7 +42,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("이메일 존재 여부 확인")
-    public void existsByEmail_ShouldReturnTrue_WhenEmailExists() {
+    void existsByEmail_ShouldReturnTrue_WhenEmailExists() {
         // when
         boolean exists = memberRepository.existsByEmail(member.getEmail());
 
@@ -53,7 +52,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("여러 회원 삭제")
-    public void deleteMembers_ShouldDeleteGivenMembers() {
+    void deleteMembers_ShouldDeleteGivenMembers() {
         // given
         Member anotherMember = Member.builder()
                 .name("tester2")
@@ -79,7 +78,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("특정 ID 집합에 대한 회원 수 확인")
-    public void countByIds_ShouldReturnCountForGivenIds() {
+    void countByIds_ShouldReturnCountForGivenIds() {
         // given
         List<Long> ids = Arrays.asList(member.getId());
 
@@ -92,7 +91,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("단일 회원 조회")
-    public void getSingleMember_ShouldReturnMember_WhenMemberExists() throws Exception {
+    void getSingleMember_ShouldReturnMember_WhenMemberExists() throws Exception {
         // when - 동작
         MemberDbDTO foundMember = memberRepository.getSingleMember(member.getId());
 
@@ -104,7 +103,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("모든 회원 조회")
-    public void getAllMembers_ShouldReturnAllMembers() {
+    void getAllMembers_ShouldReturnAllMembers() {
         // when
         List<MemberDbDTO> members = memberRepository.getAllMembers();
 
@@ -116,7 +115,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("이메일로 회원 조회")
-    public void getMemberByEmail_ShouldReturnMember_WhenEmailExists() {
+    void getMemberByEmail_ShouldReturnMember_WhenEmailExists() {
         // when
         MemberDbDTO foundMember = memberRepository.getMemberByEmail(member.getEmail());
 
@@ -127,7 +126,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 멤버 ID로 단일 멤버 조회 시 null을 반환해야 한다")
-    public void getSingleMember_NonExistingId_ShouldReturnNull() {
+    void getSingleMember_NonExistingId_ShouldReturnNull() {
         MemberDbDTO result = memberRepository.getSingleMember(Long.MAX_VALUE);
 
         assertNull(result);
@@ -135,7 +134,7 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 이메일로 멤버 조회 시 null을 반환해야 한다")
-    public void getMemberByEmail_NonExistingEmail_ShouldReturnNull() {
+    void getMemberByEmail_NonExistingEmail_ShouldReturnNull() {
         MemberDbDTO result = memberRepository.getMemberByEmail("nonexisting@example.com");
 
         assertNull(result);
@@ -143,13 +142,13 @@ class MemberRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 멤버 ID 리스트로 멤버 삭제 시도 시 예외가 발생하지 않아야 한다")
-    public void deleteMembers_NonExistingIds_ShouldNotThrowException() {
+    void deleteMembers_NonExistingIds_ShouldNotThrowException() {
         assertDoesNotThrow(() -> memberRepository.deleteMembers(Collections.singletonList(Long.MAX_VALUE)));
     }
 
     @Test
     @DisplayName("존재하지 않는 멤버 ID 리스트로 멤버 수를 카운트 시 0을 반환해야 한다")
-    public void countByIds_NonExistingIds_ShouldReturnZero() {
+    void countByIds_NonExistingIds_ShouldReturnZero() {
         long count = memberRepository.countByIds(Collections.singletonList(Long.MAX_VALUE));
 
         assertEquals(0, count);

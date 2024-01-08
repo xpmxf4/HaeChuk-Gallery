@@ -35,7 +35,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("이미 존재하는 이메일로 회원 등록 시 CustomException 을 발생시켜야 한다")
-    public void registerMember_ShouldThrowException_WhenEmailAlreadyExists() {
+    void registerMember_ShouldThrowException_WhenEmailAlreadyExists() {
 //        System.out.println("============================================="+memberRepository.getClass()); // MemberRepository$MockitoMock$q8bTQU93
 //        System.out.println("============================================="+memberService.getClass());    // MemberService
 
@@ -59,7 +59,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("존재하지 않는 이메일로 회원을 등록하면 새 회원 정보를 저장해야 한다")
-    public void registerMember_ShouldSaveNewMember_WhenEmailDoesntExists() throws Exception {
+    void registerMember_ShouldSaveNewMember_WhenEmailDoesntExists() throws Exception {
         // given - 상황 만들기
         String email = "test@example.com";
         MemberRegiDTO memberForInput = MemberRegiDTO.builder()
@@ -82,7 +82,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원 정보를 정확하게 조회하여 반환하는 가?")
-    public void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
+    void getSingleMember_ShouldReturnMember_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         MemberDbDTO expectedMember = MemberDbDTO.builder()
@@ -105,7 +105,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID Exception 발생")
-    public void getSingleMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
+    void getSingleMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         given(memberRepository.existsById(memberId)).willReturn(false);
@@ -128,7 +128,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("DB 내에 존재하는 모든 회원의 목록 조회 테스트")
-    public void getAllMembers_ShouldReturnMembers() throws Exception {
+    void getAllMembers_ShouldReturnMembers() throws Exception {
         // given - 상황 만들기
         List<MemberDbDTO> expectedMembers = Arrays.asList(
                 new MemberDbDTO(1L, "name1", "test@example.com"),
@@ -149,7 +149,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("주어진 memberId가 존재하지 않는 경우, MEMBER_NOT_FOUND_BY_ID Exception 발생")
-    public void updateMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
+    void updateMember_ShouldThrowException_WhenMemberIdDoesntExists() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         MemberUpdateDTO updateDto = MemberUpdateDTO.builder()
@@ -178,7 +178,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("주어진 memberId가 존재하는 경우, 해당 ID에 해당하는 회원의 정보를 수정하는 가?")
-    public void updateMember_ShouldCallMapFromUpdateDto_WhenMemberIdIsValid() throws Exception {
+    void updateMember_ShouldCallMapFromUpdateDto_WhenMemberIdIsValid() throws Exception {
         // given - 상황 만들기
         Long memberId = 1L;
         MemberUpdateDTO updateDto = MemberUpdateDTO.builder()
@@ -206,7 +206,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("비어있는 ID 목록 제공 시 CustomException 발생")
-    public void deleteMembers_ShouldThrowException_WhenIdsIsEmpty() throws Exception {
+    void deleteMembers_ShouldThrowException_WhenIdsIsEmpty() throws Exception {
         // given - 상황 만들기
         List<Long> memberIds = Collections.emptyList();
 
@@ -218,7 +218,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("유효하지 않은 ID가 포함된 목록 제공 시 CustomException 발생")
-    public void deleteMembers_ShouldThrowException_WhenInvalidIdIsIncluded() throws Exception {
+    void deleteMembers_ShouldThrowException_WhenInvalidIdIsIncluded() throws Exception {
         // given - 상황 만들기
         List<Long> memberIds = Arrays.asList(1L, 2L, 0L);
 
@@ -230,7 +230,7 @@ class MemberServiceTest {
 
     @Test
     @DisplayName("유효한 ID 목록 제공 시 해당 멤버 삭제")
-    public void deleteMembers_ShouldDeleteMember_WhenValidIdsAreProvided() throws Exception {
+    void deleteMembers_ShouldDeleteMember_WhenValidIdsAreProvided() throws Exception {
         // given - 상황 만들기
         List<Long> memberIds = Arrays.asList(1L, 2L, 3L);
         given(memberRepository.countByIds(memberIds)).willReturn(3L);

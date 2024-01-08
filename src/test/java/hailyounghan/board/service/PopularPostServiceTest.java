@@ -44,7 +44,7 @@ class PopularPostServiceTest {
 
     @Test
     @DisplayName("updatePopularPosts 메서드가 매시 정각에 실행되어야 한다")
-    public void shouldTrigger_updatePopularPosts_atEveryHour() throws ParseException {
+    void shouldTrigger_updatePopularPosts_atEveryHour() throws ParseException {
         // Given - 상황 설정
         // 매시 정각을 의미하는 cron 표현식 설정
         String cronExpression = "0 0 * * * *";

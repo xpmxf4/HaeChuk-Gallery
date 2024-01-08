@@ -42,7 +42,7 @@ class PopularPostRepositoryTest {
 
     @Test
     @DisplayName("모든 인기 게시글 DTO를 찾아야 한다")
-    public void findAllDTOs_ShouldReturnAllPopularPostDTOs() {
+    void findAllDTOs_ShouldReturnAllPopularPostDTOs() {
         // when
         List<PopularPostDTO> foundPopularPosts = popularPostRepository.findAllDTOs();
 
