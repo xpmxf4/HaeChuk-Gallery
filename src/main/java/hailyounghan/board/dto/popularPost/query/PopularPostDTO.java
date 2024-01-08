@@ -1,10 +1,12 @@
 package hailyounghan.board.dto.popularPost.query;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @NoArgsConstructor
 public class PopularPostDTO {
 
