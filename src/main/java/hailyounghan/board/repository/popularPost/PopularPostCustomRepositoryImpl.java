@@ -7,7 +7,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static hailyounghan.board.entity.QMember.member;
 import static hailyounghan.board.entity.QPopularPost.*;
 
 public class PopularPostCustomRepositoryImpl implements PopularPostCustomRepository {
