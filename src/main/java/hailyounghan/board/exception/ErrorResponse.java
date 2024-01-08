@@ -10,12 +10,6 @@ public class ErrorResponse {
     private final String message;
     private final List<String> errors;
 
-    // 에러가 여러개 일때
-    public ErrorResponse(String message, List<String> errors) {
-        this.message = message;
-        this.errors = errors;
-    }
-
     // 에러가 1개 일때
     public ErrorResponse(String message, String err) {
         this.message = message;
