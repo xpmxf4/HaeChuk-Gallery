@@ -1,5 +1,6 @@
 package hailyounghan.board.repository.post;
 
+import com.querydsl.core.Tuple;
 import hailyounghan.board.dto.post.query.PostDbDTO;
 import hailyounghan.board.entity.Member;
 import hailyounghan.board.entity.Post;
@@ -140,4 +141,33 @@ class PostRepositoryTest {
         // then
         assertNull(result);
     }
+
+    @Test
+    @DisplayName("키워드로 게시글을 검색해야 한다")
+    void findDTOsByKeyword_ShouldReturnPosts_WhenKeywordIsValid() {
+        // given
+        String keyword = "Test"; // 실제 존재하는 키워드
+        Integer offset = 0;
+        Integer limit = 50;
+
+        // when
+        List<PostDbDTO> results = postRepository.findDTOsByKeyword(keyword, offset, limit);
+
+        // then
+        assertThat(results).isNotEmpty(); // 적어도 하나 이상의 게시글이 반환되어야 함
+        assertThat(results.get(0).getTitle()).contains(keyword); // 반환된 게시글 중 첫 번째 게시글이 키워드를 포함해야 함
+    }
+
+    @Test
+    @DisplayName("상위 10개 게시글을 찾아야 한다")
+    void findTop10Posts_ShouldReturnTopPosts() {
+        // when
+        List<Tuple> results = postRepository.findTop10Posts();
+
+        // then
+        assertThat(results).hasSizeLessThanOrEqualTo(10); // 10개 이하의 결과 반환
+        // 추가적인 검증: 예를 들어 반환된 게시글이 실제로 가장 많은 댓글을 가지고 있는지,
+        // 혹은 가장 많은 좋아요를 받았는지 등의 조건을 검증할 수 있음
+    }
+
 }
