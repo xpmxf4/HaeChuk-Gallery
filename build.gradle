@@ -144,7 +144,8 @@ jacocoTestCoverageVerification {
 					// 모든 설정(config) 클래스를 제외합니다.
 					'hailyounghan.board.config.*',
 					// 모든 DTO 클래스를 제외합니다.
-					'hailyounghan.board.dto.*'
+					'hailyounghan.board.dto.*',
+					'hailyounghan.board.BoardApplication',
 			]
 		}
 	}
