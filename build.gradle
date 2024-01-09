@@ -104,6 +104,9 @@ test {
 }
 
 jacocoTestReport {
+	doFirst {
+		println 'Starting Jacoco Report Generation...'
+	}
 	// 태스크 실행 여부를 결정하는 조건
 	onlyIf {
 		project.hasProperty('generateJacocoReport') && project.property('generateJacocoReport') == 'true'
@@ -120,6 +123,9 @@ jacocoTestReport {
 }
 
 jacocoTestCoverageVerification {
+	doFirst {
+		println 'Starting Jacoco Jacoco Test Coverage Verification...'
+	}
 	violationRules {
 		rule {
 			enabled = true

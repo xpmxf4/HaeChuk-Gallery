@@ -1,0 +1,126 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.springframework",
+    "module": "spring-test",
+    "version": "5.3.29",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.5.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework",
+          "module": "spring-core",
+          "version": {
+            "requires": "5.3.29"
+          },
+          "excludes": [
+            {
+              "group": "org.apache.taglibs",
+              "module": "taglibs-standard-spec"
+            },
+            {
+              "group": "xmlpull",
+              "module": "xmlpull"
+            },
+            {
+              "group": "org.slf4j",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.hamcrest",
+              "module": "hamcrest-core"
+            },
+            {
+              "group": "commons-logging",
+              "module": "commons-logging"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-test-5.3.29.jar",
+          "url": "spring-test-5.3.29.jar",
+          "size": 792436,
+          "sha512": "5c6359ea6e96010d55b0bd8686d8e574b200181dcc78491b8a1271de74ef11df4e42896b7146d3505e545d11186e96437bdcaeb1e66863c4baeb12bc741ea637",
+          "sha256": "daa3e7b0ca56c0c1eb645601010e98829eb3ef54757889e2a6253ef4c6a8656f",
+          "sha1": "dc55cc20f39ba89b46d59aa948c818c642da1848",
+          "md5": "1930f3d05c3911c431427e947930d91e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework",
+          "module": "spring-core",
+          "version": {
+            "requires": "5.3.29"
+          },
+          "excludes": [
+            {
+              "group": "org.apache.taglibs",
+              "module": "taglibs-standard-spec"
+            },
+            {
+              "group": "xmlpull",
+              "module": "xmlpull"
+            },
+            {
+              "group": "org.slf4j",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.hamcrest",
+              "module": "hamcrest-core"
+            },
+            {
+              "group": "commons-logging",
+              "module": "commons-logging"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-test-5.3.29.jar",
+          "url": "spring-test-5.3.29.jar",
+          "size": 792436,
+          "sha512": "5c6359ea6e96010d55b0bd8686d8e574b200181dcc78491b8a1271de74ef11df4e42896b7146d3505e545d11186e96437bdcaeb1e66863c4baeb12bc741ea637",
+          "sha256": "daa3e7b0ca56c0c1eb645601010e98829eb3ef54757889e2a6253ef4c6a8656f",
+          "sha1": "dc55cc20f39ba89b46d59aa948c818c642da1848",
+          "md5": "1930f3d05c3911c431427e947930d91e"
+        }
+      ]
+    }
+  ]
+}

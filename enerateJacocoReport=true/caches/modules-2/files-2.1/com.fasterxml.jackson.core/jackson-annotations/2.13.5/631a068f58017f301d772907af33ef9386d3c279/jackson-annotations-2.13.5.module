@@ -1,0 +1,84 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.fasterxml.jackson.core",
+    "module": "jackson-annotations",
+    "version": "2.13.5",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "maven": {
+      "version": "3.8.6"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.fasterxml.jackson",
+          "module": "jackson-bom",
+          "version": {
+            "requires": "2.13.5"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        }
+      ],
+      "files": [
+        {
+          "name": "jackson-annotations-2.13.5.jar",
+          "url": "jackson-annotations-2.13.5.jar",
+          "size": 75718,
+          "sha512": "88cef452de85a2e9bef0fefd3129e20b8a199c7e01514ee68d35bc697ebe56915bd939846ae329d8c1fcbd3037f226b5e5870eb2feadd880a4ccc27b07202c6",
+          "sha256": "80aea8ed7232db5040ced4b3f982f29da95bb3d802343dbf6fd82ccd98c21c4f",
+          "sha1": "136f77ab424f302c9e27230b4482e8000e142edf",
+          "md5": "b1245f3245cbfa53e61d9d366006041"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.fasterxml.jackson",
+          "module": "jackson-bom",
+          "version": {
+            "requires": "2.13.5"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        }
+      ],
+      "files": [
+        {
+          "name": "jackson-annotations-2.13.5.jar",
+          "url": "jackson-annotations-2.13.5.jar",
+          "size": 75718,
+          "sha512": "88cef452de85a2e9bef0fefd3129e20b8a199c7e01514ee68d35bc697ebe56915bd939846ae329d8c1fcbd3037f226b5e5870eb2feadd880a4ccc27b07202c6",
+          "sha256": "80aea8ed7232db5040ced4b3f982f29da95bb3d802343dbf6fd82ccd98c21c4f",
+          "sha1": "136f77ab424f302c9e27230b4482e8000e142edf",
+          "md5": "b1245f3245cbfa53e61d9d366006041"
+        }
+      ]
+    }
+  ]
+}
