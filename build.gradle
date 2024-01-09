@@ -94,7 +94,12 @@ task testCoverage(type: Test) {
 }
 
 test {
-	finalizedBy 'jacocoTestReport'
+	// 특정 조건(예: 프로젝트 속성 또는 환경 변수)에 따라 Jacoco 보고서 생성
+	doLast {
+		if (project.hasProperty('generateJacocoReport') && project.property('generateJacocoReport') == 'true') {
+			tasks.jacocoTestReport.execute()
+		}
+	}
 }
 
 jacocoTestReport {
