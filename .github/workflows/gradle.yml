@@ -39,7 +39,7 @@ jobs:
         if: github.ref == 'refs/heads/main' || github.head_ref == 'main'
         uses: gradle/gradle-build-action@v2.6.0
         with:
-          arguments: build -PgenerateJacocoReport=false
+          arguments: build -PgenerateJacocoReport=false # default=false 이지만 명시적으로 넣음
 
       - name: Deploy to EC2
         run: |
