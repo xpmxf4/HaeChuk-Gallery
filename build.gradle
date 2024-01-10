@@ -131,14 +131,14 @@ jacocoTestCoverageVerification {
 			enabled = true
 			element = 'CLASS'
 
-			// 브랜치 커버리지를 최소한 90% 만족시켜야 합니다.
+			// 브랜치 커버리지를 최소한 75% 만족시켜야 합니다.
 			limit {
 				counter = 'BRANCH'
 				value = 'COVEREDRATIO'
 				minimum = 0.75
 			}
 
-			// 라인 커버리지를 최소한 80% 만족시켜야 합니다.
+			// 라인 커버리지를 최소한 75% 만족시켜야 합니다.
 			limit {
 				counter = 'LINE'
 				value = 'COVEREDRATIO'
