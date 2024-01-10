@@ -1,103 +1,112 @@
 buildscript {
-	ext {
-		queryDslVersion = "5.0.0"
-	}
+    ext {
+        queryDslVersion = "5.0.0"
+    }
 }
 
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.15'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	// querydsl 추가
-	id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
-	id 'jacoco'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.15'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    // querydsl 추가
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+    id 'jacoco'
 }
 
 bootJar {
-	archiveFileName = 'HaeChukGael.jar'
+    archiveFileName = 'HaeChukGael.jar'
 }
 
 group = 'HailYoungHan'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+    sourceCompatibility = '11'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.6.0'
-	// querydsl 추가
-	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-	// SQL 물음표 채우기
-	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6")
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-55:3.6.0'
+    // querydsl 추가
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    // SQL 물음표 채우기
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6")
 
-	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'com.h2database:h2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 // querydsl 옵션
 def querydslDir = "$buildDir/generated/querydsl"
 
 querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
+    jpa = true
+    querydslSourcesDir = querydslDir
 }
 
 sourceSets {
-	main.java.srcDir querydslDir
+    main.java.srcDir querydslDir
 }
 
 configurations {
-	querydsl.extendsFrom compileClasspath
+    querydsl.extendsFrom compileClasspath
 }
 
 compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
+    options.annotationProcessorPath = configurations.querydsl
 }
 
 // jacoco 옵션
 jacoco {
-	toolVersion = "0.8.11"
+    toolVersion = "0.8.11"
 }
 
 task testCoverage(type: Test) {
-	group 'verification'
-	description 'Runs the unit tests with coverage'
+    group 'verification'
+    description 'Runs the unit tests with coverage'
 
-	dependsOn(':test',
-	':jacocoTestReport',
-	':jacocoTestCoverageVerification')
+    dependsOn(':test',
+            ':jacocoTestReport',
+            ':jacocoTestCoverageVerification')
 
-	tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
-	tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+    tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+    tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
 }
 
 test {
-	finalizedBy 'jacocoTestReport'
+    useJUnitPlatform()
+
+    // 'generateJacocoReport' 속성이 'true'인 경우에만 Jacoco 보고서 생성 태스크를 활성화합니다.
+    if (project.hasProperty('generateJacocoReport') && project.property('generateJacocoReport') == 'true') {
+        finalizedBy 'jacocoTestReport'
+    }
 }
 
 jacocoTestReport {
+    doFirst {
+        println 'Starting Jacoco Report Generation...'
+    }
+
     reports {
         // 원하는 리포트를 켜고 끌 수 있습니다.
         html.required = true
@@ -105,48 +114,52 @@ jacocoTestReport {
         csv.required = false
     }
 
-	finalizedBy 'jacocoTestCoverageVerification'
+    finalizedBy 'jacocoTestCoverageVerification'
 }
 
 jacocoTestCoverageVerification {
-	violationRules {
-		rule {
-			enabled = true
-			element = 'CLASS'
+    doFirst {
+        println 'Starting Jacoco Jacoco Test Coverage Verification...'
+    }
 
-			// 브랜치 커버리지를 최소한 90% 만족시켜야 합니다.
-			limit {
-				counter = 'BRANCH'
-				value = 'COVEREDRATIO'
-				minimum = 0.75
-			}
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
 
-			// 라인 커버리지를 최소한 80% 만족시켜야 합니다.
-			limit {
-				counter = 'LINE'
-				value = 'COVEREDRATIO'
-				minimum = 0.75
-			}
+            // 브랜치 커버리지를 최소한 75% 만족시켜야 합니다.
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.75
+            }
 
-			// 빈 줄을 제외한 코드의 라인수를 최대 200라인으로 제한합니다.
-			limit {
-				counter = 'LINE'
-				value = 'TOTALCOUNT'
-				maximum = 200
-			}
+            // 라인 커버리지를 최소한 75% 만족시켜야 합니다.
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.75
+            }
 
-			// 제외할 파일 패턴
-			excludes = [
-					// 엔티티 패키지에 있는 모든 클래스를 제외합니다.
-					'hailyounghan.board.entity.*',
-					// 모든 Q 클래스를 제외합니다 (Q<EntityName>과 같은 명명 규칙을 따르는 것으로 가정).
-					'*Q*',
-					// 모든 설정(config) 클래스를 제외합니다.
-					'hailyounghan.board.config.*',
-					// 모든 DTO 클래스를 제외합니다.
-					'hailyounghan.board.dto.*',
-					'hailyounghan.board.BoardApplication',
-			]
-		}
-	}
+            // 빈 줄을 제외한 코드의 라인수를 최대 200라인으로 제한합니다.
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                maximum = 200
+            }
+
+            // 제외할 파일 패턴
+            excludes = [
+                    // 엔티티 패키지에 있는 모든 클래스를 제외합니다.
+                    'hailyounghan.board.entity.*',
+                    // 모든 Q 클래스를 제외합니다 (Q<EntityName>과 같은 명명 규칙을 따르는 것으로 가정).
+                    '*Q*',
+                    // 모든 설정(config) 클래스를 제외합니다.
+                    'hailyounghan.board.config.*',
+                    // 모든 DTO 클래스를 제외합니다.
+                    'hailyounghan.board.dto.*',
+                    'hailyounghan.board.BoardApplication',
+            ]
+        }
+    }
 }

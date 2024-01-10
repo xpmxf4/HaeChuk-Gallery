@@ -26,10 +26,21 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-      - name: Build with Gradle
+
+      # Dev 브랜치로의 푸시 또는 PR인 경우 Jacoco 실행
+      - name: Build with Gradle (Dev, with Jacoco)
+        if: github.ref == 'refs/heads/dev' || github.head_ref == 'dev'
         uses: gradle/gradle-build-action@v2.6.0
         with:
-          arguments: build
+          arguments: build -PgenerateJacocoReport=true
+
+      # Main 브랜치로의 푸시 또는 PR인 경우 Jacoco 보고서 생략
+      - name: Build with Gradle (Main, without Jacoco)
+        if: github.ref == 'refs/heads/main' || github.head_ref == 'main'
+        uses: gradle/gradle-build-action@v2.6.0
+        with:
+          arguments: build -PgenerateJacocoReport=false # default=false 이지만 명시적으로 넣음
+
       - name: Deploy to EC2
         run: |
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ec2_ssh_key.pem
