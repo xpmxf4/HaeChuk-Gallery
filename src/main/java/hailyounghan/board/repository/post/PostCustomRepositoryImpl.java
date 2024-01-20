@@ -98,6 +98,7 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
 
     public List<PostDbDTO> findDTOsByKeyword(String keyword, Integer offset, Integer limit) {
         return queryFactory
+
                 .select(new QPostDbDTO(
                         post.id,
                         post.title,
