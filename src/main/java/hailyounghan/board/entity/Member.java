@@ -16,7 +16,7 @@ import java.util.List;
 public class Member extends SysTimeCols {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, length = 50)

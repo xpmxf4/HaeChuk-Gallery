@@ -18,7 +18,7 @@ public class Post extends SysTimeCols {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(length = 50)
@@ -30,7 +30,7 @@ public class Post extends SysTimeCols {
     @Builder.Default
     private Boolean isDeleted = false;
 
-    @Column(name = "\"like\"")
+    @Column(name = "\"likes\"")
     private Integer like;
 
     @ManyToOne(fetch = FetchType.LAZY)

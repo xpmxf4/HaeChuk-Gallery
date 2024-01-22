@@ -17,7 +17,7 @@ public class Comment extends SysTimeCols {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(length = 500)
