@@ -1,16 +1,16 @@
 package hailyounghan.comment.service;
 
-import hailyounghan.board.dto.comment.query.CommentDbDTO;
-import hailyounghan.board.dto.comment.request.CommentRegiDTO;
-import hailyounghan.board.dto.comment.request.CommentUpdateDTO;
-import hailyounghan.board.dto.comment.response.CommentResponseDTO;
-import hailyounghan.board.entity.Comment;
-import hailyounghan.board.entity.Member;
-import hailyounghan.board.entity.Post;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.repository.comment.CommentRepository;
-import hailyounghan.board.repository.member.MemberRepository;
-import hailyounghan.board.repository.post.PostRepository;
+import hailyounghan.comment.dto.query.CommentDbDTO;
+import hailyounghan.comment.dto.request.CommentRegiDTO;
+import hailyounghan.comment.dto.request.CommentUpdateDTO;
+import hailyounghan.comment.dto.response.CommentResponseDTO;
+import hailyounghan.comment.entity.Comment;
+import hailyounghan.comment.repository.CommentRepository;
+import hailyounghan.common.exception.CustomException;
+import hailyounghan.member.entity.Member;
+import hailyounghan.member.repository.MemberRepository;
+import hailyounghan.post.entity.Post;
+import hailyounghan.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 

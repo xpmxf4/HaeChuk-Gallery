@@ -1,13 +1,12 @@
 package hailyounghan.comment.controller;
 
-import hailyounghan.board.dto.comment.query.CommentDbDTO;
-import hailyounghan.board.dto.comment.request.CommentRegiDTO;
-import hailyounghan.board.dto.comment.request.CommentUpdateDTO;
-import hailyounghan.board.dto.comment.response.CommentResponseDTO;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hailyounghan.comment.controller.CommentController;
+import hailyounghan.comment.dto.query.CommentDbDTO;
+import hailyounghan.comment.dto.request.CommentRegiDTO;
+import hailyounghan.comment.dto.request.CommentUpdateDTO;
+import hailyounghan.comment.dto.response.CommentResponseDTO;
+import hailyounghan.comment.service.CommentService;
+import hailyounghan.common.exception.CustomException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Arrays;
 import java.util.List;
 
-import static hailyounghan.board.exception.ErrorCode.*;
+import static hailyounghan.common.exception.ErrorCode.COMMENT_NOT_FOUND_BY_ID;
+import static hailyounghan.common.exception.ErrorCode.MEMBER_NOT_FOUND_BY_ID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;

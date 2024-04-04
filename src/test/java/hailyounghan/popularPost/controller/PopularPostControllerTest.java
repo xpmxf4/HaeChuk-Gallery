@@ -2,10 +2,9 @@ package hailyounghan.popularPost.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hailyounghan.board.dto.popularPost.query.PopularPostDTO;
-import hailyounghan.board.dto.popularPost.response.PopularPostResponseDTO;
-import hailyounghan.board.service.PopularPostService;
-import hailyounghan.popularPost.controller.PopularPostController;
+import hailyounghan.popularPost.dto.query.PopularPostDTO;
+import hailyounghan.popularPost.dto.response.PopularPostResponseDTO;
+import hailyounghan.popularPost.service.PopularPostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

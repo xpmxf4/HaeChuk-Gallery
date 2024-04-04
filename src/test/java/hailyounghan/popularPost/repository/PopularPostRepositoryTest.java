@@ -1,8 +1,8 @@
 package hailyounghan.popularPost.repository;
 
-import hailyounghan.board.dto.popularPost.query.PopularPostDTO;
-import hailyounghan.board.entity.Member;
-import hailyounghan.board.entity.PopularPost;
+import hailyounghan.member.entity.Member;
+import hailyounghan.popularPost.dto.query.PopularPostDTO;
+import hailyounghan.popularPost.entity.PopularPost;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

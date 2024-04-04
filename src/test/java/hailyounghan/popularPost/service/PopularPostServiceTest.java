@@ -1,10 +1,10 @@
 package hailyounghan.popularPost.service;
 
 import com.querydsl.core.Tuple;
-import hailyounghan.board.dto.popularPost.query.PopularPostDTO;
-import hailyounghan.board.dto.popularPost.response.PopularPostResponseDTO;
-import hailyounghan.board.repository.popularPost.PopularPostRepository;
-import hailyounghan.board.repository.post.PostRepository;
+import hailyounghan.popularPost.dto.query.PopularPostDTO;
+import hailyounghan.popularPost.dto.response.PopularPostResponseDTO;
+import hailyounghan.popularPost.repository.PopularPostRepository;
+import hailyounghan.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.SimpleTriggerContext;
-import hailyounghan.board.entity.PopularPost;
 
 
 import java.text.ParseException;
@@ -23,8 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.ArgumentMatchers.anyList;

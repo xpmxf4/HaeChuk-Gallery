@@ -1,13 +1,12 @@
 package hailyounghan.post.controller;
 
-import hailyounghan.board.dto.post.query.PostDbDTO;
-import hailyounghan.board.dto.post.request.PostRegiDTO;
-import hailyounghan.board.dto.post.request.PostUpdateDTO;
-import hailyounghan.board.dto.post.response.PostResponseDTO;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hailyounghan.post.controller.PostController;
+import hailyounghan.common.exception.CustomException;
+import hailyounghan.post.dto.query.PostDbDTO;
+import hailyounghan.post.dto.request.PostRegiDTO;
+import hailyounghan.post.dto.request.PostUpdateDTO;
+import hailyounghan.post.dto.response.PostResponseDTO;
+import hailyounghan.post.service.PostService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Arrays;
 import java.util.List;
 
-import static hailyounghan.board.exception.ErrorCode.MEMBER_NOT_FOUND_BY_ID;
-import static hailyounghan.board.exception.ErrorCode.POST_NOT_FOUND_BY_ID;
+import static hailyounghan.common.exception.ErrorCode.MEMBER_NOT_FOUND_BY_ID;
+import static hailyounghan.common.exception.ErrorCode.POST_NOT_FOUND_BY_ID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;

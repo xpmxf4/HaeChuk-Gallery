@@ -1,14 +1,14 @@
 package hailyounghan.post.service;
 
-import hailyounghan.board.dto.post.query.PostDbDTO;
-import hailyounghan.board.dto.post.request.PostRegiDTO;
-import hailyounghan.board.dto.post.request.PostUpdateDTO;
-import hailyounghan.board.dto.post.response.PostResponseDTO;
-import hailyounghan.board.entity.Member;
-import hailyounghan.board.entity.Post;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.repository.member.MemberRepository;
-import hailyounghan.board.repository.post.PostRepository;
+import hailyounghan.common.exception.CustomException;
+import hailyounghan.member.entity.Member;
+import hailyounghan.member.repository.MemberRepository;
+import hailyounghan.post.dto.query.PostDbDTO;
+import hailyounghan.post.dto.request.PostRegiDTO;
+import hailyounghan.post.dto.request.PostUpdateDTO;
+import hailyounghan.post.dto.response.PostResponseDTO;
+import hailyounghan.post.entity.Post;
+import hailyounghan.post.repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

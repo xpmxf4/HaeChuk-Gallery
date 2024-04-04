@@ -1,7 +1,7 @@
 package hailyounghan.member.repository;
 
-import hailyounghan.board.dto.member.query.MemberDbDTO;
-import hailyounghan.board.entity.Member;
+import hailyounghan.member.dto.query.MemberDbDTO;
+import hailyounghan.member.entity.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

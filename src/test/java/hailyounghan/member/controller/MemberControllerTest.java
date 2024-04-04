@@ -1,13 +1,12 @@
 package hailyounghan.member.controller;
 
-import hailyounghan.board.dto.member.query.MemberDbDTO;
-import hailyounghan.board.dto.member.request.MemberRegiDTO;
-import hailyounghan.board.dto.member.request.MemberUpdateDTO;
-import hailyounghan.board.dto.member.response.MemberResponseDTO;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hailyounghan.member.controller.MemberController;
+import hailyounghan.common.exception.CustomException;
+import hailyounghan.member.dto.query.MemberDbDTO;
+import hailyounghan.member.dto.request.MemberRegiDTO;
+import hailyounghan.member.dto.request.MemberUpdateDTO;
+import hailyounghan.member.dto.response.MemberResponseDTO;
+import hailyounghan.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static hailyounghan.board.exception.ErrorCode.*;
+import static hailyounghan.common.exception.ErrorCode.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

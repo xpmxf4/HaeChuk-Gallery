@@ -1,12 +1,12 @@
 package hailyounghan.member.service;
 
-import hailyounghan.board.dto.member.query.MemberDbDTO;
-import hailyounghan.board.dto.member.request.MemberRegiDTO;
-import hailyounghan.board.dto.member.request.MemberUpdateDTO;
-import hailyounghan.board.dto.member.response.MemberResponseDTO;
-import hailyounghan.board.entity.Member;
-import hailyounghan.board.exception.CustomException;
-import hailyounghan.board.repository.member.MemberRepository;
+import hailyounghan.common.exception.CustomException;
+import hailyounghan.member.dto.query.MemberDbDTO;
+import hailyounghan.member.dto.request.MemberRegiDTO;
+import hailyounghan.member.dto.request.MemberUpdateDTO;
+import hailyounghan.member.dto.response.MemberResponseDTO;
+import hailyounghan.member.entity.Member;
+import hailyounghan.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static hailyounghan.board.exception.ErrorCode.*;
+import static hailyounghan.common.exception.ErrorCode.MEMBER_NOT_FOUND_BY_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
 import static org.junit.jupiter.api.Assertions.*;

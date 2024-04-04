@@ -1,15 +1,16 @@
 package hailyounghan.comment.repository;
 
-import hailyounghan.board.dto.comment.query.CommentDbDTO;
-import hailyounghan.board.entity.Comment;
-import hailyounghan.board.entity.Member;
-import hailyounghan.board.entity.Post;
+import hailyounghan.comment.dto.query.CommentDbDTO;
+import hailyounghan.comment.entity.Comment;
+import hailyounghan.member.entity.Member;
+import hailyounghan.post.entity.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
 
 import java.util.List;
 
