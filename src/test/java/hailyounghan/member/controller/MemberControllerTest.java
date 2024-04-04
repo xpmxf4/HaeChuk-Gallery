@@ -1,4 +1,4 @@
-package hailyounghan.board.controller;
+package hailyounghan.member.controller;
 
 import hailyounghan.board.dto.member.query.MemberDbDTO;
 import hailyounghan.board.dto.member.request.MemberRegiDTO;

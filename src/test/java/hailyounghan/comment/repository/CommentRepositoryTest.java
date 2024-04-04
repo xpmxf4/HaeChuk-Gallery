@@ -1,4 +1,4 @@
-package hailyounghan.board.repository.comment;
+package hailyounghan.comment.repository;
 
 import hailyounghan.board.dto.comment.query.CommentDbDTO;
 import hailyounghan.board.entity.Comment;

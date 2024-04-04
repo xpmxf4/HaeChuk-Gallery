@@ -1,4 +1,4 @@
-package hailyounghan.board.controller;
+package hailyounghan.post.controller;
 
 import hailyounghan.board.dto.post.query.PostDbDTO;
 import hailyounghan.board.dto.post.request.PostRegiDTO;

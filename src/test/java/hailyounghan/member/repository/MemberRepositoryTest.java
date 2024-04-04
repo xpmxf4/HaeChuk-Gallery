@@ -1,4 +1,4 @@
-package hailyounghan.board.repository.member;
+package hailyounghan.member.repository;
 
 import hailyounghan.board.dto.member.query.MemberDbDTO;
 import hailyounghan.board.entity.Member;

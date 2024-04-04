@@ -1,4 +1,4 @@
-package hailyounghan.board.controller;
+package hailyounghan.popularPost.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

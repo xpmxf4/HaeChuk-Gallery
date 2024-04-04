@@ -1,4 +1,4 @@
-package hailyounghan.board.repository.post;
+package hailyounghan.post.repository;
 
 import com.querydsl.core.Tuple;
 import hailyounghan.board.dto.post.query.PostDbDTO;

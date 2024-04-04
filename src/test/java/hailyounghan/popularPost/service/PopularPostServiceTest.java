@@ -1,4 +1,4 @@
-package hailyounghan.board.service;
+package hailyounghan.popularPost.service;
 
 import com.querydsl.core.Tuple;
 import hailyounghan.board.dto.popularPost.query.PopularPostDTO;

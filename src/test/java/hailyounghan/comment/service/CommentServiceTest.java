@@ -1,4 +1,4 @@
-package hailyounghan.board.service;
+package hailyounghan.comment.service;
 
 import hailyounghan.board.dto.comment.query.CommentDbDTO;
 import hailyounghan.board.dto.comment.request.CommentRegiDTO;

@@ -1,4 +1,4 @@
-package hailyounghan.board.controller;
+package hailyounghan.comment.controller;
 
 import hailyounghan.board.dto.comment.query.CommentDbDTO;
 import hailyounghan.board.dto.comment.request.CommentRegiDTO;

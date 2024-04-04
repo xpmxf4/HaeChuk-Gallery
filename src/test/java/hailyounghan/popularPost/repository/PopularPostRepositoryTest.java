@@ -1,4 +1,4 @@
-package hailyounghan.board.repository.popularPost;
+package hailyounghan.popularPost.repository;
 
 import hailyounghan.board.dto.popularPost.query.PopularPostDTO;
 import hailyounghan.board.entity.Member;
