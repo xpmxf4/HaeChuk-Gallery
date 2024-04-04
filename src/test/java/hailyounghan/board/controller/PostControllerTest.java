@@ -7,6 +7,7 @@ import hailyounghan.board.dto.post.response.PostResponseDTO;
 import hailyounghan.board.exception.CustomException;
 import hailyounghan.board.service.PostService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hailyounghan.post.controller.PostController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

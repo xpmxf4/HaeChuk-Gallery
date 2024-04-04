@@ -7,6 +7,7 @@ import hailyounghan.board.dto.comment.response.CommentResponseDTO;
 import hailyounghan.board.exception.CustomException;
 import hailyounghan.board.service.CommentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hailyounghan.comment.controller.CommentController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

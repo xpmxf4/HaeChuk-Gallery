@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hailyounghan.board.dto.popularPost.query.PopularPostDTO;
 import hailyounghan.board.dto.popularPost.response.PopularPostResponseDTO;
 import hailyounghan.board.service.PopularPostService;
+import hailyounghan.popularPost.controller.PopularPostController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
