@@ -9,11 +9,11 @@
 <h4 align="center">대용량 데이터 처리와 비용 효율적인 인프라 구축을 위한 Spring Boot 기반 프로젝트</h4>
 
 <p align="center">
-  <a href="#🏗️ Server Archi.">🏗️ Server Archi.</a> •
-  <a href="#🔑 Key Features">🔑 Key Features</a> •
-  <a href="#👿 Trouble Shooting & Problem Solving">👿 Trouble Shooting & Problem Solving</a> •
-  <a href="#🗂️ Folder Structure">🗂️ Folder Structure</a> •
-  <a href="#💽 ERD">💽 ERD</a>
+  <a href="#Server Archi.">🏗️ Server Archi.</a> •
+  <a href="#Key Features">🔑 Key Features</a> •
+  <a href="#Trouble Shooting & Problem Solving">👿 Trouble Shooting & Problem Solving</a> •
+  <a href="#Folder Structure">🗂️ Folder Structure</a> •
+  <a href="#ERD">💽 ERD</a>
 </p>
 
 
