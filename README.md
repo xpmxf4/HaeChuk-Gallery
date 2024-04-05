@@ -21,7 +21,7 @@
 
 ## 🏗️ Server Archi.
 
-<img src="/Users/xpmxf4/Downloads/HaeChukGael.jpg" alt="HaeChukGael" style="zoom:80%;" />
+<img src="https://github.com/xpmxf4/HaeChuk-Gallery/blob/pics/HaeChukGael.jpg?raw=true" alt="HaeChukGael" style="zoom:80%;" />
 
 ## 🔑 Key Features
 
@@ -65,3 +65,7 @@
       │       └── post
       └── resources
   ```
+
+## 💽 ERD
+
+<img src="https://github.com/xpmxf4/HaeChuk-Gallery/blob/pics/Querydsl%20%E1%84%80%E1%85%A6%E1%84%89%E1%85%B5%E1%84%91%E1%85%A1%E1%86%AB%20(6).png?raw=true" />
