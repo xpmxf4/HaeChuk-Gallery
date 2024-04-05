@@ -41,7 +41,7 @@ public class Member extends SysTimeCols {
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
-    public void mapFromUpdateDto(MemberUpdateDTO updateDTO) { // if문을 왜 씀?
+    public void mapFromUpdateDto(MemberUpdateDTO updateDTO) {
         this.name = updateDTO.getName();
         this.password = updateDTO.getPassword();
         this.email = updateDTO.getEmail();
