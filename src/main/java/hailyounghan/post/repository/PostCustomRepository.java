@@ -17,5 +17,5 @@ public interface PostCustomRepository {
 
     List<PostDbDTO> findDTOsByKeyword(String keyword, Integer offset, Integer limit);
 
-    public List<Tuple> findTop10Posts();
+    List<Tuple> findTop10Posts();
 }
