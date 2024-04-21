@@ -41,6 +41,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    ///map struct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
     // Querydsl
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
