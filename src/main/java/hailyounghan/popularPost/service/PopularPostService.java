@@ -9,7 +9,6 @@ import hailyounghan.popularPost.repository.PopularPostRepository;
 import hailyounghan.post.repository.PostRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +32,6 @@ public class PopularPostService {
     }
 
     @Transactional
-    @Scheduled(cron = "0 0 * * * *")
     public void updatePopularPosts() {
         // 새로운 상위 10개 게시물 추출
         List<Tuple> top10Posts = postRepository.findTop10Posts();
