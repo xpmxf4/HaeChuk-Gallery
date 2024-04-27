@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.*;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("지정된 멤버 ID에 대한 모든 게시글을 찾아야 한다")
-    public void findPostsByMemberId_ShouldReturnPostsForGivenMemberId() throws Exception {
+    void findPostsByMemberId_ShouldReturnPostsForGivenMemberId() throws Exception {
         // when
         List<PostDbDTO> foundPosts = postRepository.findPostsByMemberId(member.getId(), 0, 50);
 
@@ -59,7 +60,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("지정된 멤버 ID에 대한 삭제된 게시글을 찾아야 한다")
-    public void findDeletedPostsByMemberId_ShouldReturnDeletedPostsForGivenMemberId() throws Exception {
+    void findDeletedPostsByMemberId_ShouldReturnDeletedPostsForGivenMemberId() throws Exception {
         // given
         post = Post.builder()
                 .title("Test Title")
@@ -82,7 +83,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("지정된 ID에 대한 게시글 DTO를 찾아야 한다")
-    public void findDTObyId_ShouldReturnPostDtoForGivenId() throws Exception {
+    void findDTObyId_ShouldReturnPostDtoForGivenId() throws Exception {
         // when
         PostDbDTO foundPost = postRepository.findDTObyId(post.getId());
 
@@ -93,7 +94,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("모든 게시글 DTO를 반환해야 한다")
-    public void findAllDTOs_ShouldReturnAllPostDTOs() throws Exception {
+    void findAllDTOs_ShouldReturnAllPostDTOs() throws Exception {
         // when
         List<PostDbDTO> allPosts = postRepository.findAllDTOs(0, 50);
 
@@ -103,7 +104,7 @@ class PostRepositoryTest {
 
     @Test // 사실 안해도 되긴 함.
     @DisplayName("지정된 ID의 게시글을 삭제해야 한다")
-    public void deletePostById_ShouldDeleteThePostForGivenId() throws Exception {
+    void deletePostById_ShouldDeleteThePostForGivenId() throws Exception {
         // when
         postRepository.deletePostById(post.getId());
         em.flush(); // 실제 삭제를 적용하기 위해 사용
@@ -114,7 +115,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 멤버 ID로 게시글 조회 시 빈 목록을 반환해야 한다")
-    public void findPostsByNonExistingMemberId_ShouldReturnEmptyList() {
+    void findPostsByNonExistingMemberId_ShouldReturnEmptyList() {
         // when
         List<PostDbDTO> result = postRepository.findPostsByMemberId(Long.MAX_VALUE, 1, 50);
 
@@ -124,7 +125,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 멤버 ID로 삭제된 게시글 조회 시 빈 목록을 반환해야 한다")
-    public void findDeletedPostsByNonExistingMemberId_ShouldReturnEmptyList() {
+    void findDeletedPostsByNonExistingMemberId_ShouldReturnEmptyList() {
         // when
         List<PostDbDTO> result = postRepository.findDeletedPostsByMemberId(Long.MAX_VALUE, 1, 50);
 
@@ -134,7 +135,7 @@ class PostRepositoryTest {
 
     @Test
     @DisplayName("존재하지 않는 게시글 ID 조회 시 null을 반환해야 한다")
-    public void findDTObyNonExistingId_ShouldReturnNull() {
+    void findDTObyNonExistingId_ShouldReturnNull() {
         // when
         PostDbDTO result = postRepository.findDTObyId(Long.MAX_VALUE);
 
