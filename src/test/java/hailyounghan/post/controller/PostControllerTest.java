@@ -122,7 +122,9 @@ class PostControllerTest {
         given(postService.getAllPosts(1, 50)).willReturn(postResponseDTO);
 
         // when - 전체 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts?offset=1&limit=50")
+        ResultActions perform = mockMvc.perform(get("/posts")
+                .queryParam("offset", "1")
+                .queryParam("limit", "50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 모든 게시물 정보 확인
@@ -145,7 +147,9 @@ class PostControllerTest {
         given(postService.getPostsByMemberId(memberId, 1, 50)).willReturn(postResponseDTO);
 
         // when - 특정 사용자의 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "?offset=1&limit=50")
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId)
+                .queryParam("offset", "1")
+                .queryParam("limit", "50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 게시물 정보 확인
@@ -181,7 +185,9 @@ class PostControllerTest {
         given(postService.findDeletedPostsByMemberId(memberId, 1, 50)).willReturn(postResponseDTO);
 
         // when - 특정 사용자의 삭제된 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "/deleted?offset=1&limit=50")
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + memberId + "/deleted")
+                .queryParam("offset", "1")
+                .queryParam("limit", "50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 삭제된 게시물 정보 확인
@@ -277,7 +283,9 @@ class PostControllerTest {
                 .willThrow(new CustomException(MEMBER_NOT_FOUND_BY_ID, "999"));
 
         // when - 특정 사용자의 게시물 조회 API 호출
-        ResultActions perform = mockMvc.perform(get("/posts/member/" + nonExistingMemberId + "?offset=1&limit=50")
+        ResultActions perform = mockMvc.perform(get("/posts/member/" + nonExistingMemberId)
+                .queryParam("offset", "1")
+                .queryParam("limit", "50")
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then - 해당 사용자의 게시물 정보 없음 확인 (HTTP 상태 코드 404)
