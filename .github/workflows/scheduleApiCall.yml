@@ -1,16 +1,16 @@
-name: Update popular posts every hour
-
-on:
-  schedule:
-    - cron: '0 * * * *'
-
-jobs:
-  api-call:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Call API
-        run: |
-          curl -X POST "http://${{ secrets.EC2_HOST }}/popularPosts
-        env:
-          EC2_HOST: ${{ secrets.EC2_HOST }}
+#name: Update popular posts every hour
+#
+#on:
+#  schedule:
+#    - cron: '0 * * * *'
+#
+#jobs:
+#  api-call:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Call API
+#        run: |
+#          curl -X POST "http://${{ secrets.EC2_HOST }}/popularPosts
+#        env:
+#          EC2_HOST: ${{ secrets.EC2_HOST }}
